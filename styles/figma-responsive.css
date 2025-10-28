@@ -4,10 +4,15 @@
 .liquid-app {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(0deg, #F1F1F5, #F1F1F5);
-  backdrop-filter: blur(50px);
+  background: transparent;
   position: relative;
   overflow-x: hidden;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.liquid-app > * {
+  pointer-events: auto;
 }
 
 /* LIQUID VOICE LOGO */
@@ -271,6 +276,7 @@
   background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
               linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17));
   background-blend-mode: normal, normal, overlay;
+  border: 3px solid #FFFFFF;
   backdrop-filter: blur(40px);
   border-radius: 40px;
   display: flex;

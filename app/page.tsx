@@ -5,6 +5,9 @@ import { useAccount } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { DailyProvider } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
+import dynamic from 'next/dynamic'
+
+const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
 
 function HomeContent() {
   const { address, isConnected } = useAccount()
@@ -389,6 +392,7 @@ function HomeContent() {
   if (!isConnected && !isDemoMode) {
     return (
       <div className="liquid-app">
+        <TorusCanvas />
         {/* Logo - FIGMA RESPONSIVE */}
         <div className="figma-logo" onClick={() => window.location.reload()}>Liquid Calling</div>
 
