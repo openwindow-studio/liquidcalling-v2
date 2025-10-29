@@ -1,5 +1,6 @@
 import { http, createConfig } from 'wagmi'
 import { defineChain } from 'viem'
+import { base } from 'wagmi/chains'
 import { connectorsForWallets } from '@rainbow-me/rainbowkit'
 import {
   metaMaskWallet,
@@ -59,10 +60,11 @@ const connectors = connectorsForWallets(
 )
 
 export const config = createConfig({
-  chains: [hyperliquid],
+  chains: [hyperliquid, base],
   connectors,
   transports: {
     [hyperliquid.id]: http('https://api.hyperliquid.xyz/evm'),
+    [base.id]: http(),
   },
 })
 
