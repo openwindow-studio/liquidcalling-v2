@@ -1,5 +1,13 @@
 /* LiquidCalling V2 - Responsive design based on 1920x1080 Figma */
 
+/* RainbowKit Modal Positioning Fix */
+[data-rk] [role="dialog"] {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+}
+
 /* GLOBAL BACKGROUND */
 .liquid-app {
   min-height: 100vh;

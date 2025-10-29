@@ -14,13 +14,13 @@ const TorusCanvas = () => {
       height: '100vh',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
-      pointerEvents: 'auto'
+      pointerEvents: 'none'
     }}>
       <Canvas
         camera={{ position: [4, -2, 7] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
       >
         <ambientLight intensity={1.0} />
         <TorusGeometries />
