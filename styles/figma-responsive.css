@@ -50,7 +50,8 @@
   line-height: 105px;
   height: 200px;
   text-align: center;
-  color: rgba(31, 0, 0, 0.95);
+  color: rgba(0, 0, 31, .85);
+  mix-blend-mode: color-burn;
 }
 
 /* Hover text effect for "Anonymously" -> "Privately" */
@@ -758,6 +759,16 @@
 /* Large Desktop (1920px and above - original design) */
 @media (min-width: 1920px) {
   /* Everything uses the base sizes defined above */
+}
+
+/* Medium Desktop (1024px to 1439px) */
+@media (max-width: 1023px) {
+  .figma-hero-title {
+    font-size: 95px;
+    width: 700px;
+    line-height: 95px;
+    top: 20%;
+  }
 }
 
 /* Standard Desktop (1440px to 1919px) */
