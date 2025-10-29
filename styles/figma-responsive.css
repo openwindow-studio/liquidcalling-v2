@@ -53,6 +53,30 @@
   color: rgba(31, 0, 0, 0.95);
 }
 
+/* Hover text effect for "Anonymously" -> "Privately" */
+.hover-text {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-text .hover-text-content {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-text:hover .default-text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-text:hover .hover-text-content {
+  opacity: 1;
+}
+
 /* CONNECT BUTTON */
 .figma-connect-button {
   position: absolute;
