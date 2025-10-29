@@ -42,12 +42,13 @@
   width: 900px;
   left: 50%;
   transform: translateX(-50%);
-  top: 200px;
+  top: 120px;
   font-family: 'Britti Sans';
   font-style: normal;
   font-weight: 600; /* Semi-bold */
-  font-size: 140px;
-  line-height: 1.1;
+  font-size: 105px;
+  line-height: 105px;
+  height: 200px;
   text-align: center;
   color: rgba(31, 0, 0, 0.95);
 }
@@ -738,8 +739,9 @@
 /* Standard Desktop (1440px to 1919px) */
 @media (max-width: 1919px) {
   .figma-hero-title {
-    font-size: 150px;
+    font-size: 130px;
     width: 1200px;
+    line-height: 125px;
   }
 
   .figma-main-card {
@@ -763,6 +765,7 @@
   .figma-hero-title {
     font-size: 120px;
     width: 900px;
+    line-height: 120px;
   }
 
   .figma-connect-button {
@@ -892,8 +895,10 @@
   }
 
   .figma-hero-title {
-    font-size: 48px;
+    font-size: 60px;
     width: 90%;
+    line-height: 60px;
+    top: 25%;
   }
 
   .figma-connect-button,
