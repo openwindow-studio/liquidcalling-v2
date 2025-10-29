@@ -263,11 +263,11 @@ function HomeContent() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
   }
 
-  // Prevent hydration issues by not rendering until mounted
+  // Show torus immediately as loader instead of loading screen
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Loading...</div>
+      <div className="liquid-app">
+        <TorusCanvas />
       </div>
     )
   }
@@ -383,10 +383,6 @@ function HomeContent() {
     )
   }
 
-  // Show loading state
-  if (!mounted) {
-    return <div className="liquid-app">Loading...</div>
-  }
 
   // Show welcome/landing page for non-connected users
   if (!isConnected && !isDemoMode) {
@@ -410,7 +406,7 @@ function HomeContent() {
         </div>
 
         {/* Hero Title - FIGMA RESPONSIVE */}
-        <h1 className="figma-hero-title">Actually Private<br/>Voice Calls</h1>
+        <h1 className="figma-hero-title">Call Anyone<br/>Anonymously<br/>From your Wallet</h1>
 
         {/* Main CTA Button - FIGMA RESPONSIVE */}
         <button
