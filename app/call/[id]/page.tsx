@@ -175,6 +175,13 @@ function CallPageContent() {
             )}
           </div>
         </div>
+        {/* App footer elements */}
+        <div className="app-footer-left">
+          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+        </div>
+        <div className="app-copyright">
+          LIQUIDCALLING ©2025
+        </div>
       </div>
     )
   }
@@ -229,6 +236,13 @@ function CallPageContent() {
             </>
           )}
         </div>
+      </div>
+      {/* App footer elements */}
+      <div className="app-footer-left">
+        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+      </div>
+      <div className="app-copyright">
+        LIQUIDCALLING ©2025
       </div>
     </div>
   )

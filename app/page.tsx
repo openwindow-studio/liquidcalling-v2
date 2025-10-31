@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { DailyProvider } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
 import dynamic from 'next/dynamic'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 
 const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
 
@@ -603,8 +604,25 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <DailyProvider>
-      <HomeContent />
-    </DailyProvider>
+    <ErrorBoundary
+      fallback={
+        <div className="liquid-app">
+          <TorusCanvas />
+          <div className="figma-logo">Liquid Calling</div>
+          <div className="figma-main-card">
+            <div className="figma-main-card-content">
+              <p>Voice calling temporarily unavailable</p>
+              <p style={{ fontSize: '14px', opacity: 0.7, marginTop: '10px' }}>
+                WebRTC not supported in this environment. Please try a different browser or device.
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <DailyProvider>
+        <HomeContent />
+      </DailyProvider>
+    </ErrorBoundary>
   )
 }

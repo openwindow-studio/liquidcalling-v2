@@ -1115,6 +1115,20 @@
   }
 }
 
+/* iPhone SE and similar tall narrow devices */
+@media (max-width: 767px) and (min-height: 1200px) {
+  .figma-hero-title {
+    top: 20% !important;
+    font-size: 55px !important;
+    line-height: 55px !important;
+  }
+
+  .figma-main-card {
+    top: 45% !important;
+    transform: translateX(-50%) translateY(-50%) !important;
+  }
+}
+
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
   .liquid-app {
@@ -1132,13 +1146,13 @@
     font-size: 60px;
     width: 90%;
     line-height: 60px;
-    top: 25%;
+    top: 15%;
   }
 
   .figma-connect-button,
   .figma-demo-button {
-    width: 120px;
-    height: 40px;
+    width: 100px;
+    height: 35px;
     top: 20px;
   }
 
@@ -1147,7 +1161,7 @@
   }
 
   .figma-demo-button {
-    right: 150px;
+    right: 110px;
   }
 
   .figma-cta-button {
