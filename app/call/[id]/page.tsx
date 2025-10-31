@@ -152,13 +152,17 @@ function CallPageContent() {
                 </button>
               </div>
 
-              {/* Speakerphone button for mobile */}
+              {/* Speakerphone button - visible on all devices */}
               <div className="figma-speaker-container">
                 <button
-                  onClick={toggleSpeakerphone}
+                  onClick={() => {
+                    console.log('Speaker button clicked, current state:', isSpeakerphone)
+                    toggleSpeakerphone()
+                  }}
                   className={`speaker-icon ${
                     isSpeakerphone ? 'speaker-icon--on' : 'speaker-icon--off'
                   }`}
+                  title={isSpeakerphone ? 'Switch to Earpiece' : 'Switch to Speaker'}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" stroke="black" strokeWidth="1.5" fill={isSpeakerphone ? "black" : "none"}/>
@@ -178,6 +182,11 @@ function CallPageContent() {
             {/* Participant Count */}
             <div className="figma-participant-count">
               In Room ~ {participantCount} Participant{participantCount !== 1 ? 's' : ''}
+            </div>
+
+            {/* Speaker Status */}
+            <div className="figma-participant-count" style={{ fontSize: '12px', marginTop: '5px' }}>
+              Audio: {isSpeakerphone ? '🔊 Speaker' : '📞 Earpiece'}
             </div>
 
             {/* Status Display */}

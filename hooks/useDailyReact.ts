@@ -291,6 +291,12 @@ export default function useDailyReact(): UseDailyReactReturn {
   }, [daily, isMuted])
 
   const toggleSpeakerphone = useCallback(() => {
+    console.log('toggleSpeakerphone called, current state:', isSpeakerphone)
+    console.log('Available speakers:', speakers)
+
+    // Simple toggle for state tracking even if device switching isn't supported
+    setIsSpeakerphone(!isSpeakerphone)
+
     if (daily && speakers && speakers.length > 0) {
       if (isSpeakerphone) {
         // Switch to earpiece/headset
@@ -305,11 +311,12 @@ export default function useDailyReact(): UseDailyReactReturn {
         )
         if (earDevice) {
           setSpeaker(earDevice.device.deviceId).then(() => {
-            setIsSpeakerphone(false)
             console.log('📞 Switched to earpiece/headset')
           }).catch(err => {
             console.warn('Could not switch to earpiece:', err)
           })
+        } else {
+          console.log('No earpiece device found, toggled state only')
         }
       } else {
         // Switch to speakerphone
@@ -321,13 +328,16 @@ export default function useDailyReact(): UseDailyReactReturn {
         )
         if (speakerDevice) {
           setSpeaker(speakerDevice.device.deviceId).then(() => {
-            setIsSpeakerphone(true)
             console.log('📢 Switched to speakerphone')
           }).catch(err => {
             console.warn('Could not switch to speakerphone:', err)
           })
+        } else {
+          console.log('No speaker device found, toggled state only')
         }
       }
+    } else {
+      console.log('No Daily instance or speakers available, toggled state only')
     }
   }, [daily, speakers, setSpeaker, isSpeakerphone])
 
