@@ -84,9 +84,11 @@ export default function useDailyReact(): UseDailyReactReturn {
           audioElement.volume = 1.0
           // Try to route to speakerphone by default on mobile
           if ('setSinkId' in audioElement && speakers && speakers.length > 0) {
-            const speakerDevice = speakers.find(s => s.label.toLowerCase().includes('speaker'))
+            const speakerDevice = speakers.find(s =>
+              s.device && s.device.label && s.device.label.toLowerCase().includes('speaker')
+            )
             if (speakerDevice) {
-              ;(audioElement as any).setSinkId(speakerDevice.deviceId).catch((err: any) => {
+              ;(audioElement as any).setSinkId(speakerDevice.device.deviceId).catch((err: any) => {
                 console.warn('Could not set speaker device:', err)
               })
             }
@@ -167,11 +169,13 @@ export default function useDailyReact(): UseDailyReactReturn {
       console.log('📱 Mobile detected, attempting to enable speakerphone')
       if (daily && speakers && speakers.length > 0) {
         const speakerDevice = speakers.find(s =>
-          s.label.toLowerCase().includes('speaker') ||
-          s.label.toLowerCase().includes('loudspeaker')
+          s.device && s.device.label && (
+            s.device.label.toLowerCase().includes('speaker') ||
+            s.device.label.toLowerCase().includes('loudspeaker')
+          )
         )
         if (speakerDevice) {
-          setSpeaker(speakerDevice.deviceId).then(() => {
+          setSpeaker(speakerDevice.device.deviceId).then(() => {
             setIsSpeakerphone(true)
             console.log('📢 Speakerphone enabled automatically on mobile')
           }).catch(err => {
@@ -291,12 +295,16 @@ export default function useDailyReact(): UseDailyReactReturn {
       if (isSpeakerphone) {
         // Switch to earpiece/headset
         const earDevice = speakers.find(s =>
-          s.label.toLowerCase().includes('earpiece') ||
-          s.label.toLowerCase().includes('headset') ||
-          s.deviceId === 'default'
+          s.device && (
+            (s.device.label && (
+              s.device.label.toLowerCase().includes('earpiece') ||
+              s.device.label.toLowerCase().includes('headset')
+            )) ||
+            s.device.deviceId === 'default'
+          )
         )
         if (earDevice) {
-          setSpeaker(earDevice.deviceId).then(() => {
+          setSpeaker(earDevice.device.deviceId).then(() => {
             setIsSpeakerphone(false)
             console.log('📞 Switched to earpiece/headset')
           }).catch(err => {
@@ -306,11 +314,13 @@ export default function useDailyReact(): UseDailyReactReturn {
       } else {
         // Switch to speakerphone
         const speakerDevice = speakers.find(s =>
-          s.label.toLowerCase().includes('speaker') ||
-          s.label.toLowerCase().includes('loudspeaker')
+          s.device && s.device.label && (
+            s.device.label.toLowerCase().includes('speaker') ||
+            s.device.label.toLowerCase().includes('loudspeaker')
+          )
         )
         if (speakerDevice) {
-          setSpeaker(speakerDevice.deviceId).then(() => {
+          setSpeaker(speakerDevice.device.deviceId).then(() => {
             setIsSpeakerphone(true)
             console.log('📢 Switched to speakerphone')
           }).catch(err => {
