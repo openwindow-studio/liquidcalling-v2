@@ -329,7 +329,7 @@ function Splash2Content() {
 
             {isDemoMode && (
               <div className="figma-connect-wallet-banner">
-                <strong>Connect Wallet for Unlimited Use</strong>
+                <strong>Connect for Unlimited Use</strong>
               </div>
             )}
 
@@ -506,7 +506,7 @@ function Splash2Content() {
       {isDemoMode && (
         <div className="figma-demo-footer">
           <p className="figma-demo-footer-title">
-            Connect Wallet for Unlimited Use
+            Connect for Unlimited Use
           </p>
           <button
             onClick={() => handleSetDemoMode(false)}

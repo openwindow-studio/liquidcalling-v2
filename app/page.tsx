@@ -140,7 +140,7 @@ function HomeContent() {
 
   const createCallLink = async () => {
     if (!isConnected && !isDemoMode) {
-      alert('Connect your wallet first')
+      alert('Connect wallet first')
       return
     }
 
@@ -369,7 +369,7 @@ function HomeContent() {
             {isDemoMode && (
               <div className="card-footer">
                 <p className="card-footer-title">
-                  Connect Wallet for Unlimited Use
+                  Connect for Unlimited Use
                 </p>
               </div>
             )}
@@ -416,7 +416,7 @@ function HomeContent() {
           onClick={() => handleSetDemoMode(true)}
           className="figma-cta-button"
         >
-          <span className="figma-cta-text">Connect your wallet to start your call</span>
+          <span className="figma-cta-text">Connect to start your call</span>
           <div className="figma-cta-icon">
             <svg width="20" height="16" viewBox="0 0 37 31" fill="none">
               <path d="M18.5 24.5V31" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
@@ -578,7 +578,7 @@ function HomeContent() {
           {isDemoMode && (
             <div className="card-footer">
               <p className="card-footer-title">
-                Connect Wallet for Unlimited Use
+                Connect for Unlimited Use
               </p>
             </div>
           )}
