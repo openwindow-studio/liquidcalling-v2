@@ -267,7 +267,30 @@ function Splash2Content() {
         )}
 
         <div className="figma-connect-button">
-          <ConnectButton />
+          <ConnectButton.Custom>
+            {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
+              const ready = mounted
+              const connected = ready && account && chain
+              return (
+                <div {...(!ready && { 'aria-hidden': true })}>
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                          Connect
+                        </button>
+                      )
+                    }
+                    return (
+                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                        {account.displayName}
+                      </button>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
 
         <div className="figma-main-card">
@@ -366,7 +389,30 @@ function Splash2Content() {
         </button>
 
         <div className="figma-connect-button">
-          <ConnectButton />
+          <ConnectButton.Custom>
+            {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
+              const ready = mounted
+              const connected = ready && account && chain
+              return (
+                <div {...(!ready && { 'aria-hidden': true })}>
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                          Connect
+                        </button>
+                      )
+                    }
+                    return (
+                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                        {account.displayName}
+                      </button>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
 
         <h1 className="figma-hero-title">Actually Private<br/>Voice Calls</h1>
@@ -416,7 +462,30 @@ function Splash2Content() {
       )}
 
       <div className="figma-connect-button">
-        <ConnectButton />
+        <ConnectButton.Custom>
+          {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
+            const ready = mounted
+            const connected = ready && account && chain
+            return (
+              <div {...(!ready && { 'aria-hidden': true })}>
+                {(() => {
+                  if (!connected) {
+                    return (
+                      <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                        Connect
+                      </button>
+                    )
+                  }
+                  return (
+                    <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                      {account.displayName}
+                    </button>
+                  )
+                })()}
+              </div>
+            )
+          }}
+        </ConnectButton.Custom>
       </div>
 
       <div className="figma-main-card">

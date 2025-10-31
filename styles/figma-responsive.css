@@ -126,7 +126,7 @@
 /* CONNECT BUTTON */
 .figma-connect-button {
   position: absolute;
-  width: 120px;
+  width: 140px;
   height: 50px;
   right: 20px; /* Rightmost button */
   top: 30px; /* Aligned with logo */
@@ -342,7 +342,7 @@
   position: absolute;
   width: 120px;
   height: 50px;
-  right: 150px; /* Left of connect button */
+  right: 170px; /* Left of connect button */
   top: 30px; /* Aligned with logo */
   background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
               linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17));
@@ -1035,7 +1035,7 @@
   }
 
   .figma-connect-button {
-    width: 240px;
+    width: 210px;
     height: 60px;
     right: 40px;
   }
@@ -1043,7 +1043,7 @@
   .figma-demo-button {
     width: 150px;
     height: 60px;
-    right: 300px;
+    right: 280px;
   }
 
   .figma-cta-button {
@@ -1094,7 +1094,7 @@
   }
 
   .figma-connect-button {
-    width: 180px;
+    width: 168px;
     height: 50px;
     right: 30px;
     top: 30px;
@@ -1189,7 +1189,7 @@
 
   .figma-connect-button,
   .figma-demo-button {
-    width: 100px;
+    width: 110px;
     height: 35px;
     top: 20px;
   }
@@ -1199,7 +1199,7 @@
   }
 
   .figma-demo-button {
-    right: 122px;
+    right: 140px;
   }
 
   .figma-cta-button {
