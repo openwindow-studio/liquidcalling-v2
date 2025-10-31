@@ -348,7 +348,7 @@
   font-family: 'Britti Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 18px;
   color: #FFFFFF;
   white-space: nowrap;
@@ -385,14 +385,57 @@
   color: #FFFFFF;
 }
 
+/* In-app Call Action Button (distinct from splash CTA) */
+.call-action-button {
+  position: relative; /* inside card content */
+  width: 380px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+  border-radius: 40px;
+  border: 3px solid #FFFFFF;
+  backdrop-filter: blur(40px);
+  margin-top: 12px; /* consistent spacing below mic */
+  margin-bottom: 0;
+}
+
+.call-action-button .figma-button-text { color: #FFFFFF; }
+
+.call-button--white {
+  background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
+              radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%);
+  background-blend-mode: normal, normal, overlay;
+}
+
+.call-button--white .figma-button-text { color: #000000; }
+
+.call-button--green {
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(13, 255, 57, 0.2) 0%, rgba(189, 255, 97, 0.0447917) 99.99%, rgba(70, 213, 163, 0) 100%),
+              linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
+  background-blend-mode: normal, normal, overlay;
+}
+
+.call-button--red {
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 13, 13, 0.2) 0%, rgba(255, 97, 97, 0.0447917) 99.99%, rgba(213, 70, 70, 0) 100%),
+              linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
+  background-blend-mode: normal, normal, overlay;
+}
+
+.call-action-button:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
 /* MAIN CARD CONTAINER */
 .figma-main-card {
   position: absolute;
-  width: 1000px;
-  height: 580px;
+  width: 750px;
+  height: 450px;
   left: 50%;
   transform: translateX(-50%);
-  top: 260px;
+  top: 150px;
   background: url('/Mask Group Image.png'),
               radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%);
   background-blend-mode: overlay, normal;
@@ -540,6 +583,29 @@
   color: #FFFFFF;
 }
 
+/* Card Banner (same as demo banner, but neutral naming) */
+.card-banner {
+  position: absolute;
+  width: auto;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 15;
+}
+
+.card-banner-text {
+  font-family: 'Britti Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 96%;
+  color: #FFFFFF;
+}
+
 .figma-demo-icon {
   width: 10px;
   height: 12px;
@@ -549,11 +615,89 @@
   flex-shrink: 0;
 }
 
+/* Desktop-only utility */
+.desktop-only { display: block; }
+@media (max-width: 1023px) {
+  .desktop-only { display: none; }
+}
+
+/* Wallet Connected Banner (matches card-banner positioning) */
+.card-banner-wallet {
+  position: absolute;
+  width: auto;
+  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 15;
+  font-family: 'Britti Sans';
+  font-size: 12px;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+/* Wallet Connected Footer (matches card-footer positioning) */
+.card-footer-wallet {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: calc(100% - 120px);
+  font-family: 'Britti Sans';
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* APP PAGES FOOTER (separate from splash) */
+.app-footer-left {
+  position: absolute;
+  width: 500px;
+  left: 60px; /* align with logo */
+  bottom: 50px; /* match splash positioning */
+  font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: rgba(31, 0, 0, 0.9);
+  z-index: 5;
+}
+
+.app-copyright {
+  position: absolute;
+  width: auto;
+  right: 20px;
+  bottom: 15px;
+  font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(31, 0, 0, 0.9);
+}
+
+@media (max-width: 1439px) {
+  .app-footer-left {
+    font-size: 14px;
+    width: 400px;
+    top: 640px; /* match splash */
+    left: 100px; /* match splash */
+    right: 85px; /* match splash */
+    bottom: auto; /* switch to top positioning at this breakpoint */
+  }
+}
+
 /* Mic Icon States */
 .figma-main-card-content .figma-mic-container .micro-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 45px;
+  height: 45px;
+  border-radius: 22.5px;
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
               radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%);
   background-blend-mode: normal, normal, normal, overlay;
@@ -601,6 +745,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  gap: 0; /* reset gap, use explicit margins for control */
 }
 
 .figma-card-title {
@@ -619,10 +764,12 @@
 }
 
 .figma-mic-container {
-  margin-bottom: 40px;
+  margin-bottom: 0;
+  margin-top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* ensure consistent positioning */
 }
 
 .figma-error-message {
@@ -632,29 +779,42 @@
 }
 
 .figma-room-status {
-  margin-top: 20px;
+  margin-top: 0;
+  margin-bottom: 0; /* no extra margin */
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* stacked vertically */
+  align-items: center;
+  justify-content: center;
+  gap: 4px; /* tight spacing between text and button */
 }
 
 .figma-room-status-text {
-  font-size: 18px;
-  color: #fff;
+  font-size: 14px;
+  color: #000000b3;
   font-family: 'Britti Sans';
+  margin: 0;
 }
 
 .figma-copy-link-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.2);
+  margin-top: 0;
+  margin-bottom: 0; /* no space - let mic handle spacing */
+  font-size: 14px;
+  /* background: rgba(255, 255, 255, 0.2); */
   border: none;
   border-radius: 20px;
-  color: #fff;
+  color: #000000b3;
   cursor: pointer;
   font-family: 'Britti Sans';
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
 }
 
 .figma-demo-footer {
   position: absolute;
-  bottom: 100px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -662,38 +822,61 @@
 }
 
 .figma-demo-footer-title {
-  font-size: 23px;
-  font-weight: 600;
+  font-size: 12px; /* match banner */
+  font-weight: 400;
   margin-bottom: 10px;
   font-family: 'Britti Sans';
+}
+
+/* Card Footer (neutral naming) */
+.card-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  width: calc(100% - 120px); /* account for padding */
+}
+
+.card-footer-title {
+  font-size: 12px; /* match banner */
+  font-weight: 400;
+  margin-bottom: 8px;
+  font-family: 'Britti Sans';
+  color: #fff;
 }
 
 .figma-exit-demo-button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 23px;
-  font-weight: 300;
+  font-size: 12px; /* match card-footer-title */
+  font-weight: 400; /* match card-footer-title */
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none; /* remove underline */
   font-family: 'Britti Sans';
 }
 
 /* In-Call Interface Styles */
 /* 2. Copy Room Link Button */
 .figma-copy-room-link {
-  font-family: 'Britti Sans Trial';
+  font-family: 'Britti Sans';
   font-style: normal;
-  font-weight: 600;
-  font-size: 23px;
-  line-height: 96%;
-  color: #1F0000;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000000b3;
   background: none;
   border: none;
   cursor: pointer;
   text-align: center;
+  margin-top: 0;
   margin-bottom: 20px;
   z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
 }
 
 /* 3. Timer in Geist Mono */
@@ -701,18 +884,20 @@
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
-  font-size: 32px;
+  font-size: 14px;
   line-height: 1;
-  color: #1F0000;
+  color: #000000b3;
   text-align: center;
   font-variant-numeric: tabular-nums;
-  margin-bottom: 30px;
+  margin-top: 0;
+  margin-bottom: 20px;
   z-index: 20;
 }
 
 /* 4. Mic icon for muting - keep existing styles but adjust positioning */
 .figma-main-card-content .figma-mic-container {
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
   z-index: 20;
 }
 
@@ -728,10 +913,11 @@
   font-family: 'Britti Sans';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
-  color: #1F0000;
+  color: #000000b3;
   text-align: center;
+  margin-top: 20px;
   margin-bottom: 20px;
   z-index: 20;
 }
@@ -753,11 +939,11 @@
 .figma-main-card-content .figma-exit-demo-button {
   background: none;
   border: none;
-  color: #1F0000;
-  font-size: 18px;
-  font-weight: 300;
+  color: #fff; /* match card footer text color */
+  font-size: 12px; /* match card-footer-title */
+  font-weight: 400; /* match card-footer-title */
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none; /* remove underline */
   font-family: 'Britti Sans';
   z-index: 20;
 }
@@ -788,9 +974,9 @@
   }
 
   .figma-main-card {
-    width: 1000px;
-    height: 600px;
-    top: 220px;
+    width: 750px;
+    height: 450px;
+    top: 150px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -830,13 +1016,13 @@
 
   .figma-button-text,
   .figma-cta-text {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .figma-main-card {
-    width: 900px;
-    height: 500px;
-    top: 200px;
+    width: 750px;
+    height: 450px;
+    top: 150px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -867,6 +1053,7 @@
   .figma-hero-title {
     font-size: 80px;
     width: 700px;
+    line-height: 80px;
   }
 
   .figma-connect-button {
@@ -930,6 +1117,10 @@
 
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
+  .liquid-app {
+    min-height: 1136px; /* Ensure container is tall enough for absolute positioning */
+  }
+
   .figma-logo {
     font-size: 18px;
     width: 150px;
@@ -983,26 +1174,35 @@
   .figma-main-card {
     width: 90%;
     height: 350px;
-    top: 30%;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .figma-footer-left,
   .figma-footer-right {
-    position: static;
-    width: 100%;
-    padding: 20px;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
+    position: absolute;
+    width: calc(50% - 60px);
+    top: 950px;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
+    display: block;
+  }
+
+  .figma-footer-left {
+    left: 30px;
+  }
+
+  .figma-footer-right {
+    right: 30px;
   }
 
   .figma-copyright {
-    position: static;
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    font-size: 12px;
+    position: absolute;
+    width: auto;
+    right: 20px;
+    top: 1060px;
+    text-align: right;
+    font-size: 10px;
   }
 }

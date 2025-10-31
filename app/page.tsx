@@ -297,7 +297,7 @@ function HomeContent() {
         <div className="figma-main-card">
           {/* Demo Mode Banner - FIGMA RESPONSIVE */}
           {isDemoMode && !isConnected && (
-            <div className="figma-demo-banner">
+            <div className="card-banner">
               <div className="figma-demo-icon">
                 <svg width="10" height="12" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.00002 2V8.292C5.38869 8.7724 4.00412 9.81675 3.09948 11.2341C2.19485 12.6514 1.8306 14.347 2.07335 16.0108C2.3161 17.6746 3.14961 19.1954 4.42149 20.2952C5.69336 21.395 7.3186 22.0002 9.00002 22.0002C10.6814 22.0002 12.3067 21.395 13.5785 20.2952C14.8504 19.1954 15.6839 17.6746 15.9267 16.0108C16.1694 14.347 15.8052 12.6514 14.9005 11.2341C13.9959 9.81675 12.6113 8.7724 11 8.292V2" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -305,7 +305,7 @@ function HomeContent() {
                   <path d="M5.5 2H12.5" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span className="figma-demo-banner-text">Demo Mode • No Billing • 10 Minute Test Mode</span>
+              <span className="card-banner-text">Demo Mode • No Billing • 10 Minute Test Mode</span>
             </div>
           )}
 
@@ -323,7 +323,11 @@ function HomeContent() {
               }}
               className="figma-copy-room-link"
             >
-              Copy Room Link
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+              <span>Copy Room Link</span>
             </button>
 
             {/* 3. Timer in Geist Mono */}
@@ -350,7 +354,7 @@ function HomeContent() {
             {/* 5. End Call Button */}
             <button
               onClick={handleEndCall}
-              className="figma-cta-button figma-button--red"
+              className="call-action-button call-button--red"
             >
               <span className="figma-button-text">End Call</span>
             </button>
@@ -360,25 +364,23 @@ function HomeContent() {
               In Room ~ {participantCount} Participant{participantCount !== 1 ? 's' : ''}
             </div>
 
-            {/* 7. Connect wallet for unlimited use (bold type) */}
+            {/* Card Footer Messages */}
             {isDemoMode && (
-              <div className="figma-connect-wallet-banner">
-                <strong>Connect Wallet for Unlimited Use</strong>
+              <div className="card-footer">
+                <p className="card-footer-title">
+                  Connect Wallet for Unlimited Use
+                </p>
               </div>
-            )}
-
-            {/* 8. Exit demo (returns user to front-page) */}
-            {isDemoMode && (
-              <button
-                onClick={() => handleSetDemoMode(false)}
-                className="figma-exit-demo-button"
-              >
-                Exit Demo
-              </button>
             )}
           </div>
         </div>
-
+        {/* App footer elements */}
+        <div className="app-footer-left">
+          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+        </div>
+        <div className="app-copyright">
+          LIQUIDCALLING ©2025
+        </div>
       </div>
     )
   }
@@ -462,9 +464,9 @@ function HomeContent() {
 
       {/* Main Card - FIGMA RESPONSIVE */}
       <div className="figma-main-card">
-        {/* Demo Mode Banner - FIGMA RESPONSIVE */}
+        {/* Demo Mode Banner */}
         {isDemoMode && !isConnected && (
-          <div className="figma-demo-banner">
+          <div className="card-banner">
             <div className="figma-demo-icon">
               <svg width="10" height="12" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.00002 2V8.292C5.38869 8.7724 4.00412 9.81675 3.09948 11.2341C2.19485 12.6514 1.8306 14.347 2.07335 16.0108C2.3161 17.6746 3.14961 19.1954 4.42149 20.2952C5.69336 21.395 7.3186 22.0002 9.00002 22.0002C10.6814 22.0002 12.3067 21.395 13.5785 20.2952C14.8504 19.1954 15.6839 17.6746 15.9267 16.0108C16.1694 14.347 15.8052 12.6514 14.9005 11.2341C13.9959 9.81675 12.6113 8.7724 11 8.292V2" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -472,12 +474,51 @@ function HomeContent() {
                 <path d="M5.5 2H12.5" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <span className="figma-demo-banner-text">Demo Mode • No Billing • 10 Minute Test Mode</span>
+            <span className="card-banner-text">Demo Mode • No Billing • 10 Minute Test Mode</span>
+          </div>
+        )}
+
+        {/* Wallet Connected Banner */}
+        {isConnected && !isDemoMode && (
+          <div className="card-banner-wallet">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m11 17 2 2a1 1 0 1 0 3-3"/>
+              <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/>
+              <path d="m21 3 1 11h-2"/>
+              <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/>
+              <path d="M3 4h8"/>
+            </svg>
+            <span>Wallet Connected • Locked In</span>
           </div>
         )}
 
         {/* Content inside the glass card will go here */}
         <div className="figma-main-card-content">
+
+
+          {/* Status */}
+          {callLink && (
+            <div className="figma-room-status">
+              <p className="figma-room-status-text">
+                Room created! Share the link to invite others.
+              </p>
+              <button
+                onClick={() => {
+                  if (callLink) {
+                    navigator.clipboard.writeText(callLink)
+                    alert('Room link copied!')
+                  }
+                }}
+                className="figma-copy-link-button"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                </svg>
+                <span>Copy room link</span>
+              </button>
+            </div>
+          )}
 
           {/* Mic Permission Button */}
           <div className="figma-mic-container">
@@ -502,7 +543,7 @@ function HomeContent() {
             <button
               onClick={createCallLink}
               disabled={callStatus !== 'idle' || micPermission !== 'granted'}
-              className="figma-cta-button figma-button--white"
+              className="call-action-button call-button--white"
             >
               {callStatus === 'creating-room' ? (
                 <>
@@ -517,7 +558,7 @@ function HomeContent() {
             <button
               onClick={handleCall}
               disabled={callStatus === 'initializing'}
-              className="figma-cta-button figma-button--green"
+              className="call-action-button call-button--green"
             >
               <span className="figma-button-text">{callStatus === 'initializing' ? 'Joining room...' : 'Start Call'}</span>
             </button>
@@ -530,42 +571,32 @@ function HomeContent() {
             </div>
           )}
 
-          {/* Status */}
-          {callLink && (
-            <div className="figma-room-status">
-              <p className="figma-room-status-text">
-                Room created! Share the link to invite others.
+          
+
+          {/* Card Footer Messages */}
+          {isDemoMode && (
+            <div className="card-footer">
+              <p className="card-footer-title">
+                Connect Wallet for Unlimited Use
               </p>
-              <button
-                onClick={() => {
-                  if (callLink) {
-                    navigator.clipboard.writeText(callLink)
-                    alert('Room link copied!')
-                  }
-                }}
-                className="figma-copy-link-button"
-              >
-                📋 Copy room link
-              </button>
+            </div>
+          )}
+
+          {/* Wallet Connected Footer */}
+          {isConnected && !isDemoMode && (
+            <div className="card-footer-wallet">
+              Unlimited Use
             </div>
           )}
         </div>
       </div>
-
-      {/* Demo Mode Footer Messages */}
-      {isDemoMode && (
-        <div className="figma-demo-footer">
-          <p className="figma-demo-footer-title">
-            Connect Wallet for Unlimited Use
-          </p>
-          <button
-            onClick={() => handleSetDemoMode(false)}
-            className="figma-exit-demo-button"
-          >
-            Exit Demo
-          </button>
-        </div>
-      )}
+      {/* App footer elements */}
+      <div className="app-footer-left">
+        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+      </div>
+      <div className="app-copyright">
+        LIQUIDCALLING ©2025
+      </div>
     </div>
   )
 }
