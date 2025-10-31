@@ -291,7 +291,40 @@ function HomeContent() {
 
         {/* Connect Button - FIGMA RESPONSIVE */}
         <div className="figma-connect-button">
-          <ConnectButton />
+          <ConnectButton.Custom>
+            {({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
+              const ready = mounted
+              const connected = ready && account && chain
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    'style': {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                          Connect
+                        </button>
+                      )
+                    }
+                    return (
+                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                        {account.displayName}
+                      </button>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
 
         {/* Main Card - FIGMA RESPONSIVE */}
@@ -405,7 +438,40 @@ function HomeContent() {
 
         {/* Connect Button - FIGMA RESPONSIVE */}
         <div className="figma-connect-button">
-          <ConnectButton />
+          <ConnectButton.Custom>
+            {({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
+              const ready = mounted
+              const connected = ready && account && chain
+
+              return (
+                <div
+                  {...(!ready && {
+                    'aria-hidden': true,
+                    'style': {
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      userSelect: 'none',
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                          Connect
+                        </button>
+                      )
+                    }
+                    return (
+                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                        {account.displayName}
+                      </button>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
 
         {/* Hero Title - FIGMA RESPONSIVE */}

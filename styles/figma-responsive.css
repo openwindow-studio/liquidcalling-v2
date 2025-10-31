@@ -89,9 +89,9 @@
 /* CONNECT BUTTON */
 .figma-connect-button {
   position: absolute;
-  width: 200px;
+  width: 120px;
   height: 50px;
-  right: 60px; /* From right edge instead of left */
+  right: 20px; /* Rightmost button */
   top: 30px; /* Aligned with logo */
   background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%),
               linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
@@ -305,7 +305,7 @@
   position: absolute;
   width: 120px;
   height: 50px;
-  right: 270px; /* From right edge */
+  right: 150px; /* Left of connect button */
   top: 30px; /* Aligned with logo */
   background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
               linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17));
@@ -1161,7 +1161,7 @@
   }
 
   .figma-demo-button {
-    right: 130px;
+    right: 110px;
   }
 
   .figma-cta-button {
@@ -1219,4 +1219,24 @@
     text-align: right;
     font-size: 10px;
   }
+}
+
+/* Custom RainbowKit button styling */
+.rainbow-connect-button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: 'Britti Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rainbow-connect-button:hover {
+  opacity: 0.9;
 }
