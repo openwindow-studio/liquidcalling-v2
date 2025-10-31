@@ -722,11 +722,11 @@
 @media (max-width: 1439px) {
   .app-footer-left {
     font-size: 14px;
-    width: 400px;
-    top: 640px; /* match splash */
-    left: 100px; /* match splash */
-    right: 85px; /* match splash */
-    bottom: auto; /* switch to top positioning at this breakpoint */
+    width: calc(100% - 200px);
+    top: auto;
+    left: 100px;
+    right: auto; /* Don't use both left and right */
+    bottom: 50px;
   }
 }
 
@@ -1319,6 +1319,28 @@
   .speaker-icon {
     width: 40px;
     height: 40px;
+  }
+
+  /* App footer mobile fixes */
+  .app-footer-left {
+    position: absolute;
+    width: calc(100% - 40px);
+    left: 20px;
+    right: auto;
+    bottom: 60px;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: left;
+  }
+
+  .app-copyright {
+    position: absolute;
+    width: auto;
+    left: auto;
+    right: 20px;
+    bottom: 20px;
+    font-size: 10px;
+    text-align: right;
   }
 }
 
