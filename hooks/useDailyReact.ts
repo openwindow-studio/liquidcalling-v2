@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDaily, useLocalParticipant, useParticipantCounts, useDevices } from '@daily-co/daily-react'
 
 interface UseDailyReactReturn {
@@ -11,6 +11,8 @@ interface UseDailyReactReturn {
   joinRoom: (roomUrl: string) => Promise<void>
   leaveRoom: () => void
   toggleMute: () => void
+  toggleSpeakerphone: () => void
+  isSpeakerphone: boolean
   error: string | null
 }
 
@@ -18,8 +20,9 @@ export default function useDailyReact(): UseDailyReactReturn {
   const daily = useDaily()
   const localParticipant = useLocalParticipant()
   const { present } = useParticipantCounts()
-  const { microphones, setMicrophone } = useDevices()
+  const { microphones, setMicrophone, speakers, setSpeaker } = useDevices()
   const audioRefs = useRef<{[key: string]: HTMLAudioElement}>({})
+  const [isSpeakerphone, setIsSpeakerphone] = useState(false)
 
   const isConnected = daily?.meetingState() === 'joined-meeting'
   const isMuted = localParticipant?.audio === false
@@ -75,6 +78,20 @@ export default function useDailyReact(): UseDailyReactReturn {
         })
 
         audioElement.srcObject = stream
+
+        // Set initial audio properties for mobile
+        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          audioElement.volume = 1.0
+          // Try to route to speakerphone by default on mobile
+          if ('setSinkId' in audioElement && speakers && speakers.length > 0) {
+            const speakerDevice = speakers.find(s => s.label.toLowerCase().includes('speaker'))
+            if (speakerDevice) {
+              ;(audioElement as any).setSinkId(speakerDevice.deviceId).catch((err: any) => {
+                console.warn('Could not set speaker device:', err)
+              })
+            }
+          }
+        }
 
         // Explicitly play the audio with better error handling
         audioElement.play().then(() => {
@@ -142,7 +159,28 @@ export default function useDailyReact(): UseDailyReactReturn {
       })
       audioRefs.current = {}
     }
-  }, [daily])
+  }, [daily, speakers])
+
+  // Auto-enable speakerphone on mobile when connected
+  useEffect(() => {
+    if (isConnected && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      console.log('📱 Mobile detected, attempting to enable speakerphone')
+      if (daily && speakers && speakers.length > 0) {
+        const speakerDevice = speakers.find(s =>
+          s.label.toLowerCase().includes('speaker') ||
+          s.label.toLowerCase().includes('loudspeaker')
+        )
+        if (speakerDevice) {
+          setSpeaker(speakerDevice.deviceId).then(() => {
+            setIsSpeakerphone(true)
+            console.log('📢 Speakerphone enabled automatically on mobile')
+          }).catch(err => {
+            console.warn('Could not enable speakerphone:', err)
+          })
+        }
+      }
+    }
+  }, [isConnected, daily, speakers, setSpeaker])
 
   const createRoom = useCallback(async (): Promise<string | null> => {
     try {
@@ -248,6 +286,41 @@ export default function useDailyReact(): UseDailyReactReturn {
     }
   }, [daily, isMuted])
 
+  const toggleSpeakerphone = useCallback(() => {
+    if (daily && speakers && speakers.length > 0) {
+      if (isSpeakerphone) {
+        // Switch to earpiece/headset
+        const earDevice = speakers.find(s =>
+          s.label.toLowerCase().includes('earpiece') ||
+          s.label.toLowerCase().includes('headset') ||
+          s.deviceId === 'default'
+        )
+        if (earDevice) {
+          setSpeaker(earDevice.deviceId).then(() => {
+            setIsSpeakerphone(false)
+            console.log('📞 Switched to earpiece/headset')
+          }).catch(err => {
+            console.warn('Could not switch to earpiece:', err)
+          })
+        }
+      } else {
+        // Switch to speakerphone
+        const speakerDevice = speakers.find(s =>
+          s.label.toLowerCase().includes('speaker') ||
+          s.label.toLowerCase().includes('loudspeaker')
+        )
+        if (speakerDevice) {
+          setSpeaker(speakerDevice.deviceId).then(() => {
+            setIsSpeakerphone(true)
+            console.log('📢 Switched to speakerphone')
+          }).catch(err => {
+            console.warn('Could not switch to speakerphone:', err)
+          })
+        }
+      }
+    }
+  }, [daily, speakers, setSpeaker, isSpeakerphone])
+
   return {
     isConnected,
     isMuted: isMuted || false,
@@ -256,6 +329,8 @@ export default function useDailyReact(): UseDailyReactReturn {
     joinRoom,
     leaveRoom,
     toggleMute,
+    toggleSpeakerphone,
+    isSpeakerphone,
     error: null
   }
 }
