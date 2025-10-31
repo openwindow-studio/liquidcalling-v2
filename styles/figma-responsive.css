@@ -1140,6 +1140,7 @@
     width: 150px;
     left: 20px;
     top: 20px;
+    line-height: 35px; /* Match button height for baseline alignment */
   }
 
   .figma-hero-title {
@@ -1161,7 +1162,7 @@
   }
 
   .figma-demo-button {
-    right: 120px;
+    right: 122px;
   }
 
   .figma-cta-button {
@@ -1235,6 +1236,9 @@
   line-height: 100%;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rainbow-connect-button:hover {
