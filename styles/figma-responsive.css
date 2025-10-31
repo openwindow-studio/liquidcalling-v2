@@ -1118,7 +1118,7 @@
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
   .liquid-app {
-    min-height: 1136px; /* Ensure container is tall enough for absolute positioning */
+    min-height: 100vh; /* Use viewport height instead of fixed pixels */
   }
 
   .figma-logo {
@@ -1182,7 +1182,7 @@
   .figma-footer-right {
     position: absolute;
     width: calc(50% - 60px);
-    top: 950px;
+    bottom: 80px;
     font-size: 14px;
     line-height: 18px;
     text-align: left;
@@ -1201,7 +1201,7 @@
     position: absolute;
     width: auto;
     right: 20px;
-    top: 1060px;
+    bottom: 20px;
     text-align: right;
     font-size: 10px;
   }
