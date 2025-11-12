@@ -198,27 +198,21 @@ export default function useDailyReact(): UseDailyReactReturn {
 
   const createRoom = useCallback(async (): Promise<string | null> => {
     try {
-      console.log('🏠 Creating Daily.co room...')
       // Create room via our API (same as before)
       const response = await fetch('/api/daily/create-room', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       })
 
-      console.log('📡 API Response status:', response.status)
       const result = await response.json()
-      console.log('📋 API Result:', result)
-
       if (!result.success) {
-        console.error('❌ Room creation failed:', result.error)
         throw new Error(result.error)
       }
 
-      console.log('✅ Room URL created:', result.roomUrl)
       return result.roomUrl
 
     } catch (err) {
-      console.error('❌ Failed to create room:', err)
+      console.error('Failed to create room:', err)
       return null
     }
   }, [])

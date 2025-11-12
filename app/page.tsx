@@ -37,23 +37,9 @@ function HomeContent() {
   const [micPermission, setMicPermission] = useState<'granted' | 'denied' | 'prompt' | 'checking'>('prompt')
   const [showMicInstruction, setShowMicInstruction] = useState(false)
 
-  // Mark as mounted on client and check for room ID in URL
+  // Mark as mounted on client
   useEffect(() => {
     setMounted(true)
-
-    // Check if this is a call URL and extract room ID
-    if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname
-      const callMatch = pathname.match(/^\/call\/(.+)$/)
-      if (callMatch && callMatch[1]) {
-        const urlRoomId = callMatch[1]
-        console.log('Detected room ID from URL:', urlRoomId)
-        setRoomId(urlRoomId)
-        // Store it for the join logic
-        sessionStorage.setItem('currentRoomId', urlRoomId)
-        sessionStorage.setItem('currentRoomUrl', `https://immaterial.daily.co/${urlRoomId}`)
-      }
-    }
   }, [])
 
   // Handle demo mode changes

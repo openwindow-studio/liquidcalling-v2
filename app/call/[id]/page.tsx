@@ -3,11 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import { DailyProvider } from '@daily-co/daily-react'
-import { PrivyConnectButton } from '../../../components/PrivyConnectButton'
-import dynamic from 'next/dynamic'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import useDailyReact from '../../../hooks/useDailyReact'
-
-const TorusCanvas = dynamic(() => import('../../../components/TorusCanvas'), { ssr: false })
 
 function CallPageContent() {
   const params = useParams()
@@ -37,8 +34,6 @@ function CallPageContent() {
     error: audioError,
     setOnParticipantLeft
   } = useDailyReact()
-
-  // Use PrivyConnectButton component instead
 
   // Timer for call duration
   useEffect(() => {
@@ -142,7 +137,6 @@ function CallPageContent() {
   if (isInCall) {
     return (
       <div className="liquid-app">
-        <TorusCanvas />
         {/* Logo - FIGMA RESPONSIVE */}
         <div
           className="figma-logo"
@@ -156,9 +150,33 @@ function CallPageContent() {
           Liquid Calling
         </div>
 
-        {/* Optional connect button for callees */}
+        {/* Connect button in top right corner */}
         <div className="figma-connect-button">
-          <PrivyConnectButton />
+          <ConnectButton.Custom>
+            {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
+              const ready = mounted
+              const connected = ready && account && chain
+              return (
+                <div {...(!ready && { 'aria-hidden': true })}>
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
+                          Connect
+                        </button>
+                      )
+                    }
+
+                    return (
+                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
+                        {account.displayName}
+                      </button>
+                    )
+                  })()}
+                </div>
+              )
+            }}
+          </ConnectButton.Custom>
         </div>
 
         {/* Main Card - FIGMA RESPONSIVE */}
@@ -253,7 +271,6 @@ function CallPageContent() {
 
   return (
     <div className="liquid-app">
-      <TorusCanvas />
       {/* Logo - FIGMA RESPONSIVE */}
       <div className="figma-logo">Liquid Calling</div>
 
