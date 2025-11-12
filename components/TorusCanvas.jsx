@@ -5,6 +5,8 @@ import { OrbitControls } from "@react-three/drei";
 import TorusGeometries from "./TorusBackground";
 
 const TorusCanvas = () => {
+  console.log('TorusCanvas rendering...');
+
   return (
     <div className="torus-fade-in" style={{
       position: 'fixed',
@@ -21,9 +23,13 @@ const TorusCanvas = () => {
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
         style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        onCreated={(state) => console.log('Canvas created:', state)}
       >
         <ambientLight intensity={1.0} />
-        <TorusGeometries />
+        <mesh position={[0, 0, 0]}>
+          <torusGeometry args={[3, 1, 16, 100]} />
+          <meshBasicMaterial color="hotpink" wireframe />
+        </mesh>
         <OrbitControls
           enableZoom={false}
           enablePan={false}
