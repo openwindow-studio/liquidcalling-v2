@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import { DailyProvider } from '@daily-co/daily-react'
 import { PrivyConnectButton } from '../../../components/PrivyConnectButton'
+import dynamic from 'next/dynamic'
 import useDailyReact from '../../../hooks/useDailyReact'
+
+const TorusCanvas = dynamic(() => import('../../../components/TorusCanvas'), { ssr: false })
 
 function CallPageContent() {
   const params = useParams()
@@ -139,6 +142,7 @@ function CallPageContent() {
   if (isInCall) {
     return (
       <div className="liquid-app">
+        <TorusCanvas />
         {/* Logo - FIGMA RESPONSIVE */}
         <div
           className="figma-logo"
@@ -249,6 +253,7 @@ function CallPageContent() {
 
   return (
     <div className="liquid-app">
+      <TorusCanvas />
       {/* Logo - FIGMA RESPONSIVE */}
       <div className="figma-logo">Liquid Calling</div>
 
