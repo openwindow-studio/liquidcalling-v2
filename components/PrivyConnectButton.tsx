@@ -27,7 +27,7 @@ export function PrivyConnectButton() {
 
   if (!ready) {
     return (
-      <button className="rainbow-connect-button" disabled>
+      <button className="privy-connect-button" disabled>
         Loading...
       </button>
     )
@@ -35,7 +35,7 @@ export function PrivyConnectButton() {
 
   if (!authenticated) {
     return (
-      <button onClick={login} className="rainbow-connect-button">
+      <button onClick={login} className="privy-connect-button">
         Connect
       </button>
     )
@@ -59,7 +59,7 @@ export function PrivyConnectButton() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="rainbow-connect-button"
+        className="privy-connect-button"
       >
         {displayName}
       </button>
