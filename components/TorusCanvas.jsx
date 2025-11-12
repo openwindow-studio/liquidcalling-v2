@@ -2,36 +2,35 @@
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import TorusGeometries from "./TorusBackground";
 
 const TorusCanvas = () => {
+  console.log('🌟 TorusCanvas is rendering!');
+
   return (
-    <div className="torus-fade-in" style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      zIndex: 0,
-      background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
-      pointerEvents: 'none'
-    }}>
+    <div
+      className="torus-fade-in"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 999,
+        background: 'red',
+        pointerEvents: 'none',
+        border: '5px solid lime'
+      }}
+    >
+      <h1 style={{ color: 'white', fontSize: '50px', margin: '50px' }}>TORUS SHOULD BE HERE!</h1>
       <Canvas
-        camera={{ position: [4, -2, 7] }}
-        dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        camera={{ position: [0, 0, 5] }}
+        style={{ width: '100%', height: '100%' }}
       >
         <ambientLight intensity={1.0} />
-        <TorusGeometries />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          enableRotate={true}
-          enableDamping={true}
-          dampingFactor={0.05}
-          rotateSpeed={0.5}
-        />
+        <mesh>
+          <torusGeometry args={[2, 0.5, 16, 100]} />
+          <meshStandardMaterial color="yellow" />
+        </mesh>
       </Canvas>
     </div>
   );
