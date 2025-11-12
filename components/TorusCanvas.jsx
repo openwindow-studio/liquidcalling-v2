@@ -269,8 +269,6 @@ const Geometries = () => {
 };
 
 const TorusCanvas = () => {
-  console.log('🚀 TorusCanvas is rendering!');
-
   return (
     <div style={{
       position: 'fixed',
@@ -278,25 +276,26 @@ const TorusCanvas = () => {
       left: 0,
       width: '100vw',
       height: '100vh',
-      zIndex: 9999,
-      background: 'rgba(255, 0, 0, 0.5)',
-      pointerEvents: 'none',
-      border: '10px solid lime'
+      zIndex: -1,
+      background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
+      pointerEvents: 'none'
     }}>
-      <h1 style={{ color: 'white', fontSize: '30px', margin: '20px' }}>TORUS CONTAINER IS HERE!</h1>
       <Canvas
         camera={{ position: [4, -2, 7] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%', background: 'blue' }}
-        onCreated={() => console.log('🎨 Three.js Canvas created!')}
+        style={{ width: '100%', height: '100%' }}
       >
         <ambientLight intensity={1.0} />
-        <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshBasicMaterial color="yellow" />
-        </mesh>
-        <OrbitControls />
+        <Geometries />
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          enableRotate={true}
+          enableDamping={true}
+          dampingFactor={0.05}
+          rotateSpeed={0.5}
+        />
       </Canvas>
     </div>
   );
