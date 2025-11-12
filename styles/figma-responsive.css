@@ -9,7 +9,7 @@
   background: transparent;
   position: relative;
   overflow-x: hidden;
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
 }
 
