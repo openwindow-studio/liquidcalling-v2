@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import { DailyProvider } from '@daily-co/daily-react'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { PrivyConnectButton } from '../../../components/PrivyConnectButton'
 import useDailyReact from '../../../hooks/useDailyReact'
 
 function CallPageContent() {
@@ -152,31 +152,7 @@ function CallPageContent() {
 
         {/* Connect button in top right corner */}
         <div className="figma-connect-button">
-          <ConnectButton.Custom>
-            {({ account, chain, openAccountModal, openConnectModal, mounted }) => {
-              const ready = mounted
-              const connected = ready && account && chain
-              return (
-                <div {...(!ready && { 'aria-hidden': true })}>
-                  {(() => {
-                    if (!connected) {
-                      return (
-                        <button onClick={openConnectModal} type="button" className="rainbow-connect-button">
-                          Connect
-                        </button>
-                      )
-                    }
-
-                    return (
-                      <button onClick={openAccountModal} type="button" className="rainbow-connect-button">
-                        {account.displayName}
-                      </button>
-                    )
-                  })()}
-                </div>
-              )
-            }}
-          </ConnectButton.Custom>
+          <PrivyConnectButton />
         </div>
 
         {/* Main Card - FIGMA RESPONSIVE */}
