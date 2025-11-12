@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
 import { DailyProvider } from '@daily-co/daily-react'
-// No Privy import needed for callees
+import { usePrivy } from '@privy-io/react-auth'
 import useDailyReact from '../../../hooks/useDailyReact'
 
 function CallPageContent() {
@@ -35,7 +35,7 @@ function CallPageContent() {
     setOnParticipantLeft
   } = useDailyReact()
 
-  // No Privy needed for callees
+  const { user, login, authenticated } = usePrivy()
 
   // Timer for call duration
   useEffect(() => {
@@ -152,7 +152,21 @@ function CallPageContent() {
           Liquid Calling
         </div>
 
-        {/* No connect button needed for callees */}
+        {/* Optional connect button for callees */}
+        <div className="figma-connect-button">
+          {authenticated && user ? (
+            <button className="rainbow-connect-button">
+              {user.wallet?.address ?
+                `${user.wallet.address.slice(0, 6)}...${user.wallet.address.slice(-4)}` :
+                'Connected'
+              }
+            </button>
+          ) : (
+            <button onClick={login} className="rainbow-connect-button">
+              Connect
+            </button>
+          )}
+        </div>
 
         {/* Main Card - FIGMA RESPONSIVE */}
         <div className="figma-main-card">
