@@ -1,0 +1,35 @@
+{
+  "name": "burnervoice",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@daily-co/daily-js": "^0.84.0",
+    "@daily-co/daily-react": "^0.23.2",
+    "@privy-io/react-auth": "^3.6.0",
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.12",
+    "autoprefixer": "^10.4.19",
+    "geist": "^1.5.1",
+    "jotai": "^2.15.0",
+    "next": "14.2.3",
+    "postcss": "^8.4.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "simple-peer": "^9.11.1",
+    "socket.io-client": "^4.8.1",
+    "tailwindcss": "^3.4.3",
+    "three": "^0.160.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/simple-peer": "^9.11.8",
+    "typescript": "^5.4.5"
+  }
+}
