@@ -270,8 +270,9 @@ export function useRealPayments() {
       console.error('Failed to get USDC balance:', error)
 
       // For HyperLiquid RPC issues, return 0 but don't block the UI
-      if (error.message?.includes('RPC endpoint returned too many errors') ||
-          error.message?.includes('missing revert data')) {
+      if (error instanceof Error && (
+          error.message?.includes('RPC endpoint returned too many errors') ||
+          error.message?.includes('missing revert data'))) {
         console.warn('RPC issue detected, balance check failed but network switching still works')
         return '0'
       }
