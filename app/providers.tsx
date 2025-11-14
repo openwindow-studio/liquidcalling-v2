@@ -23,6 +23,23 @@ export function Providers({ children }: { children: React.ReactNode }) {
             createOnLogin: 'users-without-wallets',
           },
         },
+        externalWallets: {
+          metaMask: { connectionOptions: 'recommendedFirst' },
+          walletConnect: { connectionOptions: 'recommendedFirst' },
+          rainbow: { connectionOptions: 'recommendedSecond' },
+          coinbaseWallet: { connectionOptions: 'recommendedSecond' },
+          phantom: { connectionOptions: 'recommended' },
+        },
+        supportedChains: [
+          // Ethereum Mainnet
+          { id: 1, name: 'Ethereum', network: 'ethereum', rpcUrls: ['https://mainnet.infura.io/v3/'] },
+          // Base
+          { id: 8453, name: 'Base', network: 'base', rpcUrls: ['https://mainnet.base.org'] },
+          // Base Sepolia
+          { id: 84532, name: 'Base Sepolia', network: 'base-sepolia', rpcUrls: ['https://sepolia.base.org'] },
+          // HyperLiquid Testnet
+          { id: 998, name: 'HyperLiquid Testnet', network: 'hyperliquid-testnet', rpcUrls: ['https://api.hyperliquid-testnet.xyz/evm'] },
+        ],
       }}
     >
       {children}

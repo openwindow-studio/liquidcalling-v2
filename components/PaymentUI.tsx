@@ -14,6 +14,7 @@ type PaymentUIProps = {
   supportedNetworks: any
   switchToNetwork: (network: any) => Promise<boolean>
   cryptoReady: boolean
+  isNetworkSupported?: boolean
 }
 
 export function PaymentUI({
@@ -25,7 +26,8 @@ export function PaymentUI({
   usdcBalance,
   supportedNetworks,
   switchToNetwork,
-  cryptoReady
+  cryptoReady,
+  isNetworkSupported = false
 }: PaymentUIProps) {
   const [selectedAmount, setSelectedAmount] = useState('')
   const [paymentMethod, setPaymentMethod] = useState<'wallet' | 'privy'>('wallet')
@@ -36,12 +38,19 @@ export function PaymentUI({
       return
     }
 
-    if (paymentMethod === 'wallet' && !cryptoReady) {
+    if (paymentMethod === 'wallet' && !cryptoReady && !isNetworkSupported) {
       alert('Please connect to a supported network first')
       return
     }
 
+    if (paymentMethod === 'wallet' && isNetworkSupported && !cryptoReady) {
+      alert('Network RPC temporarily unavailable. Try switching to Base or Base Sepolia.')
+      return
+    }
+
+    console.log(`💸 PaymentUI: Calling buyMinutes with amount=${selectedAmount}, method=${paymentMethod}`)
     await buyMinutes(selectedAmount, paymentMethod)
+    console.log(`✅ PaymentUI: buyMinutes call completed`)
     setSelectedAmount('')
   }
 

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { DailyProvider } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
 import { useMinutesBalance } from '../hooks/useMinutesBalance'
+import { useRealPayments } from '../hooks/useRealPayments'
 import { PrivyConnectButton } from '../components/PrivyConnectButton'
 import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
@@ -120,13 +121,71 @@ function HomeContent() {
     clearPaymentHistory,
     resetBalanceForTesting,
     isReady: paymentReady,
-    // Crypto payment properties
+  } = useMinutesBalance()
+
+  // Real payments hooks
+  const {
+    payWithUSDC,
+    switchToNetwork,
     currentNetwork,
     usdcBalance,
     supportedNetworks,
-    switchToNetwork,
-    cryptoReady,
-  } = useMinutesBalance()
+    isReady: cryptoReady,
+    isNetworkSupported,
+    refreshBalance
+  } = useRealPayments()
+
+  // Combined buy minutes function that handles real crypto payments
+  const handleBuyMinutes = async (amount: string, method?: string) => {
+    console.log(`🔥 handleBuyMinutes called:`, { amount, method, cryptoReady, currentNetwork })
+
+    if (method === 'wallet' && cryptoReady) {
+      // Real USDC payment
+      console.log(`🚀 Initiating real USDC payment for $${amount} via wallet on ${currentNetwork}`)
+      const result = await payWithUSDC(amount)
+      console.log(`📋 Payment result:`, result)
+      if (result) {
+        // Add minutes to balance after successful payment
+        const minutesToAdd = Math.floor(parseFloat(amount) * 20) // $1 = 20 minutes
+
+        // Update minutes balance in state and localStorage
+        if (user?.wallet?.address) {
+          const currentBalance = minutesBalance
+          const newBalance = currentBalance + minutesToAdd
+
+          // Update localStorage
+          localStorage.setItem(`minutes_${user.wallet.address}`, newBalance.toString())
+
+          // Store payment history
+          const paymentHistory = JSON.parse(localStorage.getItem(`payments_${user.wallet.address}`) || '[]')
+          paymentHistory.push({
+            amount: amount,
+            minutes: minutesToAdd,
+            method: 'wallet',
+            timestamp: new Date().toISOString(),
+            txId: result.hash,
+            network: result.network
+          })
+          localStorage.setItem(`payments_${user.wallet.address}`, JSON.stringify(paymentHistory))
+
+          console.log(`✅ Real USDC payment successful: +${minutesToAdd} minutes (Tx: ${result.hash})`)
+          console.log(`💰 Balance updated: ${currentBalance} → ${newBalance} minutes`)
+
+          // Trigger real-time balance update without page refresh
+          console.log('🚀 Dispatching minutes-updated event...')
+          window.dispatchEvent(new Event('minutes-updated'))
+        }
+
+        // Refresh USDC balance to show updated amount
+        await refreshBalance()
+
+        console.log(`🎉 Payment completed without page refresh!`)
+      }
+    } else {
+      // Use the original buyMinutes for simulation
+      await buyMinutes(amount, method)
+    }
+  }
 
   // Timer for call duration - simplified
   useEffect(() => {
@@ -423,7 +482,7 @@ function HomeContent() {
               <div style={{ marginTop: '24px' }}>
                 <PaymentUI
                   minutesBalance={minutesBalance}
-                  buyMinutes={buyMinutes}
+                  buyMinutes={handleBuyMinutes}
                   isPurchasing={isPurchasing}
                   calculateMinutesFromDollars={calculateMinutesFromDollars}
                   currentNetwork={currentNetwork}
@@ -431,6 +490,7 @@ function HomeContent() {
                   supportedNetworks={supportedNetworks}
                   switchToNetwork={switchToNetwork}
                   cryptoReady={cryptoReady}
+                  isNetworkSupported={isNetworkSupported}
                 />
               </div>
             )}
@@ -608,7 +668,7 @@ function HomeContent() {
           {isConnected && !isDemoMode && (
             <PaymentUI
               minutesBalance={minutesBalance}
-              buyMinutes={buyMinutes}
+              buyMinutes={handleBuyMinutes}
               isPurchasing={isPurchasing}
               calculateMinutesFromDollars={calculateMinutesFromDollars}
               currentNetwork={currentNetwork}
@@ -616,6 +676,7 @@ function HomeContent() {
               supportedNetworks={supportedNetworks}
               switchToNetwork={switchToNetwork}
               cryptoReady={cryptoReady}
+              isNetworkSupported={isNetworkSupported}
             />
           )}
 
