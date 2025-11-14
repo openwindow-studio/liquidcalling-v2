@@ -3,21 +3,10 @@
 import { useState, useEffect } from 'react'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
 import { ethers } from 'ethers'
+import * as hl from '@nktkas/hyperliquid'
 
 // Network configurations
 const SUPPORTED_NETWORKS = {
-  // HYPERLIQUID_TESTNET: {
-  //   chainId: 998,
-  //   name: 'HyperLiquid Testnet',
-  //   rpcUrl: 'https://api.hyperliquid-testnet.xyz/evm',
-  //   nativeCurrency: {
-  //     name: 'Ethereum',
-  //     symbol: 'ETH',
-  //     decimals: 18
-  //   },
-  //   usdcAddress: '0xd9CBEC81df392A88AEff575E962d149d57F4d6bc', // USDC on HyperLiquid testnet
-  //   treasuryWallet: process.env.NEXT_PUBLIC_HL_TREASURY_WALLET || '0x...',
-  // },
   BASE_MAINNET: {
     chainId: 8453,
     name: 'Base',
@@ -31,18 +20,20 @@ const SUPPORTED_NETWORKS = {
     usdcAddress: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913', // USDC on Base
     treasuryWallet: process.env.NEXT_PUBLIC_BASE_TREASURY_WALLET || '0x...',
   },
-  BASE_SEPOLIA: {
-    chainId: 84532,
-    name: 'Base Sepolia',
-    rpcUrl: 'https://base-sepolia-rpc.publicnode.com',
-    blockExplorer: 'https://sepolia.basescan.org',
+  HYPERLIQUID_MAINNET: {
+    chainId: 999,
+    name: 'Hyperliquid',
+    rpcUrl: 'https://rpc.hyperliquid.xyz/evm',
+    blockExplorer: 'https://hyperevmscan.io',
+    apiUrl: 'https://api.hyperliquid.xyz/info', // HyperCore API endpoint
+    isHyperCore: true, // Flag to use HyperCore API instead of EVM
     nativeCurrency: {
-      name: 'Ethereum',
-      symbol: 'ETH',
+      name: 'HYPE',
+      symbol: 'HYPE',
       decimals: 18
     },
-    usdcAddress: '0x036CbD53842c5426634e7929541eC2318f3dCF7e', // USDC on Base Sepolia
-    treasuryWallet: process.env.NEXT_PUBLIC_BASE_SEPOLIA_TREASURY_WALLET || '0x...',
+    usdcAddress: 'USDC', // Using coin name for HyperCore instead of contract address
+    treasuryWallet: process.env.NEXT_PUBLIC_HL_TREASURY_WALLET || '0x...',
   }
 }
 
@@ -208,27 +199,71 @@ export function useRealPayments() {
       const userAddress = accounts[0]
 
       console.log(`💰 Checking USDC balance on ${currentNetwork} for ${userAddress}`)
-      console.log(`📄 USDC contract: ${config.usdcAddress}`)
 
       if (!userAddress) return '0'
 
-      // Use ethers with the raw provider
-      const ethersProvider = new ethers.BrowserProvider(provider)
-      const usdcContract = new ethers.Contract(
-        config.usdcAddress,
-        ERC20_ABI,
-        ethersProvider
-      )
+      // Handle HyperCore API differently from EVM
+      if (config.isHyperCore) {
+        console.log(`📡 Using HyperCore API: ${config.apiUrl}`)
 
-      const [balance, decimals] = await Promise.all([
-        usdcContract.balanceOf(userAddress),
-        usdcContract.decimals()
-      ])
+        // Call HyperLiquid API for spot balances
+        const response = await fetch(config.apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'spotClearinghouseState',
+            user: userAddress
+          })
+        })
 
-      const formattedBalance = ethers.formatUnits(balance, decimals)
-      console.log(`💵 Raw balance: ${balance.toString()}, Decimals: ${decimals}, Formatted: ${formattedBalance}`)
+        if (!response.ok) {
+          throw new Error(`HyperCore API error: ${response.status}`)
+        }
 
-      return formattedBalance
+        const data = await response.json()
+        console.log('🔍 HyperCore API response:', data)
+        console.log('🔍 All balances:', data.balances)
+
+        // Find USDC in spot balances (direct balances array)
+        const spotBalances = data.balances || []
+        console.log('🔍 Searching for USDC in', spotBalances.length, 'balances')
+
+        const usdcBalance = spotBalances.find(balance => balance.coin === 'USDC')
+        console.log('🔍 Found USDC balance:', usdcBalance)
+
+        if (usdcBalance) {
+          console.log(`💵 HyperCore USDC balance: ${usdcBalance.total}`)
+          return usdcBalance.total
+        } else {
+          console.log('💵 No USDC balance found in HyperCore')
+          console.log('💵 Available coins:', spotBalances.map(b => b.coin))
+          return '0'
+        }
+
+      } else {
+        // Standard EVM approach for Base and other networks
+        console.log(`📄 USDC contract: ${config.usdcAddress}`)
+
+        const ethersProvider = new ethers.BrowserProvider(provider)
+        const usdcContract = new ethers.Contract(
+          config.usdcAddress,
+          ERC20_ABI,
+          ethersProvider
+        )
+
+        const [balance, decimals] = await Promise.all([
+          usdcContract.balanceOf(userAddress),
+          usdcContract.decimals()
+        ])
+
+        const formattedBalance = ethers.formatUnits(balance, decimals)
+        console.log(`💵 EVM balance: ${balance.toString()}, Decimals: ${decimals}, Formatted: ${formattedBalance}`)
+
+        return formattedBalance
+      }
+
     } catch (error) {
       console.error('Failed to get USDC balance:', error)
 
@@ -262,6 +297,118 @@ export function useRealPayments() {
     setError(null)
 
     try {
+      // Handle HyperCore spot transfers differently from EVM
+      if (config.isHyperCore) {
+        console.log(`🚀 Initiating HyperCore USDC transfer for $${amountUSD}`)
+
+        const provider = await wallet.getEthereumProvider()
+        const accounts = await provider.request({ method: 'eth_accounts' })
+        const userAddress = accounts[0]
+
+        if (!userAddress) {
+          throw new Error('No wallet address found')
+        }
+
+        console.log(`💰 HyperCore transfer: ${userAddress} → ${config.treasuryWallet}`)
+        console.log(`💸 Amount: $${amountUSD} USDC`)
+
+        // Create ethers signer from provider
+        const ethersProvider = new ethers.BrowserProvider(provider)
+        const signer = await ethersProvider.getSigner()
+
+        // Setup HyperLiquid exchange client
+        const transport = new hl.HttpTransport()
+        const exchClient = new hl.ExchangeClient({
+          wallet: signer,
+          transport
+        })
+
+        // Prepare usdSend action
+        const usdSendAction = {
+          type: 'usdSend',
+          hyperliquidChain: 'Mainnet',
+          signatureChainId: '0xa4b1', // Arbitrum chain ID for signature
+          destination: config.treasuryWallet,
+          amount: amountUSD,
+          time: Date.now()
+        }
+
+        // First, let's check where your USDC actually is
+        console.log('🔍 Checking perps balance vs spot balance...')
+
+        // Check perpetuals clearinghouse state
+        const perpsResponse = await fetch('https://api.hyperliquid.xyz/info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'clearinghouseState',
+            user: userAddress
+          })
+        })
+        const perpsData = await perpsResponse.json()
+        console.log('💰 Perps withdrawable:', perpsData?.withdrawable || '0')
+
+        console.log('🔥 Executing usdSend action:', usdSendAction)
+        console.log('🔍 Available methods on exchClient:', Object.getOwnPropertyNames(exchClient))
+        console.log('🔍 Available methods (prototype):', Object.getOwnPropertyNames(Object.getPrototypeOf(exchClient)))
+
+        try {
+          // First get the USDC token ID from spot metadata
+          console.log('🔍 Getting USDC token ID from HyperLiquid spot metadata...')
+
+          const metaResponse = await fetch('https://api.hyperliquid.xyz/info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'spotMeta' })
+          })
+
+          if (!metaResponse.ok) {
+            throw new Error(`Failed to fetch spot metadata: ${metaResponse.status}`)
+          }
+
+          const spotMeta = await metaResponse.json()
+          console.log('📊 Spot metadata received:', spotMeta)
+
+          // Find USDC token in the metadata
+          const usdcToken = spotMeta.tokens?.find((token: any) =>
+            token.name === 'USDC' || token.szDecimals === 6
+          )
+
+          if (!usdcToken) {
+            throw new Error('USDC token not found in HyperLiquid spot metadata')
+          }
+
+          const tokenId = usdcToken.tokenId || usdcToken.index?.toString() || '0'
+          const tokenFormat = `USDC:${tokenId}`
+
+          console.log(`💡 Found USDC token: ${JSON.stringify(usdcToken)}`)
+          console.log(`🎯 Using token format: ${tokenFormat}`)
+
+          // Use spotSend since your USDC is in spot balance, not perps
+          console.log('💡 Using spotSend since USDC is in spot balance...')
+          const result = await exchClient.spotSend({
+            destination: config.treasuryWallet,
+            token: tokenFormat,
+            amount: amountUSD
+          })
+          console.log('✅ HyperCore payment successful:', result)
+
+          if (result.status === 'ok') {
+            return {
+              hash: `hl_${usdSendAction.time}`,
+              network: config.name,
+              amount: amountUSD
+            }
+          } else {
+            throw new Error(`HyperCore payment failed: ${JSON.stringify(result)}`)
+          }
+        } catch (hlError: any) {
+          console.error('❌ HyperCore payment error:', hlError)
+          throw new Error(`HyperCore payment failed: ${hlError.message}`)
+        }
+      }
+
+      // Standard EVM approach for Base and other networks
       const provider = await wallet.getEthereumProvider()
       const accounts = await provider.request({ method: 'eth_accounts' })
       const userAddress = accounts[0]

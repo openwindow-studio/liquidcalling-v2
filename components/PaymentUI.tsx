@@ -166,7 +166,10 @@ export function PaymentUI({
             disabled={isPurchasing}
           >
             <option value="">Select Amount</option>
-            <option value="5">$5 ({calculateMinutesFromDollars("5")} min)</option>
+            {/* Show $5 option only for non-HyperLiquid networks */}
+            {paymentMethod !== 'wallet' || !currentNetwork?.includes('HYPERLIQUID') ? (
+              <option value="5">$5 ({calculateMinutesFromDollars("5")} min)</option>
+            ) : null}
             <option value="10">$10 ({calculateMinutesFromDollars("10")} min)</option>
             <option value="20">$20 ({calculateMinutesFromDollars("20")} min)</option>
             <option value="50">$50 ({calculateMinutesFromDollars("50")} min)</option>
@@ -192,7 +195,7 @@ export function PaymentUI({
             marginTop: '8px',
             fontFamily: 'Britti Sans'
           }}>
-            Switch to Base or HyperLiquid to pay with USDC
+            Switch to Base or Hyperliquid to pay with USDC
           </div>
         )}
 
