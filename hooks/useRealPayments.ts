@@ -19,7 +19,7 @@ const SUPPORTED_NETWORKS = {
       decimals: 18
     },
     usdcAddress: '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913', // USDC on Base
-    treasuryWallet: process.env.NEXT_PUBLIC_BASE_TREASURY_WALLET || '0x...',
+    treasuryWallet: '0xa12f3751537daff23b960ae46f27d5ed115c9b08', // Hardcoded for production
     isHyperCore: false, // Standard EVM network
   },
   HYPERLIQUID_MAINNET: {
@@ -35,7 +35,7 @@ const SUPPORTED_NETWORKS = {
       decimals: 18
     },
     usdcAddress: 'USDC', // Using coin name for HyperCore instead of contract address
-    treasuryWallet: process.env.NEXT_PUBLIC_HL_TREASURY_WALLET || '0x...',
+    treasuryWallet: '0xdda3c65ce94c40974ad4b32312dcdd40f9e3f07a', // Hardcoded for production
   }
 }
 

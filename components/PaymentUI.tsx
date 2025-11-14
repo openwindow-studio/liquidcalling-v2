@@ -44,7 +44,7 @@ export function PaymentUI({
     }
 
     if (paymentMethod === 'wallet' && isNetworkSupported && !cryptoReady) {
-      alert('Network RPC temporarily unavailable. Try switching to Base or Base Sepolia.')
+      alert('Network RPC temporarily unavailable. Try switching to Base.')
       return
     }
 
