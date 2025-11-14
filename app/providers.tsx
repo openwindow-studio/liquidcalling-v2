@@ -23,13 +23,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
             createOnLogin: 'users-without-wallets',
           },
         },
-        externalWallets: {
-          metaMask: {},
-          walletConnect: {},
-          rainbow: {},
-          coinbaseWallet: {},
-          phantom: {},
-        },
         supportedChains: [
           // Ethereum Mainnet
           { id: 1, name: 'Ethereum', network: 'ethereum', rpcUrls: ['https://mainnet.infura.io/v3/'] },
