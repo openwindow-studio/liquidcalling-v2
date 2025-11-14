@@ -89,7 +89,7 @@ export function useRealPayments() {
       console.error('Failed to get network:', error)
 
       // Don't set error state for HyperLiquid RPC issues - just log and continue
-      if (error.message?.includes('RPC endpoint returned too many errors')) {
+      if (error instanceof Error && error.message?.includes('RPC endpoint returned too many errors')) {
         console.warn('HyperLiquid RPC temporarily unavailable, but network switching still works')
         return null
       }
