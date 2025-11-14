@@ -12,7 +12,7 @@ type PaymentUIProps = {
   currentNetwork: string | null
   usdcBalance: string
   supportedNetworks: any
-  switchToNetwork: (network: string) => Promise<boolean>
+  switchToNetwork: (network: any) => Promise<boolean>
   cryptoReady: boolean
 }
 
