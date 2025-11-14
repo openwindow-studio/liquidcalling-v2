@@ -2012,3 +2012,10 @@ border-radius: 60px;
 
 /* END Wallet Connect Button in Connected State */
 
+/* Connected Circle Green Bullet */
+.connected-circle {
+  color: #22c55e !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+

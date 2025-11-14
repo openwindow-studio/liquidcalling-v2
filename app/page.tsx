@@ -402,7 +402,7 @@ function HomeContent() {
                 <path d="M3 4h8"/>
               </svg>
               <span>Connected</span>
-              <div className="connected-circle"></div>
+              <div className="connected-circle">•</div>
               <span>Locked In</span>
             </div>
           )}
@@ -420,26 +420,10 @@ function HomeContent() {
                 </div>
 
                 <div className="figma-buy-minutes">
-                  <div style={{
-                    display: 'flex',
-                    gap: '8px',
-                    marginBottom: '8px',
-                    width: '50%',
-                    margin: '0 auto'
-                  }}>
+                  <div className="figma-buy-minutes-form">
                     <select
                       id="dollar-amount-call-top"
                       className="figma-dollar-select"
-                      style={{
-                        flex: 1,
-                        backgroundColor: 'transparent',
-                        color: 'rgba(255, 255, 255, 0.92)',
-                        border: '2px solid rgba(209, 209, 209, 0.69)',
-                        borderRadius: '9px',
-                        padding: '6px 8px',
-                        fontSize: '14px',
-                        fontFamily: 'Britt Sans, sans-serif'
-                      }}
                       disabled={isPurchasing}
                     >
                       <option value="">Select Amount</option>
@@ -462,25 +446,9 @@ function HomeContent() {
                         }
                       }}
                       disabled={isPurchasing}
-                      style={{
-                        padding: '6px 16px',
-                        backgroundColor: 'rgba(249, 255, 250, 0.47)',
-                        border: '2px solid rgba(209, 209, 209, 0.69)',
-                        borderRadius: '10px',
-                        cursor: 'pointer',
-                        opacity: isPurchasing ? 0.6 : 1,
-                        fontSize: '14px',
-                        fontWeight: '400',
-                        whiteSpace: 'nowrap',
-                        fontFamily: 'Britti Sans Trial, sans-serif'
-                      }}
+                      className="figma-buy-button"
                     >
-                      <span style={{
-                        color: 'rgba(0, 0, 0, 0.8)',
-                        mixBlendMode: 'color-burn',
-                        position: 'relative',
-                        zIndex: 10
-                      }}>
+                      <span className="figma-buy-button-text">
                         {isPurchasing ? 'Processing...' : 'Buy Minutes'}
                       </span>
                     </button>
@@ -572,7 +540,7 @@ function HomeContent() {
 
         {/* Main CTA Button - FIGMA RESPONSIVE */}
         <button
-          onClick={() => handleSetDemoMode(true)}
+          onClick={login}
           className="figma-cta-button"
         >
           <span className="figma-cta-text">Connect to start your call</span>
@@ -650,7 +618,7 @@ function HomeContent() {
               <path d="M3 4h8"/>
             </svg>
             <span>Connected</span>
-            <div className="connected-circle"></div>
+            <div className="connected-circle">•</div>
             <span>Locked In</span>
           </div>
         )}
@@ -667,26 +635,10 @@ function HomeContent() {
               </div>
 
               <div className="figma-buy-minutes">
-                <div style={{
-                  display: 'flex',
-                  gap: '8px',
-                  marginBottom: '8px',
-                  width: '50%',
-                  margin: '0 auto'
-                }}>
+                <div className="figma-buy-minutes-form">
                   <select
                     id="dollar-amount"
                     className="figma-dollar-select"
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'transparent',
-                      color: 'rgba(255, 255, 255, 0.92)',
-                      border: '2px solid rgba(209, 209, 209, 0.69)',
-                      borderRadius: '9px',
-                      padding: '6px 8px',
-                      fontSize: '14px',
-                      fontFamily: 'Britt Sans, sans-serif'
-                    }}
                     disabled={isPurchasing}
                   >
                     <option value="">Select Amount</option>
@@ -710,25 +662,9 @@ function HomeContent() {
                       }
                     }}
                     disabled={isPurchasing}
-                    style={{
-                      padding: '6px 16px',
-                      backgroundColor: 'rgba(249, 255, 250, 0.47)',
-                      border: '2px solid rgba(209, 209, 209, 0.69)',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                      opacity: isPurchasing ? 0.6 : 1,
-                      fontSize: '14px',
-                      fontWeight: '400',
-                      whiteSpace: 'nowrap',
-                      fontFamily: 'Britti Sans Trial, sans-serif'
-                    }}
+                    className="figma-buy-button"
                   >
-                    <span style={{
-                      color: 'rgba(0, 0, 0, 0.8)',
-                      mixBlendMode: 'color-burn',
-                      position: 'relative',
-                      zIndex: 10
-                    }}>
+                    <span className="figma-buy-button-text">
                       {isPurchasing ? 'Processing...' : 'Buy Minutes'}
                     </span>
                   </button>

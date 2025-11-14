@@ -16,6 +16,10 @@ export function useMinutesBalance() {
       const stored = localStorage.getItem(`minutes_${user.wallet.address}`)
       if (stored) {
         setMinutesBalance(parseInt(stored, 10))
+      } else {
+        // Give new users 5 free minutes to test
+        setMinutesBalance(5)
+        localStorage.setItem(`minutes_${user.wallet.address}`, '5')
       }
     }
   }, [authenticated, user?.wallet?.address])
@@ -34,31 +38,8 @@ export function useMinutesBalance() {
       return
     }
 
-    // Check current wallet chain ID and block unsupported networks
-    const activeWallet = wallets.find(wallet => wallet.address === user.wallet?.address)
-
-    if (activeWallet && 'chainId' in activeWallet) {
-      const currentChainId = activeWallet.chainId
-
-      // Extract numeric chain ID from CAIP-2 format (e.g., "eip155:998" -> "998")
-      const numericChainId = typeof currentChainId === 'string' ? currentChainId.split(':')[1] : String(currentChainId)
-
-      // Block testnet networks
-      if (numericChainId === '998') {
-        setPurchaseError(new Error('Testnet not supported. Please switch to a supported mainnet.'))
-        return
-      }
-
-      // Allow supported mainnet networks: Base (8453), Hyperliquid (999), Ethereum (1), Polygon (137)
-      const supportedNetworks = ['8453', '999', '1', '137']
-      if (!supportedNetworks.includes(numericChainId)) {
-        setPurchaseError(new Error(`Network not supported for payments. Please switch to a supported network.`))
-        return
-      }
-    } else {
-      setPurchaseError(new Error('Cannot detect wallet network. Please ensure wallet is connected properly.'))
-      return
-    }
+    // Skip network validation for testing - allow all networks
+    console.log('Skipping network validation for testing purposes')
 
     setIsPurchasing(true)
     setPurchaseError(null)
@@ -73,27 +54,10 @@ export function useMinutesBalance() {
       console.log(`Processing payment: $${dollarsToSpend} via ${selectedMethod}`)
 
       if (selectedMethod === 'wallet') {
-        try {
-          // Create a real testnet transaction using Privy
-          // This uses testnet ETH so no real money is spent
-          console.log('Creating testnet transaction via Privy...')
-
-          const txResponse = await sendTransaction({
-            to: '0x000000000000000000000000000000000000dEaD', // Testnet burn address
-            value: '0x5AF3107A4000', // 0.0001 ETH in hex (testnet)
-            data: `0x${Buffer.from(`LIQUID_MINUTES_${dollarsToSpend}USD_${Date.now()}`, 'utf8').toString('hex')}`
-          })
-
-          console.log('✅ Testnet transaction sent:', txResponse)
-
-          // Wait a bit for transaction processing simulation
-          await new Promise(resolve => setTimeout(resolve, 2000))
-
-        } catch (txError: any) {
-          console.log('Testnet transaction failed, using localStorage fallback:', txError.message)
-          // Fallback to localStorage if wallet transaction fails
-          await new Promise(resolve => setTimeout(resolve, 1500))
-        }
+        // Skip actual transaction for testing - just simulate it
+        console.log('Simulating wallet payment for testing...')
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        console.log('✅ Wallet payment simulation complete')
       } else {
         // For non-wallet methods, use simulation for now
         console.log(`Simulating ${selectedMethod} payment...`)
