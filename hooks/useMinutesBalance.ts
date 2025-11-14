@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { usePrivy, useWallets } from '@privy-io/react-auth'
+import { usePrivy, useWallets, useFundWallet } from '@privy-io/react-auth'
 
 interface UseMinutesBalanceProps {
   realPaymentFunction?: (amount: string) => Promise<any>
@@ -10,6 +10,7 @@ interface UseMinutesBalanceProps {
 export function useMinutesBalance(props?: UseMinutesBalanceProps) {
   const { authenticated, user, sendTransaction } = usePrivy()
   const { wallets } = useWallets()
+  const { fundWallet } = useFundWallet()
 
   const [minutesBalance, setMinutesBalance] = useState(0)
   const [isPurchasing, setIsPurchasing] = useState(false)
@@ -92,8 +93,37 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
         }
 
         console.log(`✅ Real USDC payment successful:`, paymentResult)
+      } else if (selectedMethod === 'privy') {
+        // Use Privy's fund wallet for credit card payments
+        console.log('Processing credit card payment via Privy...')
+
+        try {
+          // Get user's wallet address
+          const walletAddress = user?.wallet?.address
+          if (!walletAddress) {
+            throw new Error('No wallet address found')
+          }
+
+          // Open Privy's funding modal with MoonPay for credit card payment
+          // The user will complete payment in the modal, then we check if successful
+          const result = await fundWallet({
+            address: walletAddress,
+            chain: { id: 8453, name: 'Base' }, // Default to Base for credit card purchases
+            asset: 'USDC',
+            amount: dollarsToSpend
+          })
+
+          if (result) {
+            console.log(`✅ Credit card payment successful via Privy/MoonPay`)
+          } else {
+            throw new Error('Credit card payment was cancelled or failed')
+          }
+        } catch (error: any) {
+          console.error('Credit card payment failed:', error)
+          throw new Error(`Credit card payment failed: ${error.message}`)
+        }
       } else {
-        // For non-wallet methods or when no real payment function provided, use simulation
+        // For other methods, use simulation
         console.log(`Simulating ${selectedMethod} payment...`)
         const delay = selectedMethod === 'apple' ? 1000 : selectedMethod === 'google' ? 1200 : 1500
         await new Promise(resolve => setTimeout(resolve, delay))

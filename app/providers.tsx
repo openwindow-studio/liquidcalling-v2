@@ -23,6 +23,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
             createOnLogin: 'users-without-wallets',
           },
         },
+        // Configure MoonPay for credit card payments
+        fundingMethodConfig: {
+          moonpay: {
+            paymentMethod: 'credit_debit_card',
+            uiConfig: {
+              accentColor: '#6366F1',
+              theme: 'dark',
+            },
+          },
+        },
         supportedChains: [
           // Ethereum Mainnet
           {
