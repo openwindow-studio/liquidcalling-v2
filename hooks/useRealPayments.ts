@@ -484,12 +484,22 @@ export function useRealPayments() {
     }
   }
 
-  // Auto-detect network on wallet change
+  // Auto-detect network on wallet change and auto-switch to Base if needed
   useEffect(() => {
     if (wallet) {
       getCurrentNetwork().then(network => {
         console.log('Detected network:', network)
         setCurrentNetwork(network)
+
+        // Auto-switch to Base if user is on unsupported network
+        if (!network || !(network in SUPPORTED_NETWORKS)) {
+          console.log('User on unsupported network, auto-switching to Base...')
+          switchToNetwork('BASE_MAINNET').then(success => {
+            if (success) {
+              console.log('✅ Successfully auto-switched to Base network')
+            }
+          })
+        }
       })
     }
   }, [wallet])
