@@ -12,6 +12,7 @@ const SUPPORTED_NETWORKS = {
     name: 'Base',
     rpcUrl: 'https://mainnet.base.org',
     blockExplorer: 'https://basescan.org',
+    apiUrl: '', // Not used for EVM networks
     nativeCurrency: {
       name: 'Ethereum',
       symbol: 'ETH',
