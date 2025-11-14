@@ -108,9 +108,12 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
           // The user will complete payment in the modal, then we check if successful
           const result = await fundWallet({
             address: walletAddress,
-            chain: { id: 8453, name: 'Base' }, // Default to Base for credit card purchases
-            asset: 'USDC',
-            amount: dollarsToSpend
+            options: {
+              // MoonPay options for credit card payment
+              currencyCode: 'USDC_BASE',
+              quoteCurrencyAmount: parseFloat(dollarsToSpend),
+              paymentMethod: 'credit_debit_card'
+            }
           })
 
           if (result) {
