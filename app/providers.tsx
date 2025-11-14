@@ -25,11 +25,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
         supportedChains: [
           // Ethereum Mainnet
-          { id: 1, name: 'Ethereum', network: 'ethereum', rpcUrls: ['https://mainnet.infura.io/v3/'] },
+          { id: 1, name: 'Ethereum', network: 'ethereum', rpcUrls: { default: { http: ['https://mainnet.infura.io/v3/'] } } },
           // Base
-          { id: 8453, name: 'Base', network: 'base', rpcUrls: ['https://mainnet.base.org'] },
+          { id: 8453, name: 'Base', network: 'base', rpcUrls: { default: { http: ['https://mainnet.base.org'] } } },
           // Hyperliquid Mainnet
-          { id: 999, name: 'Hyperliquid', network: 'hyperliquid', rpcUrls: ['https://rpc.hyperliquid.xyz/evm'] },
+          { id: 999, name: 'Hyperliquid', network: 'hyperliquid', rpcUrls: { default: { http: ['https://rpc.hyperliquid.xyz/evm'] } } },
         ],
       }}
     >
