@@ -232,7 +232,7 @@ export function useRealPayments() {
         const spotBalances = data.balances || []
         console.log('🔍 Searching for USDC in', spotBalances.length, 'balances')
 
-        const usdcBalance = spotBalances.find(balance => balance.coin === 'USDC')
+        const usdcBalance = spotBalances.find((balance: any) => balance.coin === 'USDC')
         console.log('🔍 Found USDC balance:', usdcBalance)
 
         if (usdcBalance) {
