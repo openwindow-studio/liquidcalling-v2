@@ -240,7 +240,7 @@ export function useRealPayments() {
           return usdcBalance.total
         } else {
           console.log('💵 No USDC balance found in HyperCore')
-          console.log('💵 Available coins:', spotBalances.map(b => b.coin))
+          console.log('💵 Available coins:', spotBalances.map((b: any) => b.coin))
           return '0'
         }
 
