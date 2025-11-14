@@ -6,6 +6,7 @@ import { DailyProvider } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
 import { useMinutesBalance } from '../hooks/useMinutesBalance'
 import { PrivyConnectButton } from '../components/PrivyConnectButton'
+import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 
@@ -413,47 +414,18 @@ function HomeContent() {
 
             {/* 2. Minutes Balance Section - Show for connected users during calls */}
             {isConnected && !isDemoMode && (
-              <div className="figma-minutes-section" style={{ marginTop: '24px' }}>
-                <div className="figma-minutes-balance">
-                  <span className="figma-minutes-label">Minutes Balance</span>
-                  <span className="figma-minutes-value" style={{ fontWeight: 'bold' }}> {minutesBalance}</span>
-                </div>
-
-                <div className="figma-buy-minutes">
-                  <div className="figma-buy-minutes-form">
-                    <select
-                      id="dollar-amount-call-top"
-                      className="figma-dollar-select"
-                      disabled={isPurchasing}
-                    >
-                      <option value="">Select Amount</option>
-                      <option value="5">$5 ({calculateMinutesFromDollars("5")} min)</option>
-                      <option value="10">$10 ({calculateMinutesFromDollars("10")} min)</option>
-                      <option value="20">$20 ({calculateMinutesFromDollars("20")} min)</option>
-                      <option value="50">$50 ({calculateMinutesFromDollars("50")} min)</option>
-                    </select>
-
-                    <button
-                      onClick={() => {
-                        const dollarSelect = document.getElementById('dollar-amount-call-top') as HTMLSelectElement
-                        const dollars = dollarSelect.value
-
-                        if (dollars) {
-                          buyMinutes(dollars, 'wallet')
-                          dollarSelect.value = ''
-                        } else {
-                          alert('Please select an amount')
-                        }
-                      }}
-                      disabled={isPurchasing}
-                      className="figma-buy-button"
-                    >
-                      <span className="figma-buy-button-text">
-                        {isPurchasing ? 'Processing...' : 'Buy Minutes'}
-                      </span>
-                    </button>
-                  </div>
-                </div>
+              <div style={{ marginTop: '24px' }}>
+                <PaymentUI
+                  minutesBalance={minutesBalance}
+                  buyMinutes={buyMinutes}
+                  isPurchasing={isPurchasing}
+                  calculateMinutesFromDollars={calculateMinutesFromDollars}
+                  currentNetwork={currentNetwork}
+                  usdcBalance={usdcBalance}
+                  supportedNetworks={supportedNetworks}
+                  switchToNetwork={switchToNetwork}
+                  cryptoReady={cryptoReady}
+                />
               </div>
             )}
 
@@ -628,74 +600,17 @@ function HomeContent() {
 
           {/* Minutes Balance Section - Only show for connected users */}
           {isConnected && !isDemoMode && (
-            <div className="figma-minutes-section">
-              <div className="figma-minutes-balance">
-                <span className="figma-minutes-label">Minutes Balance</span>
-                <span className="figma-minutes-value" style={{ fontWeight: 'bold' }}> {minutesBalance}</span>
-              </div>
-
-              <div className="figma-buy-minutes">
-                <div className="figma-buy-minutes-form">
-                  <select
-                    id="dollar-amount"
-                    className="figma-dollar-select"
-                    disabled={isPurchasing}
-                  >
-                    <option value="">Select Amount</option>
-                    <option value="5">$5 ({calculateMinutesFromDollars("5")} min)</option>
-                    <option value="10">$10 ({calculateMinutesFromDollars("10")} min)</option>
-                    <option value="20">$20 ({calculateMinutesFromDollars("20")} min)</option>
-                    <option value="50">$50 ({calculateMinutesFromDollars("50")} min)</option>
-                  </select>
-
-                  <button
-                    onClick={() => {
-                      const dollarSelect = document.getElementById('dollar-amount') as HTMLSelectElement
-                      const dollars = dollarSelect.value
-
-                      if (dollars) {
-                        buyMinutes(dollars, 'wallet')
-                        // Reset select after purchase
-                        dollarSelect.value = ''
-                      } else {
-                        alert('Please select an amount')
-                      }
-                    }}
-                    disabled={isPurchasing}
-                    className="figma-buy-button"
-                  >
-                    <span className="figma-buy-button-text">
-                      {isPurchasing ? 'Processing...' : 'Buy Minutes'}
-                    </span>
-                  </button>
-                </div>
-
-                {isPurchasing && (
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginTop: '8px',
-                    fontSize: '14px',
-                    color: 'rgba(255, 255, 255, 0.7)'
-                  }}>
-                    <div className="loading-dots"></div>
-                    <span>Processing...</span>
-                  </div>
-                )}
-
-                {purchaseError && (
-                  <div style={{
-                    marginTop: '8px',
-                    fontSize: '13px',
-                    color: '#ff6b6b',
-                    textAlign: 'center'
-                  }}>
-                    Error: {purchaseError.message}
-                  </div>
-                )}
-              </div>
-            </div>
+            <PaymentUI
+              minutesBalance={minutesBalance}
+              buyMinutes={buyMinutes}
+              isPurchasing={isPurchasing}
+              calculateMinutesFromDollars={calculateMinutesFromDollars}
+              currentNetwork={currentNetwork}
+              usdcBalance={usdcBalance}
+              supportedNetworks={supportedNetworks}
+              switchToNetwork={switchToNetwork}
+              cryptoReady={cryptoReady}
+            />
           )}
 
 

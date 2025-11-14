@@ -2,10 +2,21 @@
 
 import { useState, useEffect } from 'react'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
+import { useRealPayments } from './useRealPayments'
 
 export function useMinutesBalance() {
   const { authenticated, user, sendTransaction } = usePrivy()
   const { wallets } = useWallets()
+  const {
+    payWithUSDC,
+    switchToNetwork,
+    currentNetwork,
+    usdcBalance,
+    supportedNetworks,
+    isReady: cryptoReady,
+    refreshBalance
+  } = useRealPayments()
+
   const [minutesBalance, setMinutesBalance] = useState(0)
   const [isPurchasing, setIsPurchasing] = useState(false)
   const [purchaseError, setPurchaseError] = useState<Error | null>(null)
@@ -53,9 +64,35 @@ export function useMinutesBalance() {
       const selectedMethod = paymentMethod || 'wallet'
       console.log(`Processing payment: $${dollarsToSpend} via ${selectedMethod}`)
 
-      if (selectedMethod === 'wallet') {
-        // Skip actual transaction for testing - just simulate it
-        console.log('Simulating wallet payment for testing...')
+      if (selectedMethod === 'wallet' && cryptoReady) {
+        // Real USDC payment
+        console.log(`Processing real USDC payment: $${dollarsToSpend}`)
+        const result = await payWithUSDC(dollarsToSpend)
+
+        if (!result) {
+          throw new Error('USDC payment failed')
+        }
+
+        console.log(`✅ Real USDC payment successful on ${result.network}:`, result.hash)
+
+        // Store transaction hash for verification
+        const paymentHistory = JSON.parse(localStorage.getItem(`payments_${user.wallet.address}`) || '[]')
+        paymentHistory.push({
+          amount: dollarsToSpend,
+          minutes: minutesToAdd,
+          method: 'USDC',
+          network: result.network,
+          timestamp: new Date().toISOString(),
+          txHash: result.hash
+        })
+        localStorage.setItem(`payments_${user.wallet.address}`, JSON.stringify(paymentHistory))
+
+        // Refresh USDC balance
+        refreshBalance()
+
+      } else if (selectedMethod === 'wallet') {
+        // Fallback to simulation if crypto not ready
+        console.log('Crypto not ready, simulating wallet payment...')
         await new Promise(resolve => setTimeout(resolve, 1500))
         console.log('✅ Wallet payment simulation complete')
       } else {
@@ -137,5 +174,12 @@ export function useMinutesBalance() {
     clearPaymentHistory,
     resetBalanceForTesting,
     isReady: authenticated, // Ready when user is authenticated
+
+    // Crypto payment info
+    currentNetwork,
+    usdcBalance,
+    supportedNetworks,
+    switchToNetwork,
+    cryptoReady,
   }
 }
