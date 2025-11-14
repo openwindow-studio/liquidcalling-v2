@@ -24,11 +24,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
           },
         },
         externalWallets: {
-          metaMask: { connectionOptions: 'recommendedFirst' },
-          walletConnect: { connectionOptions: 'recommendedFirst' },
-          rainbow: { connectionOptions: 'recommendedSecond' },
-          coinbaseWallet: { connectionOptions: 'recommendedSecond' },
-          phantom: { connectionOptions: 'recommended' },
+          metaMask: { enabled: true },
+          walletConnect: { enabled: true },
+          rainbow: { enabled: true },
+          coinbaseWallet: { enabled: true },
+          phantom: { enabled: true },
         },
         supportedChains: [
           // Ethereum Mainnet
