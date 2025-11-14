@@ -119,7 +119,13 @@ function HomeContent() {
     getPaymentHistory,
     clearPaymentHistory,
     resetBalanceForTesting,
-    isReady: paymentReady
+    isReady: paymentReady,
+    // Crypto payment properties
+    currentNetwork,
+    usdcBalance,
+    supportedNetworks,
+    switchToNetwork,
+    cryptoReady,
   } = useMinutesBalance()
 
   // Timer for call duration - simplified
