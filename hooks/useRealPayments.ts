@@ -10,7 +10,7 @@ const SUPPORTED_NETWORKS = {
   BASE_MAINNET: {
     chainId: 8453,
     name: 'Base',
-    rpcUrl: 'https://mainnet.base.org',
+    rpcUrl: 'https://base-mainnet.g.alchemy.com/v2/demo',
     blockExplorer: 'https://basescan.org',
     apiUrl: '', // Not used for EVM networks
     nativeCurrency: {
@@ -137,7 +137,12 @@ export function useRealPayments() {
             const addChainParams: any = {
               chainId: `0x${config.chainId.toString(16)}`,
               chainName: config.name,
-              rpcUrls: [config.rpcUrl],
+              rpcUrls: networkKey === 'BASE_MAINNET' ? [
+                'https://base-mainnet.g.alchemy.com/v2/demo',
+                'https://mainnet.base.org',
+                'https://base.gateway.tenderly.co',
+                'https://base-rpc.publicnode.com'
+              ] : [config.rpcUrl],
               nativeCurrency: config.nativeCurrency || {
                 name: 'Ethereum',
                 symbol: 'ETH',
