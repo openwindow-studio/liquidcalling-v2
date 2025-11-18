@@ -166,6 +166,10 @@ export function PaymentUI({
             disabled={isPurchasing}
           >
             <option value="">Select Amount</option>
+            {/* Show $1 option for Base network and credit card payments */}
+            {(paymentMethod === 'privy' || currentNetwork?.includes('BASE')) ? (
+              <option value="1">$1 ({calculateMinutesFromDollars("1")} min)</option>
+            ) : null}
             {/* Show $5 option only for non-HyperLiquid networks */}
             {paymentMethod !== 'wallet' || !currentNetwork?.includes('HYPERLIQUID') ? (
               <option value="5">$5 ({calculateMinutesFromDollars("5")} min)</option>
