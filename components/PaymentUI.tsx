@@ -167,7 +167,7 @@ export function PaymentUI({
           >
             <option value="">Select Amount</option>
             {/* Show $1 option for Base network and credit card payments */}
-            {(paymentMethod === 'privy' || currentNetwork?.includes('BASE')) ? (
+            {(paymentMethod === 'stripe' || currentNetwork?.includes('BASE')) ? (
               <option value="1">$1 ({calculateMinutesFromDollars("1")} min)</option>
             ) : null}
             {/* Show $5 option only for non-HyperLiquid networks */}
