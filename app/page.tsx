@@ -597,7 +597,7 @@ function HomeContent() {
         </div>
 
         <div className="figma-footer-right">
-          Pay .05 USDC per minute on HyperLiquid or Base, or use your credit card. Speak freely. No KYC. No data collection. Just secure calls.
+          Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
         </div>
 
         <div className="figma-copyright">
