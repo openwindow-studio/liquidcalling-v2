@@ -3,6 +3,7 @@ import '../styles/fonts.css'
 import '../styles/design-system.css'
 import '../styles/figma-responsive.css'
 import '../styles/torus-animation.css'
+import '../styles/stripe.css'
 import { Providers } from './providers'
 import { GeistMono } from 'geist/font/mono'
 

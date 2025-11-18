@@ -15,41 +15,28 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
 
-    // Create checkout session
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'LiquidCalling Minutes',
-              description: `${Math.floor(amount * 20)} minutes of calling time`,
-            },
-            unit_amount: Math.round(amount * 100), // Convert to cents
-          },
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: `${request.nextUrl.origin}/?payment=success`,
-      cancel_url: `${request.nextUrl.origin}/?payment=cancelled`,
+    // Create payment intent for Stripe Elements
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount * 100), // Convert to cents
+      currency: 'usd',
+      automatic_payment_methods: {
+        enabled: true,
+      },
       metadata: {
         product: 'liquidcalling_minutes',
-        minutes: Math.floor(amount * 20).toString(), // $0.05 per minute = 20 minutes per dollar
-        amount: amount.toString(),
+        minutes: Math.floor(amount * 20), // $0.05 per minute = 20 minutes per dollar
       }
     })
 
     return Response.json({
-      sessionId: session.id,
-      url: session.url
+      clientSecret: paymentIntent.client_secret,
+      paymentIntentId: paymentIntent.id
     })
 
   } catch (error: any) {
-    console.error('Stripe checkout session creation failed:', error)
+    console.error('Stripe payment intent creation failed:', error)
     return Response.json({
-      error: 'Failed to create checkout session'
+      error: 'Failed to create payment intent'
     }, { status: 500 })
   }
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { StripeModal } from './StripeModal'
 
 type PaymentUIProps = {
   minutesBalance: number
@@ -31,10 +32,17 @@ export function PaymentUI({
 }: PaymentUIProps) {
   const [selectedAmount, setSelectedAmount] = useState('')
   const [paymentMethod, setPaymentMethod] = useState<'wallet' | 'stripe'>('wallet')
+  const [showStripeModal, setShowStripeModal] = useState(false)
 
   const handlePayment = async () => {
     if (!selectedAmount) {
       alert('Please select an amount')
+      return
+    }
+
+    if (paymentMethod === 'stripe') {
+      // Open Stripe modal instead of processing payment here
+      setShowStripeModal(true)
       return
     }
 
@@ -52,6 +60,21 @@ export function PaymentUI({
     await buyMinutes(selectedAmount, paymentMethod)
     console.log(`✅ PaymentUI: buyMinutes call completed`)
     setSelectedAmount('')
+  }
+
+  const handleStripeSuccess = async () => {
+    try {
+      // Process the payment through the normal flow
+      await buyMinutes(selectedAmount, 'stripe')
+      setSelectedAmount('')
+      setShowStripeModal(false)
+    } catch (error) {
+      console.error('Failed to process Stripe payment:', error)
+    }
+  }
+
+  const handleStripeError = (error: string) => {
+    alert(`Payment failed: ${error}`)
   }
 
   const networkOptions = Object.entries(supportedNetworks).map(([key, config]: [string, any]) => ({
@@ -214,6 +237,15 @@ export function PaymentUI({
             Insufficient USDC balance
           </div>
         )}
+
+        {/* Stripe Modal */}
+        <StripeModal
+          isOpen={showStripeModal}
+          onClose={() => setShowStripeModal(false)}
+          amount={selectedAmount}
+          onSuccess={handleStripeSuccess}
+          onError={handleStripeError}
+        />
       </div>
     </div>
   )

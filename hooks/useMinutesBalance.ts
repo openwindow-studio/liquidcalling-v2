@@ -28,15 +28,12 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
         localStorage.setItem(`minutes_${user.wallet.address}`, '5')
       }
 
-      // Check for successful Stripe payment
+      // Check for URL parameters (keeping for backward compatibility but not used with Stripe Elements)
       const urlParams = new URLSearchParams(window.location.search)
       if (urlParams.get('payment') === 'success') {
-        handleStripePaymentSuccess()
         // Clean up URL
         window.history.replaceState({}, '', window.location.pathname)
       } else if (urlParams.get('payment') === 'cancelled') {
-        // Clean up pending purchase on cancellation
-        localStorage.removeItem('pending_stripe_purchase')
         // Clean up URL
         window.history.replaceState({}, '', window.location.pathname)
       }
@@ -147,50 +144,32 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
 
         console.log(`✅ Real USDC payment successful:`, paymentResult)
       } else if (selectedMethod === 'stripe') {
-        // Use Stripe for credit card payments
-        console.log('Processing credit card payment via Stripe...')
+        // Use Stripe Elements for credit card payments
+        console.log('Processing credit card payment via Stripe Elements...')
 
-        // For Stripe payments, don't add minutes immediately - they'll be added after payment success
-        // Store the intended purchase in localStorage so we can complete it after redirect
-        localStorage.setItem('pending_stripe_purchase', JSON.stringify({
-          amount: dollarsToSpend,
-          minutes: minutesToAdd,
-          timestamp: Date.now()
-        }))
+        // Stripe Elements will handle the payment flow directly
+        // The PaymentUI component will call this function after successful payment
+        // So we can add minutes immediately here
+        console.log(`✅ Stripe Elements payment confirmed for $${dollarsToSpend}`)
+      } else if (selectedMethod === 'privy') {
+        // Use Privy's fund wallet for credit card payments (legacy)
+        console.log('Processing credit card payment via Privy...')
 
         try {
-          // Create checkout session
-          const response = await fetch('/api/stripe/create-payment-intent', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: parseFloat(dollarsToSpend) })
+          // Get user's wallet address
+          const walletAddress = user?.wallet?.address
+          if (!walletAddress) {
+            throw new Error('No wallet address found')
+          }
+
+          // Open Privy's funding modal with MoonPay for credit card payment
+          await fundWallet({
+            address: walletAddress
           })
 
-          const data = await response.json()
-
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to create checkout session')
-          }
-
-          if (!data.sessionId) {
-            throw new Error('No checkout session created')
-          }
-
-          // Redirect directly to Stripe checkout URL
-          if (data.url) {
-            window.location.href = data.url
-          } else {
-            throw new Error('No checkout URL received from Stripe')
-          }
-
-          console.log(`🔄 Redirecting to Stripe checkout for $${dollarsToSpend}`)
-
-          // Don't add minutes here - will be handled after successful payment
-          return
+          console.log(`✅ Credit card payment modal opened via Privy/MoonPay`)
         } catch (error: any) {
-          console.error('Stripe payment failed:', error)
-          // Clear pending purchase on error
-          localStorage.removeItem('pending_stripe_purchase')
+          console.error('Credit card payment failed:', error)
           throw new Error(`Credit card payment failed: ${error.message}`)
         }
       } else {
