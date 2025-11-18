@@ -106,15 +106,11 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
 
           // Open Privy's funding modal with MoonPay for credit card payment
           // The user will complete payment in the modal, then we check if successful
-          const result = await fundWallet({
+          await fundWallet({
             address: walletAddress
           })
 
-          if (result) {
-            console.log(`✅ Credit card payment successful via Privy/MoonPay`)
-          } else {
-            throw new Error('Credit card payment was cancelled or failed')
-          }
+          console.log(`✅ Credit card payment modal opened via Privy/MoonPay`)
         } catch (error: any) {
           console.error('Credit card payment failed:', error)
           throw new Error(`Credit card payment failed: ${error.message}`)
