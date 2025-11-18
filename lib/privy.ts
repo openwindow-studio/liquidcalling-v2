@@ -5,7 +5,7 @@ export const privyConfig = {
   appId: process.env.NEXT_PUBLIC_PRIVY_APP_ID || 'cmhp0p924009zky0crejo2od7',
   config: {
     // Wallet configuration
-    loginMethods: ['email', 'wallet', 'google', 'apple'] as const,
+    loginMethods: ['email', 'wallet', 'google'] as const, // 'apple' - commented out, takes weeks to set up
 
     // Appearance
     appearance: {
