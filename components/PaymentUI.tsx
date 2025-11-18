@@ -30,7 +30,7 @@ export function PaymentUI({
   isNetworkSupported = false
 }: PaymentUIProps) {
   const [selectedAmount, setSelectedAmount] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState<'wallet' | 'privy'>('wallet')
+  const [paymentMethod, setPaymentMethod] = useState<'wallet' | 'stripe'>('wallet')
 
   const handlePayment = async () => {
     if (!selectedAmount) {
@@ -109,11 +109,11 @@ export function PaymentUI({
           Crypto (USDC)
         </button>
         <button
-          onClick={() => setPaymentMethod('privy')}
+          onClick={() => setPaymentMethod('stripe')}
           style={{
             padding: '4px 12px',
             fontSize: '12px',
-            backgroundColor: paymentMethod === 'privy' ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+            backgroundColor: paymentMethod === 'stripe' ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             borderRadius: '12px',
             color: 'white',

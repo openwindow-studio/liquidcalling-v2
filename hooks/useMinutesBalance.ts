@@ -27,6 +27,59 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
         setMinutesBalance(5)
         localStorage.setItem(`minutes_${user.wallet.address}`, '5')
       }
+
+      // Check for successful Stripe payment
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.get('payment') === 'success') {
+        handleStripePaymentSuccess()
+        // Clean up URL
+        window.history.replaceState({}, '', window.location.pathname)
+      } else if (urlParams.get('payment') === 'cancelled') {
+        // Clean up pending purchase on cancellation
+        localStorage.removeItem('pending_stripe_purchase')
+        // Clean up URL
+        window.history.replaceState({}, '', window.location.pathname)
+      }
+    }
+  }
+
+  // Handle successful Stripe payment
+  const handleStripePaymentSuccess = () => {
+    const pendingPurchase = localStorage.getItem('pending_stripe_purchase')
+    if (pendingPurchase) {
+      try {
+        const purchase = JSON.parse(pendingPurchase)
+
+        // Add minutes to balance
+        const currentStored = localStorage.getItem(`minutes_${user?.wallet?.address}`) || '0'
+        const currentBalance = parseInt(currentStored, 10)
+        const newBalance = currentBalance + purchase.minutes
+
+        localStorage.setItem(`minutes_${user?.wallet?.address}`, newBalance.toString())
+        setMinutesBalance(newBalance)
+
+        // Store payment history
+        const paymentHistory = JSON.parse(localStorage.getItem(`payments_${user?.wallet?.address}`) || '[]')
+        paymentHistory.push({
+          amount: purchase.amount,
+          minutes: purchase.minutes,
+          method: 'stripe',
+          timestamp: new Date().toISOString(),
+          txId: `stripe_${purchase.timestamp}`
+        })
+        localStorage.setItem(`payments_${user?.wallet?.address}`, JSON.stringify(paymentHistory))
+
+        // Clean up
+        localStorage.removeItem('pending_stripe_purchase')
+
+        console.log(`✅ Stripe payment completed: Added ${purchase.minutes} minutes for $${purchase.amount}`)
+
+        // Show success message
+        alert(`Payment successful! Added ${purchase.minutes} minutes to your account.`)
+      } catch (error) {
+        console.error('Error processing Stripe payment success:', error)
+        localStorage.removeItem('pending_stripe_purchase')
+      }
     }
   }
 
@@ -93,26 +146,51 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
         }
 
         console.log(`✅ Real USDC payment successful:`, paymentResult)
-      } else if (selectedMethod === 'privy') {
-        // Use Privy's fund wallet for credit card payments
-        console.log('Processing credit card payment via Privy...')
+      } else if (selectedMethod === 'stripe') {
+        // Use Stripe for credit card payments
+        console.log('Processing credit card payment via Stripe...')
+
+        // For Stripe payments, don't add minutes immediately - they'll be added after payment success
+        // Store the intended purchase in localStorage so we can complete it after redirect
+        localStorage.setItem('pending_stripe_purchase', JSON.stringify({
+          amount: dollarsToSpend,
+          minutes: minutesToAdd,
+          timestamp: Date.now()
+        }))
 
         try {
-          // Get user's wallet address
-          const walletAddress = user?.wallet?.address
-          if (!walletAddress) {
-            throw new Error('No wallet address found')
-          }
-
-          // Open Privy's funding modal with MoonPay for credit card payment
-          // The user will complete payment in the modal, then we check if successful
-          await fundWallet({
-            address: walletAddress
+          // Create checkout session
+          const response = await fetch('/api/stripe/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ amount: parseFloat(dollarsToSpend) })
           })
 
-          console.log(`✅ Credit card payment modal opened via Privy/MoonPay`)
+          const data = await response.json()
+
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to create checkout session')
+          }
+
+          if (!data.sessionId) {
+            throw new Error('No checkout session created')
+          }
+
+          // Redirect directly to Stripe checkout URL
+          if (data.url) {
+            window.location.href = data.url
+          } else {
+            throw new Error('No checkout URL received from Stripe')
+          }
+
+          console.log(`🔄 Redirecting to Stripe checkout for $${dollarsToSpend}`)
+
+          // Don't add minutes here - will be handled after successful payment
+          return
         } catch (error: any) {
-          console.error('Credit card payment failed:', error)
+          console.error('Stripe payment failed:', error)
+          // Clear pending purchase on error
+          localStorage.removeItem('pending_stripe_purchase')
           throw new Error(`Credit card payment failed: ${error.message}`)
         }
       } else {
