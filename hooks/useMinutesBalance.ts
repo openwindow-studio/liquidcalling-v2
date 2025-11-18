@@ -107,12 +107,7 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
           // Open Privy's funding modal with MoonPay for credit card payment
           // The user will complete payment in the modal, then we check if successful
           const result = await fundWallet({
-            address: walletAddress,
-            options: {
-              // MoonPay options for credit card payment
-              quoteCurrencyAmount: parseFloat(dollarsToSpend),
-              paymentMethod: 'credit_debit_card'
-            }
+            address: walletAddress
           })
 
           if (result) {
