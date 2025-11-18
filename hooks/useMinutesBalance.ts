@@ -110,7 +110,6 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
             address: walletAddress,
             options: {
               // MoonPay options for credit card payment
-              currencyCode: 'USDC_BASE',
               quoteCurrencyAmount: parseFloat(dollarsToSpend),
               paymentMethod: 'credit_debit_card'
             }
