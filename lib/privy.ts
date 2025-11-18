@@ -7,6 +7,9 @@ export const privyConfig = {
     // Wallet configuration
     loginMethods: ['email', 'wallet', 'google'] as const, // 'apple' - commented out, takes weeks to set up
 
+    // Explicitly disable OAuth providers
+    disabledLoginMethods: ['apple'] as const,
+
     // Appearance
     appearance: {
       theme: 'dark' as const,
