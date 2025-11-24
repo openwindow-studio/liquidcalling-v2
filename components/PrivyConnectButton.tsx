@@ -41,11 +41,28 @@ export function PrivyConnectButton() {
     )
   }
 
-  // Show user info or wallet address
-  const displayName = user?.email?.address ||
-                      user?.google?.email ||
-                      user?.wallet?.address?.slice(0, 6) + '...' +
-                      user?.wallet?.address?.slice(-4) ||
+  // Show user info or wallet address with truncation
+  const truncateEmail = (email: string) => {
+    const [name, domain] = email.split('@')
+
+    // Check if mobile on initial load (people don't resize browsers)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767
+
+    if (isMobile) {
+      // Mobile: aggressive truncation for 110px button
+      if (email.length <= 12) return email
+      return `${name.slice(0, 3)}...@${domain.slice(0, 3)}`
+    } else {
+      // Desktop: keep full domain, truncate username only
+      if (email.length <= 20) return email
+      if (name.length <= 8) return email
+      return `${name.slice(0, 6)}...@${domain}`
+    }
+  }
+
+  const displayName = (user?.email?.address && truncateEmail(user.email.address)) ||
+                      (user?.google?.email && truncateEmail(user.google.email)) ||
+                      (user?.wallet?.address && user.wallet.address.slice(0, 6) + '...' + user.wallet.address.slice(-4)) ||
                       'Connected'
 
   const handleDisconnect = () => {

@@ -379,26 +379,39 @@
   color: #FFFFFF;
 }
 
+/* Call Actions Container */
+.call-actions-container {
+  position: relative;
+  width: 100%;
+}
+
 /* In-app Call Action Button (distinct from splash CTA) */
 .call-action-button {
   position: relative; /* inside card content */
   width: 380px;
   height: 60px;
+  min-height: 60px; /* Ensure minimum height */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 20;
   border-radius: 40px;
   border: 3px solid #FFFFFF;
   backdrop-filter: blur(40px);
-  margin-top: 12px; /* consistent spacing below mic */
-  margin-bottom: 0;
+  margin: 12px auto 0; /* Center the button and add consistent spacing */
+  padding: 10px 20px; /* Add vertical and horizontal padding */
+  box-sizing: border-box; /* Include padding in height calculation */
 }
 
-.call-action-button .figma-button-text { color: #FFFFFF; }
+.call-action-button .figma-button-text {
+  color: #FFFFFF;
+  white-space: normal; /* Allow wrapping for long text */
+  text-align: center;
+  line-height: 1.2;
+}
 
 .call-button--white {
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
@@ -1186,7 +1199,8 @@
   }
 
   .figma-main-card {
-    width: 700px;
+    width: 90%;
+    max-width: 600px; /* Responsive width with max constraint */
     height: 400px;
     top: 180px;
     left: 50%;
@@ -1266,7 +1280,7 @@
 
   .figma-cta-button {
     width: 90%;
-    height: 50px;
+    height: 60px; /* Increased from 50px to 60px for better appearance */
     bottom: 80px;
   }
 
@@ -1287,9 +1301,60 @@
 
   .figma-main-card {
     width: 90%;
-    height: 350px;
+    max-width: 400px;
+    min-height: 500px; /* Reduced height */
+    height: auto;
     left: 50%;
-    transform: translateX(-50%);
+    top: 20vh; /* Use viewport height instead of 50% to prevent overflow */
+    transform: translateX(-50%); /* Only center horizontally */
+    padding: 30px 20px;
+    margin-bottom: 20px; /* Add bottom margin for spacing */
+  }
+
+  /* Mobile-specific content spacing */
+  .figma-main-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Add consistent spacing between elements */
+    height: 100%;
+    justify-content: center;
+  }
+
+  /* Mobile payment UI adjustments */
+  .figma-minutes-section {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Mobile button adjustments - match end call button dimensions */
+  .call-action-button {
+    width: 100% !important;
+    max-width: 320px;
+    height: 60px !important;
+    min-height: 60px !important;
+    margin: 10px auto !important;
+    padding: 0 15px !important;
+  }
+
+  .figma-cta-button {
+    width: 90%;
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+
+  /* Ensure all CTA buttons have consistent sizing */
+  .figma-main-card-content .figma-cta-button,
+  .figma-main-card-content .call-action-button {
+    height: 60px !important;
+    min-height: 60px !important;
+    width: 100% !important;
+    max-width: 320px;
+  }
+
+  /* Mobile mic container */
+  .figma-mic-container {
+    margin: 15px 0;
   }
 
   .figma-footer-left,
@@ -1351,6 +1416,24 @@
     font-size: 10px;
     text-align: right;
   }
+
+  /* Fix buy minutes form centering on mobile */
+  .figma-buy-minutes-form {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    justify-content: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+
+  /* Fix call actions container on mobile */
+  .call-actions-container {
+    position: relative;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
 }
 
 /* Custom RainbowKit button styling */
@@ -1390,6 +1473,11 @@
   width: 100%;
 }
 
+/* Add spacing when Connected banner is present */
+.card-banner-wallet ~ .figma-main-card-content .figma-minutes-section {
+  margin-top: 30px;
+}
+
 .figma-minutes-balance {
   display: flex;
   align-items: center;
@@ -1407,16 +1495,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin: 0 auto;
 }
 
 /* Buy Minutes Form Container */
 .figma-buy-minutes-form {
   display: flex;
   gap: 8px;
-  margin: 0 auto;
   width: 60%;
   max-width: 300px;
-  margin-bottom: 8px;
+  margin: 0 auto 8px auto; /* Center horizontally with bottom margin */
+  justify-content: center;
+  align-items: center;
 }
 
 /* Dollar Amount Select */
@@ -1456,4 +1546,4 @@
   mix-blend-mode: color-burn !important;
   position: relative !important;
   z-index: 10 !important;
-}
+}/* Force cache refresh - Tue Nov 18 21:01:51 CET 2025 */

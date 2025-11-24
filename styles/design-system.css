@@ -184,8 +184,9 @@ body {
 /* Loading Animation */
 .loading-dots {
   display: inline-flex;
-  gap: 4px;
+  gap: 3px;
   align-items: center;
+  margin-right: 10px;
 }
 
 .loading-dots::after {

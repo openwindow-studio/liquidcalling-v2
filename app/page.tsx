@@ -479,7 +479,7 @@ function HomeContent() {
 
             {/* 2. Minutes Balance Section - Show for connected users during calls */}
             {isConnected && !isDemoMode && (
-              <div style={{ marginTop: '24px' }}>
+              <div style={{ marginTop: '30px' }}>
                 <PaymentUI
                   minutesBalance={minutesBalance}
                   buyMinutes={handleBuyMinutes}
@@ -724,7 +724,7 @@ function HomeContent() {
           </div>
 
           {/* Call Actions */}
-          <div style={{ position: 'relative' }}>
+          <div className="call-actions-container">
             {!callLink ? (
               <button
                 onClick={() => {
@@ -738,10 +738,10 @@ function HomeContent() {
                 className="call-action-button call-button--white"
               >
                 {callStatus === 'creating-room' ? (
-                  <>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
                     <div className="loading-dots"></div>
                     <span className="figma-button-text">One moment, we are securing your room</span>
-                  </>
+                  </div>
                 ) : (
                   <span className="figma-button-text">Create a call link and share it with anyone</span>
                 )}
