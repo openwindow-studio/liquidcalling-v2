@@ -7,7 +7,7 @@ import { PrivyConnectButton } from '../../components/PrivyConnectButton'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
-const TorusCanvas = dynamic(() => import('../../components/TorusCanvas'), { ssr: false })
+const StaticTorusCanvas = dynamic(() => import('../../components/StaticTorusCanvas'), { ssr: false })
 
 export default function PrivacyPage() {
   const router = useRouter()
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         pointerEvents: 'none',
         overflow: 'hidden'
       }}>
-        <TorusCanvas />
+        <StaticTorusCanvas />
       </div>
 
       <div className="liquid-app" style={{ position: 'relative', minHeight: '100vh', backgroundColor: 'transparent' }}>
