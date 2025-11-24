@@ -18,6 +18,11 @@ const privacyPageStyles = `
       overflow: auto !important;
       height: auto !important;
     }
+
+    /* Hide middle columns on mobile */
+    .hide-on-mobile {
+      display: none !important;
+    }
   }
 `
 import { PrivyConnectButton } from '../../components/PrivyConnectButton'
@@ -168,21 +173,19 @@ export default function PrivacyPage() {
             LiquidCalling in Comparison
           </h2>
 
-          <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-            <table style={{
-              width: '100%',
-              borderCollapse: 'collapse',
-              minWidth: '600px'
-            }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse'
+          }}>
             <thead>
               <tr style={{ borderBottom: '2px solid var(--color-primary-text)' }}>
                 <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
                   Feature
                 </th>
-                <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
+                <th className="hide-on-mobile" style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
                   Signal
                 </th>
-                <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
+                <th className="hide-on-mobile" style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
                   Telegram/WhatsApp/Zoom
                 </th>
                 <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
@@ -202,14 +205,13 @@ export default function PrivacyPage() {
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(31, 0, 0, 0.2)' }}>
                   <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[0]}</td>
-                  <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[1]}</td>
-                  <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[2]}</td>
+                  <td className="hide-on-mobile" style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[1]}</td>
+                  <td className="hide-on-mobile" style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[2]}</td>
                   <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)', fontWeight: '600' }}>{row[3]}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          </div>
         </div>
 
         {/* What we never collect */}
@@ -230,7 +232,7 @@ export default function PrivacyPage() {
                 <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
                   We never collect or store
                 </th>
-                <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
+                <th className="hide-on-mobile" style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
                   Why it never exists
                 </th>
                 <th style={{ padding: '16px', textAlign: 'left', fontFamily: 'Geist Mono, monospace', fontSize: '14px', fontWeight: '600', color: 'var(--color-primary-text)' }}>
@@ -249,7 +251,7 @@ export default function PrivacyPage() {
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom: '1px solid rgba(31, 0, 0, 0.2)' }}>
                   <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[0]}</td>
-                  <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[1]}</td>
+                  <td className="hide-on-mobile" style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[1]}</td>
                   <td style={{ padding: '16px', fontFamily: 'Geist Mono, monospace', fontSize: '12px', color: 'var(--color-primary-text)' }}>{row[2]}</td>
                 </tr>
               ))}
