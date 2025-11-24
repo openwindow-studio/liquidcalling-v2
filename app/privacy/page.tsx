@@ -3,6 +3,23 @@
 import '../../styles/design-system.css'
 import '../../styles/liquid-layout.css'
 import '../../styles/figma-responsive.css'
+
+const privacyPageStyles = `
+  @media (max-width: 768px) {
+    .privacy-page-container {
+      height: auto !important;
+      min-height: 100vh !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      position: relative !important;
+    }
+
+    body {
+      overflow: auto !important;
+      height: auto !important;
+    }
+  }
+`
 import { PrivyConnectButton } from '../../components/PrivyConnectButton'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
@@ -14,6 +31,8 @@ export default function PrivacyPage() {
 
   return (
     <>
+      <style dangerouslySetInnerHTML={{ __html: privacyPageStyles }} />
+
       {/* Fixed Background Torus */}
       <div style={{
         position: 'fixed',
@@ -28,7 +47,13 @@ export default function PrivacyPage() {
         <StaticTorusCanvas />
       </div>
 
-      <div className="liquid-app" style={{ position: 'relative', minHeight: '100vh', backgroundColor: 'transparent' }}>
+      <div className="liquid-app privacy-page-container" style={{
+        position: 'relative',
+        minHeight: '100vh',
+        backgroundColor: 'transparent',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch'
+      }}>
 
       {/* Logo - FIGMA RESPONSIVE - exact same as main page */}
       <div className="figma-logo" onClick={() => router.push('/')}>Liquid Calling</div>
