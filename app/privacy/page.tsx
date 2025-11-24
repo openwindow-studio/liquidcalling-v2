@@ -23,6 +23,16 @@ const privacyPageStyles = `
     .hide-on-mobile {
       display: none !important;
     }
+
+    /* Make tech section more mobile friendly */
+    .tech-section-mobile {
+      flex-direction: column !important;
+      gap: 40px !important;
+    }
+
+    .tech-section-mobile > div {
+      flex: none !important;
+    }
   }
 `
 import { PrivyConnectButton } from '../../components/PrivyConnectButton'
@@ -271,7 +281,7 @@ export default function PrivacyPage() {
             Technical Truth and Architecture
           </h2>
 
-          <div style={{ display: 'flex', gap: '60px' }}>
+          <div className="tech-section-mobile" style={{ display: 'flex', gap: '60px' }}>
             {/* Left Column */}
             <div style={{ flex: 1 }}>
               <ul style={{ listStyle: 'none', padding: 0 }}>
