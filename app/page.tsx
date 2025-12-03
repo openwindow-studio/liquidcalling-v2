@@ -581,7 +581,7 @@ function HomeContent() {
           onClick={login}
           className="figma-cta-button"
         >
-          <span className="figma-cta-text">Connect to start your call</span>
+          <span className="figma-cta-text">Start your call</span>
           <div className="figma-cta-icon">
             <svg width="20" height="16" viewBox="0 0 37 31" fill="none">
               <path d="M18.5 24.5V31" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>

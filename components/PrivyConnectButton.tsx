@@ -36,7 +36,7 @@ export function PrivyConnectButton() {
   if (!authenticated) {
     return (
       <button onClick={login} className="rainbow-connect-button">
-        Connect
+        Login
       </button>
     )
   }
