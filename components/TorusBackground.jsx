@@ -153,6 +153,9 @@ void main() {
   float f = fresnel(eyeVector, normal, uFresnelPower);
   color.rgb += f * vec3(1.0);
 
+  // Apply blue tint (reverse approach)
+  color.rgb = mix(color.rgb, color.rgb * vec3(1.5, 1.2, 0.4), 0.8);
+
   gl_FragColor = vec4(color, uOpacity);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
@@ -200,7 +203,7 @@ const TorusGeometries = () => {
     uChromaticAberration: {
       value: hardcodedParams.chromaticAberration
     },
-    uOpacity: { value: hardcodedParams.opacity },
+    uOpacity: { value: 0.1 },
     uBendAmount: { value: 0.0 },
     uSaturation: { value: hardcodedParams.saturation },
     uShininess: { value: hardcodedParams.shininess },
@@ -269,19 +272,19 @@ const TorusGeometries = () => {
       <group ref={backgroundGroup} visible={false}>
         <mesh position={[-4, -3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="white" />
+          <meshBasicMaterial color="#FF6B35" />
         </mesh>
         <mesh position={[4, -3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="white" />
+          <meshBasicMaterial color="#FF8C42" />
         </mesh>
         <mesh position={[-5, 3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="white" />
+          <meshBasicMaterial color="#FFA726" />
         </mesh>
         <mesh position={[5, 3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="white" />
+          <meshBasicMaterial color="#FFB74D" />
         </mesh>
         <Text
           position={[0, -1.5, -3.5]}
