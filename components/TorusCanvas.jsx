@@ -20,7 +20,7 @@ const TorusCanvas = () => {
         camera={{ position: [4, -2, 7] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        style={{ width: '100%', height: '100%', pointerEvents: 'auto', mixBlendMode: 'exclusion' }}
       >
         <ambientLight intensity={1.0} />
         <TorusGeometries />
