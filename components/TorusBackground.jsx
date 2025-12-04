@@ -153,9 +153,6 @@ void main() {
   float f = fresnel(eyeVector, normal, uFresnelPower);
   color.rgb += f * vec3(1.0);
 
-  // Apply blue tint (reverse approach)
-  color.rgb = mix(color.rgb, color.rgb * vec3(1.5, 1.2, 0.4), 0.8);
-
   gl_FragColor = vec4(color, uOpacity);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
@@ -172,9 +169,9 @@ const TorusGeometries = () => {
   // Hardcoded parameter values from the original useControls
   const hardcodedParams = {
     light: new THREE.Vector3(-1.0, 1.0, 1.0),
-    diffuseness: 0.2,
-    shininess: 15.0,
-    fresnelPower: 8.0,
+    diffuseness: 0.05,
+    shininess: 5.0,
+    fresnelPower: 2.0,
     opacity: 0.7,
     iorR: 1.15,
     iorY: 1.16,
@@ -201,11 +198,11 @@ const TorusGeometries = () => {
       value: hardcodedParams.refraction,
     },
     uChromaticAberration: {
-      value: hardcodedParams.chromaticAberration
+      value: 0.1
     },
-    uOpacity: { value: 0.1 },
+    uOpacity: { value: 0.15 },
     uBendAmount: { value: 0.0 },
-    uSaturation: { value: hardcodedParams.saturation },
+    uSaturation: { value: 2.0 },
     uShininess: { value: hardcodedParams.shininess },
     uDiffuseness: { value: hardcodedParams.diffuseness },
     uFresnelPower: { value: hardcodedParams.fresnelPower },
@@ -272,19 +269,19 @@ const TorusGeometries = () => {
       <group ref={backgroundGroup} visible={false}>
         <mesh position={[-4, -3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="#FF6B35" />
+          <meshBasicMaterial color="#0066FF" />
         </mesh>
         <mesh position={[4, -3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="#FF8C42" />
+          <meshBasicMaterial color="#FF3366" />
         </mesh>
         <mesh position={[-5, 3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="#FFA726" />
+          <meshBasicMaterial color="#3366FF" />
         </mesh>
         <mesh position={[5, 3, -4]}>
           <icosahedronGeometry args={[2, 16]} />
-          <meshBasicMaterial color="#FFB74D" />
+          <meshBasicMaterial color="#FF6633" />
         </mesh>
         <Text
           position={[0, -1.5, -3.5]}
