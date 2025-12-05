@@ -214,7 +214,7 @@ export default function PricingPage() {
           <div className="pricing-card" style={{
             flex: 1,
             padding: '40px',
-            border: '2px solid rgba(31, 0, 0, 0.4)',
+            border: '1px solid rgba(31, 0, 0, 0.2)',
             borderRadius: '8px',
             backgroundColor: 'rgba(255, 255, 255, 0.15)',
             display: 'flex',

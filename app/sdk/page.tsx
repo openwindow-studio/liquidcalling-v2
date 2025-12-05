@@ -414,7 +414,7 @@ onCallEnded: () => {}`}</pre>
             lineHeight: '1.6',
             fontFamily: 'var(--font-primary)',
           }}>
-            Try the demo <a href="/" style={{
+            Try the demo <a href="https://sdk.liquidcalling.com/demo.html" target="_blank" rel="noopener noreferrer" style={{
               color: 'rgba(0, 0, 31, 0.9)',
               textDecoration: 'underline'
             }}>here</a>
