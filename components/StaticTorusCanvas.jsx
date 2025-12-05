@@ -16,7 +16,7 @@ const StaticTorusCanvas = () => {
       pointerEvents: 'none'
     }}>
       <Canvas
-        camera={{ position: [4, -2, 7] }}
+        camera={{ position: [12, -8, 20] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
         style={{ width: '100%', height: '100%', pointerEvents: 'none' }}

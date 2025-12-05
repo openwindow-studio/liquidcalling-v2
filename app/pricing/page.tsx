@@ -138,7 +138,9 @@ export default function PricingPage() {
             padding: '40px',
             border: '1px solid rgba(31, 0, 0, 0.2)',
             borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)'
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            display: 'flex',
+            flexDirection: 'column'
           }}>
             <h3 style={{
               fontFamily: 'var(--font-primary)',
@@ -167,7 +169,7 @@ export default function PricingPage() {
               </p>
             </div>
 
-            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px', flex: 1 }}>
               {[
                 'Pay with USDC or credit card',
                 'Minutes never expire',
@@ -194,9 +196,9 @@ export default function PricingPage() {
               style={{
                 width: '100%',
                 padding: '12px 24px',
-                backgroundColor: 'rgba(0, 0, 31, 0.9)',
-                color: 'white',
-                border: 'none',
+                backgroundColor: 'transparent',
+                color: 'rgba(0, 0, 31, 0.9)',
+                border: '2px solid rgba(0, 0, 31, 0.9)',
                 borderRadius: '4px',
                 fontFamily: 'var(--font-primary)',
                 fontSize: '14px',
@@ -214,7 +216,9 @@ export default function PricingPage() {
             padding: '40px',
             border: '2px solid rgba(31, 0, 0, 0.4)',
             borderRadius: '8px',
-            backgroundColor: 'rgba(255, 255, 255, 0.15)'
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+            display: 'flex',
+            flexDirection: 'column'
           }}>
             <h3 style={{
               fontFamily: 'var(--font-primary)',
@@ -243,7 +247,7 @@ export default function PricingPage() {
               </p>
             </div>
 
-            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '32px', flex: 1 }}>
               {[
                 'SDK for seamless integration',
                 'HIPAA-compliant infrastructure',
@@ -271,9 +275,9 @@ export default function PricingPage() {
               style={{
                 width: '100%',
                 padding: '12px 24px',
-                backgroundColor: 'transparent',
-                color: 'rgba(0, 0, 31, 0.9)',
-                border: '2px solid rgba(0, 0, 31, 0.9)',
+                backgroundColor: 'rgba(0, 0, 31, 0.9)',
+                color: 'white',
+                border: 'none',
                 borderRadius: '4px',
                 fontFamily: 'var(--font-primary)',
                 fontSize: '14px',

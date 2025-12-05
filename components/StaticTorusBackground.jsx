@@ -166,22 +166,22 @@ const StaticTorusGeometries = () => {
   const mainRenderTarget = useFBO();
   const backRenderTarget = useFBO();
 
-  // Same hardcoded parameters as original
+  // Same hardcoded parameters as original but with much lower opacity and diffusion
   const hardcodedParams = {
     light: new THREE.Vector3(-1.0, 1.0, 1.0),
-    diffuseness: 0.2,
-    shininess: 15.0,
-    fresnelPower: 8.0,
-    opacity: 0.7,
-    iorR: 1.15,
-    iorY: 1.16,
-    iorG: 1.18,
-    iorC: 1.22,
-    iorB: 1.22,
-    iorP: 1.22,
-    saturation: 1.14,
-    chromaticAberration: 0.5,
-    refraction: 0.25
+    diffuseness: 0.05,
+    shininess: 2.0,
+    fresnelPower: 2.0,
+    opacity: 0.15,
+    iorR: 1.05,
+    iorY: 1.06,
+    iorG: 1.08,
+    iorC: 1.10,
+    iorB: 1.10,
+    iorP: 1.10,
+    saturation: 0.6,
+    chromaticAberration: 0.1,
+    refraction: 0.05
   };
 
   const uniforms = useMemo(() => ({
@@ -292,8 +292,8 @@ const StaticTorusGeometries = () => {
           actually private voice calls
         </Text>
       </group>
-      <mesh ref={mesh}>
-        <torusGeometry args={[3.564, 1.188, 32, 100]} />
+      <mesh ref={mesh} scale={[4, 4, 4]}>
+        <torusGeometry args={[3.564, 1.188, 16, 50]} />
         <shaderMaterial
           key={uuidv4()}
           vertexShader={vertexShader}
