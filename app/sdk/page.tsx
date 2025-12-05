@@ -584,7 +584,7 @@ onCallEnded: () => {}`}</pre>
             lineHeight: '1.6',
             fontFamily: 'var(--font-primary)',
           }}>
-            For additional modals, please see our Figma design file here: <a href="https://www.figma.com/liquidcalling" target="_blank" rel="noopener noreferrer" style={{
+            For additional modals, please see our Figma design file here: <a href="https://www.figma.com/design/1z8kk7ZnBaJkIsU5QE8vX4/liquidcalling_modals?node-id=1-35&t=DjP0nQmRc2m0BkdS-1" target="_blank" rel="noopener noreferrer" style={{
               color: 'rgba(0, 0, 31, 0.9)',
               textDecoration: 'underline'
             }}>
