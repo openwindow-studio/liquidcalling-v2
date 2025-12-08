@@ -439,10 +439,10 @@
 .figma-main-card {
   position: absolute;
   width: 750px;
-  height: 450px;
+  height: 510px;
   left: 50%;
   transform: translateX(-50%);
-  top: 150px;
+  top: 120px;
   /* Fallback for older browsers without backdrop-filter support */
   background: rgba(165, 239, 255, 0.85);
 
@@ -1077,18 +1077,61 @@
   }
 }
 
+/* Ultra-wide Desktop (1920px and above) - use same dimensions as 1440px */
+@media (min-width: 1920px) {
+  .figma-hero-title {
+    font-size: 140px;
+    width: 1300px;
+    line-height: 135px;
+  }
+
+  .figma-connect-button {
+    width: 210px;
+    height: 60px;
+    right: 40px;
+    top: 30px;
+  }
+
+  .figma-demo-button {
+    width: 150px;
+    height: 60px;
+    right: 280px;
+    top: 30px;
+  }
+
+  .figma-main-card {
+    width: 800px;
+    height: 540px;
+    top: 120px;
+  }
+}
+
 /* Standard Desktop (1440px to 1919px) */
-@media (max-width: 1919px) {
+@media (max-width: 1919px) and (min-width: 1440px) {
   .figma-hero-title {
     font-size: 130px;
     width: 1200px;
     line-height: 125px;
   }
 
+  .figma-connect-button {
+    width: 210px;
+    height: 60px;
+    right: 40px;
+    top: 30px;
+  }
+
+  .figma-demo-button {
+    width: 150px;
+    height: 60px;
+    right: 280px;
+    top: 30px;
+  }
+
   .figma-main-card {
     width: 750px;
-    height: 450px;
-    top: 150px;
+    height: 510px;
+    top: 120px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -1133,8 +1176,8 @@
 
   .figma-main-card {
     width: 750px;
-    height: 450px;
-    top: 150px;
+    height: 510px;
+    top: 120px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -1546,4 +1589,63 @@
   mix-blend-mode: color-burn !important;
   position: relative !important;
   z-index: 10 !important;
-}/* Force cache refresh - Tue Nov 18 21:01:51 CET 2025 */
+}
+
+/* PARTICIPANT DOTS STYLES */
+.figma-participant-dots-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.participant-dots {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.participant-dot {
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 255, 0, 0.3);
+  border: 2px solid #00ff00;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.participant-dot--inactive {
+  background: rgba(200, 200, 200, 0.2);
+  border-color: #999999;
+  cursor: default;
+}
+
+.participant-dot--muted {
+  background: rgba(255, 0, 0, 0.2);
+  border-color: #ff6666;
+}
+
+.participant-dot--speaking {
+  animation: pulse-speaking 0.8s ease-in-out infinite;
+  border-color: #00ff00;
+  background: rgba(0, 255, 0, 0.2);
+}
+
+@keyframes pulse-speaking {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(0, 255, 0, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+  }
+}
+
+/* Force cache refresh - Wed Dec 9 2025 - 11:45 AM - Ultra-wide button fix */

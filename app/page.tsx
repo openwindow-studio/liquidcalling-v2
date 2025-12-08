@@ -1,8 +1,8 @@
 'use client'
 
 import { usePrivy } from '@privy-io/react-auth'
-import { useState, useEffect } from 'react'
-import { DailyProvider } from '@daily-co/daily-react'
+import React, { useState, useEffect, useRef } from 'react'
+import { DailyProvider, useDaily } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
 import { useMinutesBalance } from '../hooks/useMinutesBalance'
 import { useRealPayments } from '../hooks/useRealPayments'
@@ -31,6 +31,7 @@ function HomeContent() {
   const [roomId, setRoomId] = useState<string | null>(null)
   const [localAudioLevel, setLocalAudioLevel] = useState(0)
   const [remoteAudioLevel, setRemoteAudioLevel] = useState(0)
+  const [isSpeaking, setIsSpeaking] = useState(false)
 
   // Demo mode state
   const [isDemoMode, setIsDemoMode] = useState(false)
@@ -106,8 +107,12 @@ function HomeContent() {
     joinRoom,
     leaveRoom,
     toggleMute: toggleWebRTCMute,
-    error: audioError
+    error: audioError,
+    audioLevels
   } = useDailyReact()
+
+  // Get Daily instance directly
+  const daily = useDaily()
 
   // Minutes balance hooks
   const {
@@ -225,22 +230,47 @@ function HomeContent() {
     }
   }, [callDuration, isDemoMode, isConnected, deductMinutes, isInCall, lastDeductedMinute])
 
-  // Simulate audio levels for demo (will be replaced with real levels from Daily hooks)
+  // Real audio detection using audioLevels from useDailyReact
   useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (isInCall && !isMuted) {
-      interval = setInterval(() => {
-        setLocalAudioLevel(Math.floor(Math.random() * 10))
-        if (callStatus === 'connected') {
-          setRemoteAudioLevel(Math.floor(Math.random() * 8))
-        }
-      }, 200)
-    } else {
-      setLocalAudioLevel(0)
-      setRemoteAudioLevel(0)
+    if (!audioConnected || isMuted) {
+      setIsSpeaking(false)
+      return
     }
-    return () => clearInterval(interval)
-  }, [isInCall, isMuted, callStatus])
+
+    // Check local participant audio level from useDailyReact
+    const localLevel = audioLevels['local'] || 0
+    const speakingThreshold = 3  // Same threshold as useDailyReact but different scale
+    const speaking = localLevel > speakingThreshold
+
+    console.log('🎤 Audio level from useDailyReact:', localLevel, 'Speaking:', speaking)
+    setIsSpeaking(speaking)
+  }, [audioConnected, isMuted, audioLevels])
+
+  // Demo mode speaking animation - use same simple approach as regular mode
+  useEffect(() => {
+    if (!isDemoMode || !isInCall) {
+      return
+    }
+
+    console.log('🎭 Setting up demo mode speaking animation')
+
+    // In demo mode, simulate speaking with same pattern as regular audio detection
+    const speakingInterval = setInterval(() => {
+      if (!isMuted) {
+        // Simple boolean toggle like regular mode, not complex timing
+        setIsSpeaking(true)
+      }
+    }, 2000) // Every 2 seconds
+
+    const stopSpeakingInterval = setInterval(() => {
+      setIsSpeaking(false)
+    }, 2500) // Turn off 0.5 seconds later
+
+    return () => {
+      clearInterval(speakingInterval)
+      clearInterval(stopSpeakingInterval)
+    }
+  }, [isDemoMode, isInCall, isMuted])
 
   // Use Daily participant count
   useEffect(() => {
@@ -283,9 +313,20 @@ function HomeContent() {
       return
     }
 
+    // Request mic permission if not already granted
     if (micPermission !== 'granted') {
-      alert('Microphone permission is required to create calls')
-      return
+      await requestMicPermission()
+      // Wait a moment for permission state to update
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      // Re-check permission by trying to get media stream
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+        stream.getTracks().forEach(track => track.stop())
+      } catch (err) {
+        alert('Microphone permission is required to create calls')
+        return
+      }
     }
 
     // Check minutes balance for connected users (not demo mode)
@@ -517,7 +558,31 @@ function HomeContent() {
               <span>Copy Room Link</span>
             </button>
 
-            {/* 5. End Call Button */}
+            {/* 5. Participant Dots Display */}
+            <div className="figma-participant-dots-container">
+              <div className="participant-dots">
+                {[...Array(Math.min(participantCount, 3))].map((_, i) => {
+                  const isLocal = i === 0
+                  const isParticipantSpeaking = isLocal ? isSpeaking : false // Only local for now
+                  return (
+                    <div
+                      key={i}
+                      className={`participant-dot ${
+                        isParticipantSpeaking ? 'participant-dot--speaking' : ''
+                      } ${isMuted && isLocal ? 'participant-dot--muted' : ''}`}
+                      onClick={isLocal ? () => {
+                        console.log('🔇 In-call dot clicked, current mute state:', isMuted)
+                        toggleWebRTCMute()
+                      } : undefined}
+                      style={{ cursor: isLocal ? 'pointer' : 'default' }}
+                      title={isLocal ? (isMuted ? 'Click to unmute' : 'Click to mute') : ''}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* 6. End Call Button */}
             <button
               onClick={handleEndCall}
               className="call-action-button call-button--red"
@@ -705,35 +770,45 @@ function HomeContent() {
             </div>
           )}
 
-          {/* Mic Permission Button */}
-          <div className="figma-mic-container">
-            <button
-              onClick={micPermission === 'granted' ? toggleWebRTCMute : requestMicPermission}
-              className={`micro-icon ${
-                micPermission === 'granted' 
-                  ? (isMuted ? 'micro-icon--muted' : 'micro-icon--unmuted')
-                  : 'micro-icon--permission-needed'
-              }`}
-            >
-              <svg width="18" height="24" viewBox="0 0 34 48" fill="none">
-                <path d="M17 39V46" stroke="black" strokeWidth="3" strokeLinecap="round"/>
-                <path d="M32 19V23.4444C32 27.57 30.4196 31.5267 27.6066 34.4439C24.7936 37.3611 20.9782 39 17 39C13.0218 39 9.20644 37.3611 6.3934 34.4439C3.58035 31.5267 2 27.57 2 23.4444V19" stroke="black" strokeWidth="3" strokeLinecap="round"/>
-                <path d="M24 8.69231C24 4.99625 20.866 2 17 2C13.134 2 10 4.99625 10 8.69231V24.3077C10 28.0038 13.134 31 17 31C20.866 31 24 28.0038 24 24.3077V8.69231Z" stroke="black" strokeWidth="3" strokeLinecap="round"/>
-              </svg>
-            </button>
+          {/* Participant Dots Display - Replace Mic Button */}
+          <div className="figma-participant-dots-container">
+            {/* Show dots based on participants */}
+            {participantCount === 0 ? (
+              // No participants yet - show placeholder dots
+              <div className="participant-dots">
+                <div className="participant-dot participant-dot--inactive"></div>
+              </div>
+            ) : (
+              // Show actual participant dots
+              <div className="participant-dots">
+                {[...Array(Math.min(participantCount, 3))].map((_, i) => {
+                  const isLocal = i === 0
+                  const isParticipantSpeaking = isLocal ? isSpeaking : false // Only local for now
+
+                  return (
+                    <div
+                      key={i}
+                      className={`participant-dot ${
+                        isParticipantSpeaking ? 'participant-dot--speaking' : ''
+                      } ${isMuted && isLocal ? 'participant-dot--muted' : ''}`}
+                      onClick={isLocal ? () => {
+                        console.log('🔇 Dot clicked, current mute state:', isMuted)
+                        toggleWebRTCMute()
+                      } : undefined}
+                      style={{ cursor: isLocal ? 'pointer' : 'default' }}
+                      title={isLocal ? (isMuted ? 'Click to unmute' : 'Click to mute') : ''}
+                    />
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* Call Actions */}
           <div className="call-actions-container">
             {!callLink ? (
               <button
-                onClick={() => {
-                  if (micPermission !== 'granted') {
-                    setShowMicInstruction(true)
-                  } else {
-                    createCallLink()
-                  }
-                }}
+                onClick={createCallLink}
                 disabled={callStatus !== 'idle'}
                 className="call-action-button call-button--white"
               >
@@ -754,20 +829,6 @@ function HomeContent() {
               >
                 <span className="figma-button-text">{callStatus === 'initializing' ? 'Joining room...' : 'Start Call'}</span>
               </button>
-            )}
-
-            {/* Mic Instruction Message */}
-            {showMicInstruction && (
-              <div className="figma-mic-instruction">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="pointer-icon">
-                  <path d="M22 14a8 8 0 0 1-8 8"/>
-                  <path d="M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/>
-                  <path d="M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/>
-                  <path d="M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10"/>
-                  <path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
-                </svg>
-                Press the microphone button to enable audio
-              </div>
             )}
           </div>
 
