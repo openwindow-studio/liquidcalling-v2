@@ -639,7 +639,7 @@ function HomeContent() {
         </div>
 
         {/* Hero Title - FIGMA RESPONSIVE */}
-        <h1 className="figma-hero-title">Call Anyone<br/>Privately<br/>With Your Wallet</h1>
+        <h1 className="figma-hero-title">Actually Private<br/>Calls</h1>
 
         {/* Main CTA Button - FIGMA RESPONSIVE */}
         <button
