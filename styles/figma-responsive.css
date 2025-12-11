@@ -38,22 +38,44 @@
   opacity: 0.8;
 }
 
+/* HERO SECTION FLEXBOX */
+.figma-hero-section {
+  position: absolute;
+  top: 40vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 90%;
+  max-width: 900px;
+  z-index: 1;
+  mix-blend-mode: color-burn;
+  color: rgba(0, 0, 31, .85);
+}
+
 /* MAIN HEADING SPLASH TEXT */
 .figma-hero-title {
-  position: absolute;
-  width: 900px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 120px;
   font-family: 'Britti Sans';
   font-style: normal;
   font-weight: 600; /* Semi-bold */
   font-size: 105px;
   line-height: 105px;
-  height: 200px;
   text-align: center;
-  color: rgba(0, 0, 31, .85);
-  mix-blend-mode: color-burn;
+  margin: 0;
+}
+
+/* HERO SUBTITLE */
+.figma-hero-subtitle {
+  font-family: 'Britti Sans';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin: 0;
 }
 
 /* Hover text effect for "Anonymously" -> "Privately" */
@@ -315,13 +337,22 @@
 }
 
 /* CONNECT YOUR WALLET CTA BUTTON */
-.figma-cta-button {
+/* CTA Button Container - positioned below hero section */
+.figma-cta-container {
   position: absolute;
+  width: 100%;
+  height: 60px;
+  top: calc(60vh + 80px); /* Below the hero section */
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.figma-cta-button {
+  position: relative;
   width: 380px;
   height: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 500px;
   background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%),
               linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
   background-blend-mode: normal, normal, overlay;
@@ -502,7 +533,7 @@
   position: absolute;
   width: 500px;
   left: 60px;
-  bottom: 50px; /* From bottom */
+  bottom: 80px; /* From bottom - moved up */
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -518,7 +549,7 @@
   position: absolute;
   width: 500px;
   right: 60px; /* From right edge */
-  bottom: 50px; /* From bottom */
+  bottom: 80px; /* From bottom - moved up */
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -583,15 +614,6 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-/* Special hover for absolutely positioned CTA buttons */
-.figma-cta-button:not(.figma-main-card-content .figma-cta-button):hover {
-  transform: translateX(-50%) translateY(-2px);
-}
-
-/* Normal hover for buttons inside main card content */
-.figma-main-card-content .figma-cta-button:hover {
-  transform: translateY(-2px);
-}
 
 /* Demo Mode Banner */
 .figma-demo-banner {
@@ -1060,6 +1082,7 @@
   z-index: 20;
 }
 
+
 /* MEDIA QUERIES FOR RESPONSIVE DESIGN */
 
 /* Large Desktop (1920px and above - original design) */
@@ -1079,10 +1102,19 @@
 
 /* Ultra-wide Desktop (1920px and above) - use same dimensions as 1440px */
 @media (min-width: 1920px) {
+  .figma-hero-section {
+    max-width: 1300px;
+    gap: 60px;
+  }
+
   .figma-hero-title {
     font-size: 140px;
-    width: 1300px;
     line-height: 135px;
+  }
+
+  .figma-hero-subtitle {
+    font-size: 20px;
+    line-height: 20px;
   }
 
   .figma-connect-button {
@@ -1227,7 +1259,7 @@
 
   .figma-cta-button {
     width: 350px;
-    height: 50px;
+    height: 60px;
     bottom: 100px;
   }
 
@@ -1285,6 +1317,24 @@
   }
 }
 
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .figma-hero-section {
+    top: 38vh;
+    gap: 35px;
+  }
+
+  .figma-hero-title {
+    font-size: 95px;
+    line-height: 95px;
+  }
+
+  .figma-hero-subtitle {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
   .liquid-app {
@@ -1299,11 +1349,20 @@
     line-height: 35px; /* Match button height for baseline alignment */
   }
 
+  .figma-hero-section {
+    top: 35vh;
+    gap: 25px;
+  }
+
   .figma-hero-title {
-    font-size: 60px;
-    width: 90%;
-    line-height: 60px;
-    top: 15%;
+    font-size: 80px;
+    line-height: 80px;
+    width: auto !important; /* Override other media query widths */
+  }
+
+  .figma-hero-subtitle {
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .figma-connect-button,
@@ -1322,8 +1381,10 @@
   }
 
   .figma-cta-button {
-    width: 90%;
-    height: 60px; /* Increased from 50px to 60px for better appearance */
+    width: auto;
+    max-width: 320px;
+    min-width: 280px;
+    height: 60px;
     bottom: 80px;
   }
 

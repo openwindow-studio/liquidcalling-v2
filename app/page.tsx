@@ -638,23 +638,29 @@ function HomeContent() {
           <PrivyConnectButton />
         </div>
 
-        {/* Hero Title - FIGMA RESPONSIVE */}
-        <h1 className="figma-hero-title">Actually Private<br/>Calls</h1>
+        {/* Hero Section - FIGMA RESPONSIVE */}
+        <div className="figma-hero-section">
+          <h1 className="figma-hero-title">Actually Private Calls</h1>
+          <p className="figma-hero-subtitle">The only way to make instant, 100% private, untraceable, encrypted calls without a phone number.</p>
+        </div>
 
-        {/* Main CTA Button - FIGMA RESPONSIVE */}
-        <button
-          onClick={login}
-          className="figma-cta-button"
-        >
-          <span className="figma-cta-text">Start your call</span>
-          <div className="figma-cta-icon">
-            <svg width="20" height="16" viewBox="0 0 37 31" fill="none">
-              <path d="M18.5 24.5V31" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M32 12V15.5C32 18.5 30.5 21.3 28 23.5C25.5 25.7 22 27 18.5 27C15 27 11.5 25.7 9 23.5C6.5 21.3 5 18.5 5 15.5V12" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M24 6C24 3 21.5 0.5 18.5 0.5C15.5 0.5 13 3 13 6V18C13 21 15.5 23.5 18.5 23.5C21.5 23.5 24 21 24 18V6Z" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </div>
-        </button>
+        {/* CTA Button Container - flows relative to hero section */}
+        <div className="figma-cta-container">
+          <button
+            onClick={login}
+            className="figma-cta-button"
+          >
+            <span className="figma-cta-text">Start your call</span>
+            <div className="figma-cta-icon">
+              <svg width="20" height="16" viewBox="0 0 37 31" fill="none">
+                <path d="M18.5 24.5V31" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M32 12V15.5C32 18.5 30.5 21.3 28 23.5C25.5 25.7 22 27 18.5 27C15 27 11.5 25.7 9 23.5C6.5 21.3 5 18.5 5 15.5V12" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M24 6C24 3 21.5 0.5 18.5 0.5C15.5 0.5 13 3 13 6V18C13 21 15.5 23.5 18.5 23.5C21.5 23.5 24 21 24 18V6Z" stroke="#010101" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+          </button>
+        </div>
+
 
         {/* Footer - FIGMA RESPONSIVE */}
         <div className="figma-footer-left">
