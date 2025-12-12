@@ -76,6 +76,14 @@ export default function SDKPage() {
         <span className="figma-button-text">Try Demo</span>
       </button>
 
+      {/* Info Link - Desktop Only */}
+      <div
+        className="figma-how-it-works-link"
+        onClick={() => router.push('/info')}
+      >
+        Info
+      </div>
+
       {/* Connect Wallet Button - FIGMA RESPONSIVE */}
       <div className="figma-connect-button">
         <PrivyConnectButton />
