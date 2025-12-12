@@ -330,6 +330,7 @@ export default function PrivacyPage() {
               </ul>
             </div>
           </div>
+
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '60px 0' }} />
