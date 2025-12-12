@@ -10,11 +10,13 @@ import { PrivyConnectButton } from '../components/PrivyConnectButton'
 import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '../components/ErrorBoundary'
+import { useRouter } from 'next/navigation'
 
 const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
 
 function HomeContent() {
   const { ready, authenticated, user, login, logout } = usePrivy()
+  const router = useRouter()
   const isConnected = authenticated
   const address = user?.wallet?.address
   const [mounted, setMounted] = useState(false)
