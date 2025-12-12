@@ -627,13 +627,6 @@ function HomeContent() {
         {/* Logo - FIGMA RESPONSIVE */}
         <div className="figma-logo" onClick={() => window.location.reload()}>Liquid Calling</div>
 
-        {/* How it Works Link - Desktop Only */}
-        <div
-          className="figma-how-it-works-link"
-          onClick={() => router.push('/info')}
-        >
-          Info
-        </div>
 
         {/* Try Demo Button - FIGMA RESPONSIVE */}
         <button
