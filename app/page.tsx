@@ -628,7 +628,7 @@ function HomeContent() {
         {/* How it Works Link - Desktop Only */}
         <div
           className="figma-how-it-works-link"
-          onClick={() => window.open('/how-it-works', '_blank')}
+          onClick={() => router.push('/how-it-works')}
         >
           How it Works
         </div>
