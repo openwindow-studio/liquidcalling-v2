@@ -607,7 +607,7 @@ function HomeContent() {
         </div>
         {/* App footer elements */}
         <div className="app-footer-left">
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
         </div>
         <div className="app-copyright">
           LIQUIDCALLING ©2025
@@ -624,6 +624,14 @@ function HomeContent() {
         <TorusCanvas />
         {/* Logo - FIGMA RESPONSIVE */}
         <div className="figma-logo" onClick={() => window.location.reload()}>Liquid Calling</div>
+
+        {/* How it Works Link - Desktop Only */}
+        <div
+          className="figma-how-it-works-link"
+          onClick={() => window.open('/how-it-works', '_blank')}
+        >
+          How it Works
+        </div>
 
         {/* Try Demo Button - FIGMA RESPONSIVE */}
         <button
@@ -664,7 +672,7 @@ function HomeContent() {
 
         {/* Footer - FIGMA RESPONSIVE */}
         <div className="figma-footer-left">
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
         </div>
 
         <div className="figma-footer-right">
@@ -866,7 +874,7 @@ function HomeContent() {
       </div>
       {/* App footer elements */}
       <div className="app-footer-left">
-        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption & HIPAA compliant. EU-US Data Privacy Framework certified.
+        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
       </div>
       <div className="app-copyright">
         LIQUIDCALLING ©2025

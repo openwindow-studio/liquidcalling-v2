@@ -38,6 +38,29 @@
   opacity: 0.8;
 }
 
+/* HOW IT WORKS LINK - Desktop Only */
+.figma-how-it-works-link {
+  position: absolute;
+  left: 200px;
+  top: 50px;
+  font-family: 'Britti Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: rgba(31, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(31, 0, 0, 0.3);
+}
+
+.figma-how-it-works-link:hover {
+  color: rgba(31, 0, 0, 0.9);
+  text-decoration-color: rgba(31, 0, 0, 0.6);
+}
+
 /* HERO SECTION FLEXBOX */
 .figma-hero-section {
   position: absolute;
@@ -1339,6 +1362,11 @@
 @media (max-width: 767px) {
   .liquid-app {
     min-height: 100vh; /* Use viewport height instead of fixed pixels */
+  }
+
+  /* Hide How it Works link on mobile to avoid crowding */
+  .figma-how-it-works-link {
+    display: none;
   }
 
   .figma-logo {

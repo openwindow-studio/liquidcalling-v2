@@ -500,7 +500,6 @@ export default function HowItWorksPage() {
                 ['Can prove a call happened', 'Yes (metadata)', 'Yes', 'No'],
                 ['Burner identity in < 30 s', 'Impossible', 'Impossible', 'Yes – new wallet or incognito tab'],
                 ['Anonymous call in 5 clicks', 'No', 'No', 'Yes'],
-                ['HIPAA-compliant path', 'No', 'No', 'Yes'],
                 ['Runs in any browser, no install', 'No', 'No', 'Yes']
               ].map((row, i) => (
                 <tr key={i} style={{
@@ -570,7 +569,7 @@ export default function HowItWorksPage() {
               },
               {
                 title: 'Medical Consultations',
-                description: 'HIPAA-compliant infrastructure for protected health conversations.'
+                description: 'Privacy-focused infrastructure for protected health conversations.'
               },
               {
                 title: 'Legal Discussions',
