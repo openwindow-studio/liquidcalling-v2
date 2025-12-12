@@ -630,9 +630,9 @@ function HomeContent() {
         {/* How it Works Link - Desktop Only */}
         <div
           className="figma-how-it-works-link"
-          onClick={() => router.push('/how-it-works')}
+          onClick={() => router.push('/info')}
         >
-          How it Works
+          Info
         </div>
 
         {/* Try Demo Button - FIGMA RESPONSIVE */}

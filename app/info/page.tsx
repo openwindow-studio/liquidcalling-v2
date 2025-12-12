@@ -209,7 +209,7 @@ export default function HowItWorksPage() {
             lineHeight: '1.1',
             marginBottom: '32px',
           }}>
-            How It Works
+            Info
           </h1>
 
           <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '0 0 40px 0' }} />
