@@ -178,7 +178,7 @@ export default function HowItWorksPage() {
 
       {/* Try Demo Button - FIGMA RESPONSIVE */}
       <button
-        onClick={() => router.push('/')}
+        onClick={() => router.push('/?demo=true')}
         className="figma-demo-button"
       >
         <span className="figma-button-text">Try Demo</span>

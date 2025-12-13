@@ -11,13 +11,14 @@ import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 import { Footer } from '../components/Footer'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
 
 function HomeContent() {
   const { ready, authenticated, user, login, logout } = usePrivy()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const isConnected = authenticated
   const address = user?.wallet?.address
   const [mounted, setMounted] = useState(false)
@@ -43,10 +44,17 @@ function HomeContent() {
   const [micPermission, setMicPermission] = useState<'granted' | 'denied' | 'prompt' | 'checking'>('prompt')
   const [showMicInstruction, setShowMicInstruction] = useState(false)
 
-  // Mark as mounted on client
+  // Mark as mounted on client and check for demo URL parameter
   useEffect(() => {
     setMounted(true)
-  }, [])
+
+    // Check if demo mode should be enabled from URL parameter
+    if (searchParams.get('demo') === 'true') {
+      setIsDemoMode(true)
+      // Clean up URL without refreshing page
+      window.history.replaceState({}, '', '/')
+    }
+  }, [searchParams])
 
   // Handle demo mode changes
   const handleSetDemoMode = (value: boolean) => {

@@ -69,11 +69,11 @@ export function Footer() {
           <div>
             <div className="text-sm font-medium text-white mb-3">Company</div>
             <ul className="space-y-2 text-sm">
-              <li><a className="text-white/80 hover:text-white" href="/company/how-it-works">How it Works</a></li>
-              <li><a className="text-white/80 hover:text-white" href="/terms">Terms of Service</a></li>
-              <li><a className="text-white/80 hover:text-white" href="/privacy">Privacy Policy</a></li>
-              <li><a className="text-white/80 hover:text-white" href="/pricing">Pricing</a></li>
-              <li><a className="text-white/80 hover:text-white" href="/sdk">Developer SDK</a></li>
+              <li><a className="text-white/80 hover:text-white transition-colors duration-200" href="/company/how-it-works">How it Works</a></li>
+              <li><a className="text-white/80 hover:text-white transition-colors duration-200" href="/terms">Terms of Service</a></li>
+              <li><a className="text-white/80 hover:text-white transition-colors duration-200" href="/privacy">Privacy Policy</a></li>
+              <li><a className="text-white/80 hover:text-white transition-colors duration-200" href="/pricing">Pricing</a></li>
+              <li><a className="text-white/80 hover:text-white transition-colors duration-200" href="/sdk">Developer SDK</a></li>
             </ul>
           </div>
         </div>

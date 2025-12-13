@@ -364,6 +364,7 @@ body {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 100;
 }
 
 /* CONNECT YOUR WALLET CTA BUTTON */
