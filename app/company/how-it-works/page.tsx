@@ -1,10 +1,10 @@
 'use client'
 
-import '../../styles/design-system.css'
-import '../../styles/liquid-layout.css'
-import '../../styles/figma-responsive.css'
+import '../../../styles/design-system.css'
+import '../../../styles/liquid-layout.css'
+import '../../../styles/figma-responsive.css'
 import { useState } from 'react'
-import { PrivyConnectButton } from '../../components/PrivyConnectButton'
+import { PrivyConnectButton } from '../../../components/PrivyConnectButton'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import {
@@ -26,7 +26,7 @@ import {
   FileX
 } from 'lucide-react'
 
-const StaticTorusCanvas = dynamic(() => import('../../components/StaticTorusCanvas'), { ssr: false })
+const StaticTorusCanvas = dynamic(() => import('../../../components/StaticTorusCanvas'), { ssr: false })
 
 const howItWorksPageStyles = `
   .interactive-step {
@@ -209,7 +209,7 @@ export default function HowItWorksPage() {
             lineHeight: '1.1',
             marginBottom: '32px',
           }}>
-            Info
+            How It Works
           </h1>
 
           <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '0 0 40px 0' }} />

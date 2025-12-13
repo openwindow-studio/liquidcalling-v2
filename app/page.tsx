@@ -10,6 +10,7 @@ import { PrivyConnectButton } from '../components/PrivyConnectButton'
 import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '../components/ErrorBoundary'
+import { Footer } from '../components/Footer'
 import { useRouter } from 'next/navigation'
 
 const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
@@ -611,9 +612,6 @@ function HomeContent() {
         <div className="app-footer-left">
           Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
         </div>
-        <div className="app-copyright">
-          LIQUIDCALLING ©2025
-        </div>
       </div>
     )
   }
@@ -674,9 +672,6 @@ function HomeContent() {
           Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
         </div>
 
-        <div className="figma-copyright">
-          LIQUIDCALLING ©2025
-        </div>
       </div>
     )
   }
@@ -871,9 +866,6 @@ function HomeContent() {
       <div className="app-footer-left">
         Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
       </div>
-      <div className="app-copyright">
-        LIQUIDCALLING ©2025
-      </div>
     </div>
   )
 }
@@ -896,9 +888,12 @@ export default function Home() {
         </div>
       }
     >
-      <DailyProvider>
-        <HomeContent />
-      </DailyProvider>
+      <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+        <DailyProvider>
+          <HomeContent />
+        </DailyProvider>
+      </div>
+      <Footer />
     </ErrorBoundary>
   )
 }

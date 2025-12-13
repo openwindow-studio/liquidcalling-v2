@@ -17,6 +17,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
           theme: 'dark',
           accentColor: '#6366F1',
           logo: '/LCLOGO.png',
+          walletChainType: 'ethereum-and-solana',
+          showWalletLoginFirst: true,
         },
         embeddedWallets: {
           ethereum: {
