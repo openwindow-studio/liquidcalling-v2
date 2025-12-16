@@ -41,7 +41,8 @@ export function middleware(request: NextRequest) {
 
   // Clean up expired entries periodically
   if (Math.random() < 0.01) { // 1% chance to cleanup on each request
-    for (const [k, v] of rateLimitMap.entries()) {
+    const entries = Array.from(rateLimitMap.entries())
+    for (const [k, v] of entries) {
       if (now > v.resetTime) {
         rateLimitMap.delete(k)
       }
