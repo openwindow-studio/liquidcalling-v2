@@ -6,6 +6,7 @@ import { DailyProvider, useDaily } from '@daily-co/daily-react'
 import useDailyReact from '../hooks/useDailyReact'
 import { useMinutesBalance } from '../hooks/useMinutesBalance'
 import { useRealPayments } from '../hooks/useRealPayments'
+import { useServerValidation } from '../hooks/useServerValidation'
 import { PrivyConnectButton } from '../components/PrivyConnectButton'
 import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
@@ -151,6 +152,19 @@ function HomeContent() {
     refreshBalance
   } = useRealPayments()
 
+  // Server validation hooks
+  const {
+    validateMinutes,
+    startCallSession,
+    endCallSession,
+    sendHeartbeat,
+    isValidating,
+    lastValidation,
+    currentSession,
+    hasDiscrepancy,
+    serverMinutes
+  } = useServerValidation()
+
   // Combined buy minutes function that handles real crypto payments
   const handleBuyMinutes = async (amount: string, method?: string) => {
     console.log(`🔥 handleBuyMinutes called:`, { amount, method, cryptoReady, currentNetwork })
@@ -217,21 +231,36 @@ function HomeContent() {
   // Track the last minute we deducted to prevent double deductions
   const [lastDeductedMinute, setLastDeductedMinute] = useState(0)
 
-  // Handle minute deduction and auto-end logic separately
+  // Handle minute deduction and server validation
   useEffect(() => {
     // Calculate which minute we're in
     const currentMinute = Math.floor(callDuration / 60)
 
-    // Only deduct if we've moved to a new minute and haven't deducted for this minute yet
+    // Only process if we've moved to a new minute and haven't processed this minute yet
     if (currentMinute > 0 && currentMinute > lastDeductedMinute && !isDemoMode && isConnected && isInCall) {
-      const deductionSuccess = deductMinutes(1)
       setLastDeductedMinute(currentMinute)
 
-      if (!deductionSuccess) {
-        // Out of minutes - end call
-        console.log('Out of minutes - ending call')
-        alert('Call ended - insufficient minutes balance')
-        handleEndCall()
+      // For server-tracked sessions, use heartbeat validation
+      if (currentSession) {
+        sendHeartbeat(currentMinute).then(result => {
+          if (result.shouldEndCall) {
+            console.log('Server requested call termination - insufficient minutes')
+            alert('Call ended - insufficient minutes balance (verified by server)')
+            handleEndCall()
+          }
+        }).catch(error => {
+          console.error('Heartbeat validation failed:', error)
+          // Don't end call on network errors, but warn
+          console.warn('Unable to verify minutes with server, continuing call...')
+        })
+      } else {
+        // Fallback to client-side deduction for demo/legacy mode
+        const deductionSuccess = deductMinutes(1)
+        if (!deductionSuccess) {
+          console.log('Out of minutes - ending call (client-side check)')
+          alert('Call ended - insufficient minutes balance')
+          handleEndCall()
+        }
       }
     }
 
@@ -239,7 +268,7 @@ function HomeContent() {
     if (isDemoMode && callDuration >= 600 && isInCall) {
       handleEndCall()
     }
-  }, [callDuration, isDemoMode, isConnected, deductMinutes, isInCall, lastDeductedMinute])
+  }, [callDuration, isDemoMode, isConnected, deductMinutes, isInCall, lastDeductedMinute, currentSession, sendHeartbeat])
 
   // Real audio detection using audioLevels from useDailyReact
   useEffect(() => {
@@ -341,9 +370,30 @@ function HomeContent() {
     }
 
     // Check minutes balance for connected users (not demo mode)
-    if (isConnected && !isDemoMode && minutesBalance < 1) {
-      alert('Insufficient minutes balance. Please purchase minutes to start a call.')
-      return
+    if (isConnected && !isDemoMode) {
+      try {
+        // Validate with server before allowing call creation
+        const validation = await validateMinutes(minutesBalance, 'create_call')
+
+        if (!validation.valid) {
+          alert(`Insufficient minutes balance. Server shows you have ${validation.actualMinutes} minutes.`)
+          return
+        }
+
+        // Warn if there's a discrepancy between client and server
+        if (validation.discrepancy > 5) {
+          console.warn(`⚠️ Minutes discrepancy detected - updating client from server`)
+          // Update localStorage to match server
+          if (user?.wallet?.address) {
+            localStorage.setItem(`minutes_${user.wallet.address}`, validation.actualMinutes.toString())
+            // Trigger balance update
+            window.dispatchEvent(new Event('minutes-updated'))
+          }
+        }
+      } catch (error: any) {
+        alert(`Unable to verify minutes balance: ${error.message}`)
+        return
+      }
     }
 
     try {
@@ -413,6 +463,22 @@ function HomeContent() {
         throw new Error('No room URL available')
       }
 
+      // Start server session tracking (for non-demo mode)
+      if (isConnected && !isDemoMode && roomId) {
+        try {
+          const session = await startCallSession(roomId)
+          console.log(`✅ Server session started: ${session.sessionId}`)
+        } catch (error: any) {
+          console.error('Failed to start server session:', error)
+          if (error.message.includes('Insufficient minutes')) {
+            alert('Insufficient minutes balance verified by server')
+            return
+          }
+          // Continue with call even if session tracking fails
+          console.warn('Continuing call without server session tracking')
+        }
+      }
+
       // Join Daily.co room using the full URL
       console.log('Joining room with URL:', roomUrlToJoin)
       await joinRoom(roomUrlToJoin)
@@ -433,6 +499,13 @@ function HomeContent() {
 
   const handleEndCall = async () => {
     try {
+      // End server session tracking
+      if (currentSession && !isDemoMode) {
+        const minutesUsed = Math.ceil(callDuration / 60)
+        await endCallSession(minutesUsed)
+        console.log(`📞 Server session ended with ${minutesUsed} minutes used`)
+      }
+
       // Leave Daily.co room
       leaveRoom()
 
@@ -544,6 +617,33 @@ function HomeContent() {
                   cryptoReady={cryptoReady}
                   isNetworkSupported={isNetworkSupported}
                 />
+
+                {/* Server validation status */}
+                {hasDiscrepancy && lastValidation && (
+                  <div style={{
+                    fontSize: '11px',
+                    color: 'rgba(255, 200, 100, 0.8)',
+                    textAlign: 'center',
+                    marginTop: '8px',
+                    padding: '4px 8px',
+                    background: 'rgba(255, 200, 100, 0.1)',
+                    borderRadius: '6px',
+                    border: '1px solid rgba(255, 200, 100, 0.2)'
+                  }}>
+                    ⚠️ Server verification: You have {lastValidation.actualMinutes} minutes (corrected from client)
+                  </div>
+                )}
+
+                {currentSession && (
+                  <div style={{
+                    fontSize: '10px',
+                    color: 'rgba(100, 255, 100, 0.7)',
+                    textAlign: 'center',
+                    marginTop: '4px'
+                  }}>
+                    🛡️ Server-validated session: {currentSession.sessionId.slice(-8)}
+                  </div>
+                )}
               </div>
             )}
 
@@ -743,18 +843,47 @@ function HomeContent() {
 
           {/* Minutes Balance Section - Only show for connected users */}
           {isConnected && !isDemoMode && (
-            <PaymentUI
-              minutesBalance={minutesBalance}
-              buyMinutes={handleBuyMinutes}
-              isPurchasing={isPurchasing}
-              calculateMinutesFromDollars={calculateMinutesFromDollars}
-              currentNetwork={currentNetwork}
-              usdcBalance={usdcBalance}
-              supportedNetworks={supportedNetworks}
-              switchToNetwork={switchToNetwork}
-              cryptoReady={cryptoReady}
-              isNetworkSupported={isNetworkSupported}
-            />
+            <div>
+              <PaymentUI
+                minutesBalance={minutesBalance}
+                buyMinutes={handleBuyMinutes}
+                isPurchasing={isPurchasing}
+                calculateMinutesFromDollars={calculateMinutesFromDollars}
+                currentNetwork={currentNetwork}
+                usdcBalance={usdcBalance}
+                supportedNetworks={supportedNetworks}
+                switchToNetwork={switchToNetwork}
+                cryptoReady={cryptoReady}
+                isNetworkSupported={isNetworkSupported}
+              />
+
+              {/* Server validation status */}
+              {hasDiscrepancy && lastValidation && (
+                <div style={{
+                  fontSize: '11px',
+                  color: 'rgba(255, 200, 100, 0.8)',
+                  textAlign: 'center',
+                  marginTop: '8px',
+                  padding: '4px 8px',
+                  background: 'rgba(255, 200, 100, 0.1)',
+                  borderRadius: '6px',
+                  border: '1px solid rgba(255, 200, 100, 0.2)'
+                }}>
+                  ⚠️ Server verification: You have {lastValidation.actualMinutes} minutes
+                </div>
+              )}
+
+              {isValidating && (
+                <div style={{
+                  fontSize: '10px',
+                  color: 'rgba(100, 100, 255, 0.7)',
+                  textAlign: 'center',
+                  marginTop: '4px'
+                }}>
+                  🔍 Validating with server...
+                </div>
+              )}
+            </div>
           )}
 
 
