@@ -89,15 +89,15 @@ async function getBasePayments(userAddress: string): Promise<any[]> {
         const amount = ethers.formatUnits(log.data, 6) // USDC has 6 decimals
         const minutes = Math.floor(parseFloat(amount) * 20) // $0.05 per minute = 20 minutes per dollar
 
-        // Get transaction details
-        const tx = await provider.getTransaction(log.transactionHash)
+        // Get block details for timestamp
+        const block = await provider.getBlock(log.blockNumber)
 
         payments.push({
           txHash: log.transactionHash,
           network: 'Base',
           amount: parseFloat(amount),
           minutes,
-          timestamp: tx?.timestamp ? new Date(tx.timestamp * 1000).toISOString() : null,
+          timestamp: block?.timestamp ? new Date(block.timestamp * 1000).toISOString() : null,
           blockNumber: log.blockNumber,
           verified: true
         })
