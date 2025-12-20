@@ -1611,6 +1611,20 @@ body {
     width: 90%;
     top: 2vh;
   }
+
+  .figma-demo-button {
+    position: absolute;
+    bottom: 20px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+
+  /* Make torus 25% opacity on mobile */
+  .torus-fade-in {
+    opacity: 0.25;
+  }
 }
 
 /* Connected Circle Green Bullet */
