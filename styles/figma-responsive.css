@@ -18,6 +18,14 @@ body {
   padding: 0;
 }
 
+/* Next.js root container - prevent it from creating scrollbars */
+#__next {
+  overflow-x: hidden;
+  overflow-y: visible;
+  height: auto;
+  min-height: 100vh;
+}
+
 /* GLOBAL BACKGROUND */
 .liquid-app {
   min-height: 100vh;
