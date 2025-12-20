@@ -27,7 +27,8 @@ const TorusCanvas = () => {
       height: '100vh',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      clipPath: 'inset(0 0 0 0)'
     }}>
       <Canvas
         camera={{ position: [4, -2, 7] }}

@@ -1029,12 +1029,8 @@ export default function Home() {
         <DailyProvider>
           <HomeContent />
         </DailyProvider>
-        <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1000, pointerEvents: 'none' }}>
-          <div style={{ pointerEvents: 'auto' }}>
-            <Footer />
-          </div>
-        </div>
       </div>
+      <Footer />
     </ErrorBoundary>
   )
 }
