@@ -295,7 +295,7 @@ const TorusGeometries = () => {
         </Text>
       </group>
       <mesh ref={mesh}>
-        <torusGeometry args={[3.564, 1.188, 32, 100]} />
+        <torusGeometry args={[6.416, 2.139, 32, 100]} />
         <shaderMaterial
           key={uuidv4()}
           vertexShader={vertexShader}
