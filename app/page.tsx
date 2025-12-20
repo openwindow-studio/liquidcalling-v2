@@ -1021,8 +1021,7 @@ export default function Home() {
 
       {/* Footer Text Section - Responsive layout */}
       <div style={{
-        background: 'rgba(241, 241, 245, 0.3)',
-        backdropFilter: 'blur(2px)',
+        background: 'transparent',
         position: 'relative',
         minHeight: '200px',
         padding: '80px 60px',
