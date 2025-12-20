@@ -1030,6 +1030,29 @@ export default function Home() {
           <HomeContent />
         </DailyProvider>
       </div>
+
+      {/* Footer Text Section - Separate page above Footer */}
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '80px 60px'
+      }}>
+        <div style={{ maxWidth: '1200px', width: '100%' }}>
+          {/* Left text */}
+          <div className="figma-footer-left">
+            Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
+          </div>
+          {/* Right text */}
+          <div className="figma-footer-right">
+            Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
+          </div>
+        </div>
+      </div>
+
       <Footer />
     </ErrorBoundary>
   )

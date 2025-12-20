@@ -78,28 +78,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Footer Text - Mobile-friendly positioning */}
-      <div style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', padding: '0 20px' }}>
-        <div style={{
-          fontFamily: 'var(--font-geist-mono), SF Mono, Monaco, monospace',
-          fontSize: 'clamp(10px, 2.5vw, 11px)',
-          lineHeight: '1.4',
-          textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.8)'
-        }}>
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-        </div>
-        <div style={{
-          fontFamily: 'var(--font-geist-mono), SF Mono, Monaco, monospace',
-          fontSize: 'clamp(10px, 2.5vw, 11px)',
-          lineHeight: '1.4',
-          textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.8)'
-        }}>
-          Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
-        </div>
-      </div>
       </div>
     </div>
   )
