@@ -2,9 +2,22 @@
 
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { useState, useEffect } from 'react';
 import TorusGeometries from "./TorusBackground";
 
 const TorusCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="torus-fade-in" style={{
       position: 'fixed',
@@ -27,7 +40,7 @@ const TorusCanvas = () => {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          enableRotate={true}
+          enableRotate={!isMobile}
           enableDamping={true}
           dampingFactor={0.05}
           rotateSpeed={0.5}

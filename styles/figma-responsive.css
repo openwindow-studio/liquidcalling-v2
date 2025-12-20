@@ -1602,7 +1602,7 @@ body {
 /* iPhone SE and very small mobile optimizations */
 @media (max-width: 375px) {
   .figma-hero-section {
-    top: 35vh;
+    top: 40vh;
     gap: 25px;
     color: #000;
   }
@@ -1621,11 +1621,9 @@ body {
     right: auto;
   }
 
-  /* Make torus 25% opacity on mobile and extend beyond viewport */
+  /* Make torus 25% opacity on mobile */
   .torus-fade-in {
     opacity: 0.25;
-    height: 120vh !important;
-    min-height: 120vh !important;
   }
 }
 
