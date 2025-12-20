@@ -1599,6 +1599,62 @@ body {
   opacity: 0.9;
 }
 
+/* Very small mobile (iPhone SE and smaller) */
+@media (max-width: 375px) {
+  .figma-hero-section {
+    top: 43vh;
+    gap: 25px;
+  }
+
+  .figma-cta-button {
+    width: 90%;
+    top: 2vh;
+  }
+
+  .figma-demo-button {
+    right: 50%;
+    transform: translateX(50%);
+    top: 85vh;
+    width: 280px;
+  }
+
+  /* Hide main app footer text on very small mobile - show only in actual footer */
+  .figma-footer-left,
+  .figma-footer-right {
+    display: none;
+  }
+
+  /* Show mobile footer text in Footer component */
+  .mobile-footer-text {
+    display: block !important;
+  }
+
+  /* Optimize footer ASCII art */
+  .footer-ascii {
+    font-size: 4px !important;
+    line-height: 0.8 !important;
+    letter-spacing: -0.5px !important;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  /* Footer container adjustments */
+  .Footer div[style*="padding"] {
+    padding: 12px !important;
+  }
+}
+
+/* Mobile demo button full width banner for larger mobile */
+@media (max-width: 767px) and (min-width: 376px) {
+  .figma-demo-button {
+    left: 20px;
+    right: 20px;
+    width: calc(100% - 40px);
+    top: 90vh;
+    text-align: center;
+  }
+}
+
 /* Connected Circle Green Bullet */
 .connected-circle {
   color: #22c55e !important;
