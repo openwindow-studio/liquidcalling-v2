@@ -28,12 +28,14 @@ export function Footer() {
           <div className="flex items-center gap-2 mb-6">
             <pre style={{
               fontFamily: 'Consolas, Monaco, "Courier New", Courier, monospace',
-              fontSize: 'clamp(6px, 2vw, 10px)',
+              fontSize: 'clamp(4px, 1.5vw, 8px)',
               lineHeight: '1.0',
               color: 'rgba(255, 255, 255, 0.9)',
               whiteSpace: 'pre',
               margin: 0,
-              letterSpacing: '0px'
+              letterSpacing: '0px',
+              overflow: 'hidden',
+              wordBreak: 'break-all'
             }}>
               {asciiLogo}
             </pre>
