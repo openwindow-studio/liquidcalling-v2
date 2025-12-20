@@ -2,18 +2,20 @@
 
 /* Privy modal styling handled by Privy components */
 /* Ensure Privy modals are positioned relative to viewport, not full page */
+html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100%;
+}
+
 body {
   scroll-behavior: smooth;
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   height: auto;
-}
-
-html {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* GLOBAL BACKGROUND */
@@ -22,8 +24,7 @@ html {
   width: 100%;
   background: transparent;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: visible;
   z-index: 1;
   pointer-events: none;
 }
