@@ -20,74 +20,70 @@ const TorusCanvas = () => {
 
   useEffect(() => {
     // Update torus container height to match full document height
+    // IMPORTANT: Only measure content, exclude the torus itself to prevent feedback loops
     const updateHeight = () => {
       const torusContainer = document.querySelector('.torus-fade-in');
       const canvasElement = torusContainer?.querySelector('canvas');
       
       if (torusContainer) {
-        // More robust height calculation - check all possible sources
+        // Get document height EXCLUDING the torus container itself
+        // This prevents feedback loops where torus height affects document height
         const body = document.body;
         const html = document.documentElement;
         
-        // Get all possible height measurements
-        const measurements = [
-          body.scrollHeight,
-          body.offsetHeight,
-          html.clientHeight,
-          html.scrollHeight,
-          html.offsetHeight,
-          window.innerHeight,
-          // Also check the actual rendered content
-          Math.max(...Array.from(document.querySelectorAll('*')).map(el => {
+        // Get measurements excluding the torus container
+        const allElements = Array.from(document.querySelectorAll('*')).filter(el => 
+          !el.classList.contains('torus-fade-in') && 
+          !el.closest('.torus-fade-in')
+        );
+        
+        const contentHeight = Math.max(
+          ...allElements.map(el => {
             const rect = el.getBoundingClientRect();
             return rect.bottom + window.scrollY;
-          }))
-        ];
+          }),
+          body.scrollHeight,
+          html.scrollHeight,
+          window.innerHeight
+        );
         
-        const docHeight = Math.max(...measurements);
+        // Use content height, but don't let it be less than viewport
+        const finalHeight = Math.max(contentHeight, window.innerHeight);
         
-        // Use the actual document height, but ensure it's at least viewport height
-        // Don't add excessive padding that creates extra scroll
-        const finalHeight = Math.max(docHeight, window.innerHeight);
-        
-        // Debug logging
-        if (window.innerWidth > 768) {
-          console.log('Torus height update:', {
-            docHeight,
-            viewportHeight: window.innerHeight,
-            finalHeight
-          });
-        }
-        
-        // Set height with !important equivalent (inline style)
-        torusContainer.style.setProperty('height', `${finalHeight}px`, 'important');
-        
-        // Also set minHeight to ensure it doesn't shrink
-        torusContainer.style.setProperty('min-height', `${finalHeight}px`, 'important');
-        
-        // CRITICAL: Also update the canvas element directly
-        if (canvasElement) {
-          canvasElement.style.setProperty('height', `${finalHeight}px`, 'important');
-          canvasElement.style.setProperty('min-height', `${finalHeight}px`, 'important');
-          canvasElement.height = finalHeight * window.devicePixelRatio || 2;
-          canvasElement.width = window.innerWidth * (window.devicePixelRatio || 2);
+        // Only update if height actually changed to prevent unnecessary reflows
+        const currentHeight = parseInt(torusContainer.style.height) || 0;
+        if (Math.abs(currentHeight - finalHeight) > 10) {
+          // Set height with !important equivalent (inline style)
+          torusContainer.style.setProperty('height', `${finalHeight}px`, 'important');
+          
+          // CRITICAL: Also update the canvas element directly
+          if (canvasElement) {
+            canvasElement.style.setProperty('height', `${finalHeight}px`, 'important');
+            canvasElement.height = finalHeight * (window.devicePixelRatio || 2);
+            canvasElement.width = window.innerWidth * (window.devicePixelRatio || 2);
+          }
         }
       }
     };
     
-    // More aggressive update strategy for desktop
+    // Less aggressive update strategy - only update when needed
     const attemptUpdate = (attempt = 0) => {
       updateHeight();
-      if (attempt < 10) {
-        setTimeout(() => attemptUpdate(attempt + 1), 100 * (attempt + 1));
+      if (attempt < 3) {
+        setTimeout(() => attemptUpdate(attempt + 1), 300 * (attempt + 1));
       }
     };
     
-    // Start updates immediately and continue
-    updateHeight();
+    // Start updates after DOM is ready
+    if (document.readyState === 'complete') {
+      updateHeight();
+    } else {
+      window.addEventListener('load', updateHeight, { once: true });
+    }
+    
     setTimeout(() => {
       attemptUpdate(1);
-    }, 50);
+    }, 200);
     
     // Update on resize
     const handleResize = () => {
@@ -128,11 +124,11 @@ const TorusCanvas = () => {
     window.addEventListener('load', updateHeight);
     window.addEventListener('DOMContentLoaded', updateHeight);
     
-    // Use requestAnimationFrame for continuous updates (throttled)
+    // Use requestAnimationFrame for updates (much less frequent to prevent feedback loops)
     let rafId;
     let lastUpdate = 0;
     const rafUpdate = (timestamp) => {
-      if (timestamp - lastUpdate > 500) { // Update every 500ms max
+      if (timestamp - lastUpdate > 2000) { // Update every 2 seconds max (much less frequent)
         updateHeight();
         lastUpdate = timestamp;
       }
