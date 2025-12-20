@@ -46,18 +46,16 @@ const TorusCanvas = () => {
         
         const docHeight = Math.max(...measurements);
         
-        // For desktop, be more aggressive with padding
-        const isDesktop = window.innerWidth > 768;
-        const paddingMultiplier = isDesktop ? 4 : 1.5; // Even more aggressive for desktop
-        const finalHeight = Math.max(docHeight, window.innerHeight * paddingMultiplier);
+        // Use the actual document height, but ensure it's at least viewport height
+        // Don't add excessive padding that creates extra scroll
+        const finalHeight = Math.max(docHeight, window.innerHeight);
         
-        // Debug logging for desktop
-        if (isDesktop) {
-          console.log('Desktop torus height update:', {
+        // Debug logging
+        if (window.innerWidth > 768) {
+          console.log('Torus height update:', {
             docHeight,
             viewportHeight: window.innerHeight,
-            finalHeight,
-            paddingMultiplier
+            finalHeight
           });
         }
         
@@ -159,8 +157,8 @@ const TorusCanvas = () => {
       top: 0,
       left: 0,
       width: '100vw',
-      height: '300vh',
-      minHeight: '300vh',
+      height: '100vh',
+      minHeight: '100vh',
       zIndex: -1,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
       pointerEvents: 'none',
