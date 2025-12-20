@@ -1,7 +1,7 @@
 /* LiquidCalling V2 - Responsive design based on 1920x1080 Figma */
 
 /* Privy modal styling - ensure modals are centered and visible */
-/* Target Privy's modal overlay/backdrop */
+/* Only target Privy's modal overlay when it exists and is not hidden */
 [data-privy-overlay] {
   position: fixed !important;
   top: 0 !important;
@@ -19,8 +19,16 @@
   padding: 0 !important;
 }
 
+/* Hide overlay when it has hidden attribute or display:none */
+[data-privy-overlay][hidden],
+[data-privy-overlay][style*="display: none"],
+[data-privy-overlay][style*="display:none"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
 /* Target Privy's modal dialog container */
-[data-privy-modal] {
+[data-privy-overlay] [data-privy-modal] {
   position: relative !important;
   margin: auto !important;
   max-width: 100vw !important;
@@ -31,42 +39,26 @@
 }
 
 /* Ensure modal content is centered within viewport */
-[data-privy-modal] > div {
+[data-privy-overlay] [data-privy-modal] > div {
   position: relative !important;
   margin: auto !important;
   max-width: 100% !important;
   max-height: 100% !important;
 }
 
-/* Fallback for dialog elements */
-dialog[open],
-div[role="dialog"] {
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: 10000 !important;
-  max-width: 90vw !important;
-  max-height: 90vh !important;
-  overflow: auto !important;
-}
-
 /* Prevent body scrolling when Privy modal is open */
-body:has([data-privy-overlay]) {
+body:has([data-privy-overlay]:not([hidden])) {
   overflow: hidden !important;
-  position: fixed !important;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 /* Ensure modal is visible on mobile */
 @media (max-width: 767px) {
-  [data-privy-overlay] {
+  [data-privy-overlay]:not([hidden]) {
     padding: 20px !important;
     box-sizing: border-box !important;
   }
   
-  [data-privy-modal] {
+  [data-privy-overlay]:not([hidden]) [data-privy-modal] {
     width: calc(100% - 40px) !important;
     max-width: 100% !important;
   }
@@ -238,6 +230,8 @@ body {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
 }
 
 /* Power icon for connect button - more aggressive approach */
@@ -1681,10 +1675,43 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: auto !important;
+  z-index: 1001 !important;
 }
 
 .privy-connect-button:hover {
   opacity: 0.9;
+}
+
+/* Rainbow connect button (used by PrivyConnectButton component) */
+.rainbow-connect-button {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  background: transparent !important;
+  color: #FFFFFF !important;
+  font-family: 'Britti Sans' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: auto !important;
+  z-index: 1001 !important;
+  position: relative !important;
+}
+
+.rainbow-connect-button:hover {
+  opacity: 0.9 !important;
+}
+
+.rainbow-connect-button:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
 }
 
 /* iPhone SE and very small mobile optimizations */
