@@ -26,25 +26,19 @@ export function Footer() {
       <div className="w-full relative z-10 flex flex-col gap-y-8 md:grid md:grid-cols-[1fr_auto]">
         <div>
           <div className="flex items-center gap-2 mb-6">
-            <pre className="footer-ascii" style={{
+            <pre style={{
               fontFamily: 'Consolas, Monaco, "Courier New", Courier, monospace',
-              fontSize: 'clamp(4px, 2vw, 10px)',
-              lineHeight: 'clamp(0.8, 1.2, 1.0)',
+              fontSize: 'clamp(6px, 2vw, 10px)',
+              lineHeight: '1.0',
               color: 'rgba(255, 255, 255, 0.9)',
               whiteSpace: 'pre',
               margin: 0,
-              letterSpacing: 'clamp(-0.5px, 0px, 0px)'
+              letterSpacing: '0px'
             }}>
               {asciiLogo}
             </pre>
           </div>
           <div className="text-xs text-white/60">Liquid Calling © 2026</div>
-
-          {/* Mobile privacy/payment text - only visible on very small screens */}
-          <div className="mobile-footer-text mt-4 text-xs text-white/70 space-y-2 hidden">
-            <div>Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.</div>
-            <div>Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.</div>
-          </div>
         </div>
 
         <div className="grid grid-cols-[max-content_max-content] gap-x-6 md:gap-x-10 gap-y-6 md:col-start-2 md:justify-self-end">
