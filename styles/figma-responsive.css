@@ -1,7 +1,28 @@
 /* LiquidCalling V2 - Responsive design based on 1920x1080 Figma */
 
-/* Privy modal styling handled by Privy components */
-/* Ensure Privy modals are positioned relative to viewport, not full page */
+/* Privy modal styling - ensure modals are centered and visible */
+[data-privy-modal],
+[data-privy-overlay],
+div[role="dialog"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important;
+  overflow: auto !important;
+}
+
+/* Privy modal content container */
+[data-privy-modal] > div,
+[data-privy-overlay] > div {
+  position: relative !important;
+  margin: auto !important;
+}
+
 html {
   overflow-x: hidden;
   overflow-y: auto;
