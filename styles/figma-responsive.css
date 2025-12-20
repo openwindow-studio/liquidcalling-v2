@@ -10,6 +10,7 @@
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
+  height: 100dvh !important; /* Use dynamic viewport height for mobile */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -17,6 +18,7 @@
   overflow: auto !important;
   margin: 0 !important;
   padding: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important; /* Semi-transparent backdrop */
 }
 
 /* Hide overlay when it has hidden attribute or display:none */
@@ -27,15 +29,19 @@
   pointer-events: none !important;
 }
 
-/* Target Privy's modal dialog container */
+/* Target Privy's modal dialog container - center it properly */
 [data-privy-overlay] [data-privy-modal] {
   position: relative !important;
   margin: auto !important;
-  max-width: 100vw !important;
-  max-height: 100vh !important;
+  max-width: 90vw !important;
+  max-width: min(90vw, 500px) !important; /* Responsive max width */
+  max-height: 90vh !important;
+  max-height: min(90vh, 600px) !important; /* Responsive max height */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  top: 0 !important; /* Reset any top positioning */
+  transform: none !important; /* Reset any transforms */
 }
 
 /* Ensure modal content is centered within viewport */
@@ -44,23 +50,54 @@
   margin: auto !important;
   max-width: 100% !important;
   max-height: 100% !important;
+  width: 100% !important;
 }
 
 /* Prevent body scrolling when Privy modal is open */
 body:has([data-privy-overlay]:not([hidden])) {
   overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
-/* Ensure modal is visible on mobile */
+/* Ensure modal is visible and properly positioned on mobile */
 @media (max-width: 767px) {
-  [data-privy-overlay]:not([hidden]) {
-    padding: 20px !important;
+  [data-privy-overlay] {
+    padding: 16px !important;
     box-sizing: border-box !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   
-  [data-privy-overlay]:not([hidden]) [data-privy-modal] {
-    width: calc(100% - 40px) !important;
+  [data-privy-overlay] [data-privy-modal] {
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    max-height: calc(100vh - 32px) !important;
+    max-height: calc(100dvh - 32px) !important; /* Use dynamic viewport height */
+    margin: auto !important;
+    top: 0 !important;
+    transform: none !important;
+    position: relative !important;
+  }
+  
+  /* Ensure modal content is visible on mobile */
+  [data-privy-overlay] [data-privy-modal] > div {
+    width: 100% !important;
     max-width: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Desktop-specific positioning to ensure proper centering */
+@media (min-width: 768px) {
+  [data-privy-overlay] [data-privy-modal] {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    position: fixed !important;
+    margin: 0 !important;
   }
 }
 
