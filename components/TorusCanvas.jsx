@@ -22,6 +22,8 @@ const TorusCanvas = () => {
     // Update torus container height to match full document height
     const updateHeight = () => {
       const torusContainer = document.querySelector('.torus-fade-in');
+      const canvasElement = torusContainer?.querySelector('canvas');
+      
       if (torusContainer) {
         // More robust height calculation - check all possible sources
         const body = document.body;
@@ -46,14 +48,32 @@ const TorusCanvas = () => {
         
         // For desktop, be more aggressive with padding
         const isDesktop = window.innerWidth > 768;
-        const paddingMultiplier = isDesktop ? 2.5 : 1.5;
+        const paddingMultiplier = isDesktop ? 4 : 1.5; // Even more aggressive for desktop
         const finalHeight = Math.max(docHeight, window.innerHeight * paddingMultiplier);
+        
+        // Debug logging for desktop
+        if (isDesktop) {
+          console.log('Desktop torus height update:', {
+            docHeight,
+            viewportHeight: window.innerHeight,
+            finalHeight,
+            paddingMultiplier
+          });
+        }
         
         // Set height with !important equivalent (inline style)
         torusContainer.style.setProperty('height', `${finalHeight}px`, 'important');
         
         // Also set minHeight to ensure it doesn't shrink
         torusContainer.style.setProperty('min-height', `${finalHeight}px`, 'important');
+        
+        // CRITICAL: Also update the canvas element directly
+        if (canvasElement) {
+          canvasElement.style.setProperty('height', `${finalHeight}px`, 'important');
+          canvasElement.style.setProperty('min-height', `${finalHeight}px`, 'important');
+          canvasElement.height = finalHeight * window.devicePixelRatio || 2;
+          canvasElement.width = window.innerWidth * (window.devicePixelRatio || 2);
+        }
       }
     };
     
@@ -151,7 +171,13 @@ const TorusCanvas = () => {
         camera={{ position: [4, -2, 7] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          minHeight: '100%',
+          pointerEvents: 'auto',
+          display: 'block'
+        }}
       >
         <ambientLight intensity={1.0} />
         <TorusGeometries />
