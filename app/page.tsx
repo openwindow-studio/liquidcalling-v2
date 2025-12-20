@@ -771,14 +771,6 @@ function HomeContent() {
         </div>
 
 
-        {/* Footer - FIGMA RESPONSIVE */}
-        <div className="figma-footer-left">
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-        </div>
-
-        <div className="figma-footer-right">
-          Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
-        </div>
 
       </div>
     )
@@ -999,10 +991,6 @@ function HomeContent() {
           )}
         </div>
       </div>
-      {/* App footer elements */}
-      <div className="app-footer-left">
-        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-      </div>
     </div>
   )
 }
@@ -1031,25 +1019,39 @@ export default function Home() {
         </DailyProvider>
       </div>
 
-      {/* Footer Text Section - Separate page above Footer */}
+      {/* Footer Text Section - Simple spacing */}
       <div style={{
-        minHeight: '100vh',
         background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
         position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '80px 60px'
+        padding: '80px 0'
       }}>
-        <div style={{ maxWidth: '1200px', width: '100%' }}>
-          {/* Left text */}
-          <div className="figma-footer-left">
-            Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-          </div>
-          {/* Right text */}
-          <div className="figma-footer-right">
-            Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
-          </div>
+        {/* Left text */}
+        <div style={{
+          position: 'absolute',
+          width: '500px',
+          left: '60px',
+          bottom: '80px',
+          fontFamily: 'var(--font-geist-mono), SF Mono, Monaco, monospace',
+          fontSize: '14px',
+          lineHeight: '20px',
+          textTransform: 'uppercase',
+          color: 'rgba(31, 0, 0, 0.9)'
+        }}>
+          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
+        </div>
+        {/* Right text */}
+        <div style={{
+          position: 'absolute',
+          width: '500px',
+          right: '60px',
+          bottom: '80px',
+          fontFamily: 'var(--font-geist-mono), SF Mono, Monaco, monospace',
+          fontSize: '14px',
+          lineHeight: '20px',
+          textTransform: 'uppercase',
+          color: 'rgba(31, 0, 0, 0.9)'
+        }}>
+          Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
         </div>
       </div>
 
