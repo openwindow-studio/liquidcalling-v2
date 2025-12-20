@@ -4,7 +4,7 @@
 /* Ensure Privy modals are positioned relative to viewport, not full page */
 html {
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   height: 100%;
 }
 
@@ -12,7 +12,7 @@ body {
   scroll-behavior: smooth;
   min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: visible;
   height: auto;
   margin: 0;
   padding: 0;
