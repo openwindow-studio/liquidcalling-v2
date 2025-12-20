@@ -1042,8 +1042,7 @@ export default function Home() {
             fontSize: '14px',
             lineHeight: '20px',
             textTransform: 'uppercase',
-            color: 'rgba(31, 0, 0, 0.9)',
-            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)'
+            color: 'rgba(31, 0, 0, 0.9)'
           }}>
             Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
           </div>
@@ -1055,8 +1054,7 @@ export default function Home() {
             fontSize: '14px',
             lineHeight: '20px',
             textTransform: 'uppercase',
-            color: 'rgba(31, 0, 0, 0.9)',
-            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)'
+            color: 'rgba(31, 0, 0, 0.9)'
           }}>
             Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
           </div>
