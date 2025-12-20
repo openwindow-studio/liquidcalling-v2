@@ -4,8 +4,9 @@
 /* Ensure Privy modals are positioned relative to viewport, not full page */
 body {
   scroll-behavior: smooth;
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* GLOBAL BACKGROUND */
@@ -15,6 +16,7 @@ body {
   background: transparent;
   position: relative;
   overflow-x: hidden;
+  overflow-y: visible;
   z-index: 1;
   pointer-events: none;
 }
@@ -1624,6 +1626,11 @@ body {
   /* Make torus 25% opacity on mobile */
   .torus-fade-in {
     opacity: 0.25;
+  }
+
+  .footer-text-section {
+    padding: 20px 20px !important;
+    min-height: 120px !important;
   }
 }
 

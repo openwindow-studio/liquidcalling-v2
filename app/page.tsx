@@ -1013,7 +1013,7 @@ export default function Home() {
         </div>
       }
     >
-      <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'relative' }}>
         <DailyProvider>
           <HomeContent />
         </DailyProvider>
@@ -1021,14 +1021,16 @@ export default function Home() {
 
       {/* Footer Text Section - Responsive layout */}
       <div style={{
-        background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
+        background: 'rgba(241, 241, 245, 0.3)',
+        backdropFilter: 'blur(2px)',
         position: 'relative',
         minHeight: '200px',
-        padding: '80px 60px'
-      }}>
+        padding: '80px 60px',
+        zIndex: 2
+      }} className="footer-text-section">
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
           gap: '40px',
           maxWidth: '1200px',
           margin: '0 auto'
@@ -1041,7 +1043,8 @@ export default function Home() {
             fontSize: '14px',
             lineHeight: '20px',
             textTransform: 'uppercase',
-            color: 'rgba(31, 0, 0, 0.9)'
+            color: 'rgba(31, 0, 0, 0.9)',
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)'
           }}>
             Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
           </div>
@@ -1053,14 +1056,17 @@ export default function Home() {
             fontSize: '14px',
             lineHeight: '20px',
             textTransform: 'uppercase',
-            color: 'rgba(31, 0, 0, 0.9)'
+            color: 'rgba(31, 0, 0, 0.9)',
+            textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)'
           }}>
             Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
           </div>
         </div>
       </div>
 
-      <Footer />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <Footer />
+      </div>
     </ErrorBoundary>
   )
 }
