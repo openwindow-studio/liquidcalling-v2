@@ -23,37 +23,53 @@ const TorusCanvas = () => {
     const updateHeight = () => {
       const torusContainer = document.querySelector('.torus-fade-in');
       if (torusContainer) {
-        // More robust height calculation for production
+        // More robust height calculation - check all possible sources
         const body = document.body;
         const html = document.documentElement;
         
-        const docHeight = Math.max(
+        // Get all possible height measurements
+        const measurements = [
           body.scrollHeight,
           body.offsetHeight,
           html.clientHeight,
           html.scrollHeight,
           html.offsetHeight,
-          window.innerHeight
-        );
+          window.innerHeight,
+          // Also check the actual rendered content
+          Math.max(...Array.from(document.querySelectorAll('*')).map(el => {
+            const rect = el.getBoundingClientRect();
+            return rect.bottom + window.scrollY;
+          }))
+        ];
         
-        // Add extra padding to ensure it covers everything
-        const finalHeight = Math.max(docHeight, window.innerHeight * 1.5);
-        torusContainer.style.height = `${finalHeight}px`;
+        const docHeight = Math.max(...measurements);
+        
+        // For desktop, be more aggressive with padding
+        const isDesktop = window.innerWidth > 768;
+        const paddingMultiplier = isDesktop ? 2.5 : 1.5;
+        const finalHeight = Math.max(docHeight, window.innerHeight * paddingMultiplier);
+        
+        // Set height with !important equivalent (inline style)
+        torusContainer.style.setProperty('height', `${finalHeight}px`, 'important');
+        
+        // Also set minHeight to ensure it doesn't shrink
+        torusContainer.style.setProperty('min-height', `${finalHeight}px`, 'important');
       }
     };
     
-    // Multiple attempts to ensure it works in production (SSR/hydration timing)
+    // More aggressive update strategy for desktop
     const attemptUpdate = (attempt = 0) => {
-      if (attempt < 5) {
-        updateHeight();
-        setTimeout(() => attemptUpdate(attempt + 1), 200 * (attempt + 1));
+      updateHeight();
+      if (attempt < 10) {
+        setTimeout(() => attemptUpdate(attempt + 1), 100 * (attempt + 1));
       }
     };
     
-    // Start updates after a short delay
+    // Start updates immediately and continue
+    updateHeight();
     setTimeout(() => {
-      attemptUpdate();
-    }, 100);
+      attemptUpdate(1);
+    }, 50);
     
     // Update on resize
     const handleResize = () => {
@@ -61,11 +77,17 @@ const TorusCanvas = () => {
     };
     window.addEventListener('resize', handleResize);
     
+    // Update on scroll (in case content loads dynamically)
+    const handleScroll = () => {
+      updateHeight();
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
     // Watch for DOM changes that might affect height (debounced)
     let timeoutId;
     const debouncedUpdate = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateHeight, 150);
+      timeoutId = setTimeout(updateHeight, 100);
     };
     
     const observer = new MutationObserver(debouncedUpdate);
@@ -76,14 +98,38 @@ const TorusCanvas = () => {
       attributeFilter: ['style', 'class']
     });
     
-    // Also listen for load event
+    // Also observe the document element
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+    
+    // Listen for all relevant events
     window.addEventListener('load', updateHeight);
+    window.addEventListener('DOMContentLoaded', updateHeight);
+    
+    // Use requestAnimationFrame for continuous updates (throttled)
+    let rafId;
+    let lastUpdate = 0;
+    const rafUpdate = (timestamp) => {
+      if (timestamp - lastUpdate > 500) { // Update every 500ms max
+        updateHeight();
+        lastUpdate = timestamp;
+      }
+      rafId = requestAnimationFrame(rafUpdate);
+    };
+    rafId = requestAnimationFrame(rafUpdate);
     
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('load', updateHeight);
+      window.removeEventListener('DOMContentLoaded', updateHeight);
       observer.disconnect();
       clearTimeout(timeoutId);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -93,8 +139,8 @@ const TorusCanvas = () => {
       top: 0,
       left: 0,
       width: '100vw',
-      height: '200vh',
-      minHeight: '100%',
+      height: '300vh',
+      minHeight: '300vh',
       zIndex: -1,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
       pointerEvents: 'none',
