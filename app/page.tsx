@@ -1024,7 +1024,7 @@ export default function Home() {
         background: 'transparent',
         position: 'relative',
         minHeight: '200px',
-        padding: '80px 60px',
+        padding: '20px 60px 80px 60px',
         zIndex: 2
       }} className="footer-text-section">
         <div style={{
