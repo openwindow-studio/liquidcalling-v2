@@ -1599,6 +1599,20 @@ body {
   opacity: 0.9;
 }
 
+/* iPhone SE and very small mobile optimizations */
+@media (max-width: 375px) {
+  .figma-hero-section {
+    top: 43vh;
+    gap: 25px;
+    color: #000;
+  }
+
+  .figma-cta-button {
+    width: 90%;
+    top: 2vh;
+  }
+}
+
 /* Connected Circle Green Bullet */
 .connected-circle {
   color: #22c55e !important;
