@@ -7,6 +7,13 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
+  height: auto;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
 }
 
 /* GLOBAL BACKGROUND */
