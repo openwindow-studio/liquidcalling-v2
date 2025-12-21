@@ -1,12 +1,20 @@
 import { NextRequest } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-10-29.clover',
-})
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-10-29.clover',
+    })
+  : null
 
 export async function POST(request: NextRequest) {
   try {
+    if (!stripe) {
+      return Response.json({
+        error: 'Stripe not configured'
+      }, { status: 500 })
+    }
+
     const { amount } = await request.json()
 
     if (!amount || amount < 1) {

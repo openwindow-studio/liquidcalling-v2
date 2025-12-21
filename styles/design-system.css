@@ -42,6 +42,15 @@ body {
   color: var(--color-primary-text);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: hidden;
+  height: auto;
+}
+
+#__next {
+  overflow-x: hidden;
+  overflow-y: visible;
+  height: auto;
+  min-height: 100vh;
 }
 
 /* Glass Components */

@@ -771,14 +771,6 @@ function HomeContent() {
         </div>
 
 
-        {/* Footer - FIGMA RESPONSIVE */}
-        <div className="figma-footer-left">
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-        </div>
-
-        <div className="figma-footer-right">
-          Pay 0.05 USDC per minute on HyperLiquid, Base, or your credit card. Speak freely. No KYC. No data collection. Just secure calls.
-        </div>
 
       </div>
     )
@@ -999,10 +991,6 @@ function HomeContent() {
           )}
         </div>
       </div>
-      {/* App footer elements */}
-      <div className="app-footer-left">
-        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-      </div>
     </div>
   )
 }
@@ -1025,7 +1013,7 @@ export default function Home() {
         </div>
       }
     >
-      <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ position: 'relative', minHeight: 'auto', height: 'auto' }}>
         <DailyProvider>
           <HomeContent />
         </DailyProvider>

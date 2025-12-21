@@ -7,7 +7,7 @@
   backdrop-filter: blur(50px);
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: auto;
 }
 
 /* LIQUID VOICE LOGO - EXACT POSITIONING */
