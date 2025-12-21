@@ -1745,4 +1745,27 @@ body {
   }
 }
 
+/* Extra small mobile (375px and below) */
+@media (max-width: 375px) {
+  .figma-hero-section {
+    top: 40vh;
+    gap: 25px;
+    color: #000;
+  }
+
+  .figma-cta-button {
+    width: 90%;
+    top: 2vh;
+  }
+
+  .figma-demo-button {
+    position: absolute;
+    bottom: 20px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+}
+
 /* Force cache refresh - Wed Dec 9 2025 - 11:45 AM - Ultra-wide button fix */
