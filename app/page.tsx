@@ -1030,7 +1030,9 @@ export default function Home() {
           <HomeContent />
         </DailyProvider>
       </div>
-      <Footer />
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        <Footer />
+      </div>
     </ErrorBoundary>
   )
 }

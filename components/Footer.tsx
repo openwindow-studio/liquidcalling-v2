@@ -20,20 +20,31 @@ export function Footer() {
     \|_______|\|__|\|__|\|_______|\|_______|\|__|\|__| \|__|\|_______|`
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div className="relative overflow-visible max-w-screen-2xl mx-auto rounded-[36px] border border-white/20 bg-[#2A0C0C] shadow-[0_0_25px_rgba(0,0,0,0.15)] px-[clamp(24px,6vw,135px)] py-[clamp(24px,6vw,54px)] flex flex-col items-stretch gap-[56px]" style={{ fontFamily: 'Britti Sans, sans-serif' }}>
+      <div
+        className="relative overflow-visible max-w-screen-2xl mx-auto px-[clamp(24px,6vw,135px)] py-[clamp(24px,6vw,54px)] flex flex-col items-stretch gap-[56px]"
+        style={{
+          fontFamily: 'Britti Sans, sans-serif',
+          background: 'rgb(40 40 40 / 90%)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '16px',
+          margin: '20px',
+          position: 'relative'
+        }}
+      >
 
       <div className="w-full relative z-10 flex flex-col gap-y-8 md:grid md:grid-cols-[1fr_auto]">
         <div>
           <div className="flex items-center gap-2 mb-6">
             <pre style={{
               fontFamily: 'Consolas, Monaco, "Courier New", Courier, monospace',
-              fontSize: 'clamp(6px, 2vw, 10px)',
+              fontSize: 'clamp(4px, 1.5vw, 8px)',
               lineHeight: '1.0',
               color: 'rgba(255, 255, 255, 0.9)',
               whiteSpace: 'pre',
               margin: 0,
-              letterSpacing: '0px'
+              letterSpacing: '0px',
+              overflow: 'hidden',
+              wordBreak: 'break-all'
             }}>
               {asciiLogo}
             </pre>
@@ -79,6 +90,5 @@ export function Footer() {
         </div>
       </div>
       </div>
-    </div>
   )
 }

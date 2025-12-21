@@ -1315,7 +1315,7 @@ body {
 
   .figma-footer-left,
   .figma-footer-right {
-    font-size: 14px;
+    font-size: 11.2px;
     line-height: 18px;
     width: 350px;
     bottom: 40px;
@@ -1397,8 +1397,8 @@ body {
   }
 
   .figma-hero-subtitle {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 19.2px; /* 20% larger than 16px */
+    line-height: 24px;
   }
 
   .figma-connect-button,
@@ -1502,7 +1502,7 @@ body {
     position: absolute;
     width: calc(50% - 60px);
     bottom: 80px;
-    font-size: 14px;
+    font-size: 11.2px;
     line-height: 18px;
     text-align: left;
     display: block;
