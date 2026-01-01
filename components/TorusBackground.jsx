@@ -153,7 +153,12 @@ void main() {
   float f = fresnel(eyeVector, normal, uFresnelPower);
   color.rgb += f * vec3(1.0);
 
-  gl_FragColor = vec4(color, uOpacity);
+  // Add edge diffusion for softer appearance
+  float edgeFactor = abs(dot(eyeVector, normal));
+  float softEdge = smoothstep(0.0, 0.5, edgeFactor);
+  float finalOpacity = uOpacity * softEdge;
+
+  gl_FragColor = vec4(color, finalOpacity);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
 }
@@ -172,7 +177,7 @@ const TorusGeometries = () => {
     diffuseness: 0.05,
     shininess: 5.0,
     fresnelPower: 2.0,
-    opacity: 0.7,
+    opacity: 0.28,
     iorR: 1.15,
     iorY: 1.16,
     iorG: 1.18,
@@ -200,7 +205,7 @@ const TorusGeometries = () => {
     uChromaticAberration: {
       value: 0.1
     },
-    uOpacity: { value: 0.15 },
+    uOpacity: { value: 0.28 },
     uBendAmount: { value: 0.0 },
     uSaturation: { value: 2.0 },
     uShininess: { value: hardcodedParams.shininess },
@@ -229,9 +234,9 @@ const TorusGeometries = () => {
     mesh.current.material.uniforms.uFresnelPower.value = hardcodedParams.fresnelPower;
     mesh.current.material.uniforms.uOpacity.value = hardcodedParams.opacity;
 
-    // Slow automatic bend animation between -0.2 and 0.2
+    // Slow automatic bend animation between -0.2 and 0.2 (80% slower than original)
     const time = state.clock.getElapsedTime();
-    const animatedBend = Math.sin(time * 0.5) * 0.2;
+    const animatedBend = Math.sin(time * 0.10) * 0.2;
     mesh.current.material.uniforms.uBendAmount.value = animatedBend;
 
     mesh.current.material.uniforms.uIorR.value = hardcodedParams.iorR;

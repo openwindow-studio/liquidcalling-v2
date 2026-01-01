@@ -20,18 +20,18 @@ const TorusCanvas = () => {
         camera={{ position: [4, -2, 7] }}
         dpr={[1, 2]}
         gl={{ alpha: true, antialias: true }}
-        style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+        style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
       >
         <ambientLight intensity={1.0} />
         <TorusGeometries />
-        <OrbitControls
+        {/* <OrbitControls
           enableZoom={false}
           enablePan={false}
           enableRotate={true}
           enableDamping={true}
           dampingFactor={0.05}
           rotateSpeed={0.5}
-        />
+        /> */}
       </Canvas>
     </div>
   );
