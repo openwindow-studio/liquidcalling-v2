@@ -1370,6 +1370,7 @@ body {
 @media (max-width: 767px) {
   .liquid-app {
     min-height: 100vh; /* Use viewport height instead of fixed pixels */
+    padding-bottom: 120px; /* Ensure space for footer on mobile */
   }
 
   /* Hide How it Works link on mobile to avoid crowding */
@@ -1535,13 +1536,13 @@ body {
     height: 40px;
   }
 
-  /* App footer mobile fixes */
+  /* App footer mobile fixes - ensure it appears below main card */
   .app-footer-left {
     position: absolute;
     width: calc(100% - 40px);
     left: 20px;
     right: auto;
-    bottom: 60px;
+    bottom: 80px; /* Increased from 60px to avoid main card overlap */
     font-size: 10px;
     line-height: 14px;
     text-align: left;
