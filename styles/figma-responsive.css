@@ -71,7 +71,7 @@ body {
 /* HERO SECTION FLEXBOX */
 .figma-hero-section {
   position: absolute;
-  top: 40vh;
+  top: 48vh;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
@@ -84,6 +84,10 @@ body {
   z-index: 1;
   mix-blend-mode: color-burn;
   color: rgba(0, 0, 31, .85);
+}
+
+.figma-hero-section .figma-cta-button {
+  border: 2px solid #1616d9 !important;
 }
 
 /* MAIN HEADING SPLASH TEXT */
@@ -381,14 +385,11 @@ body {
 }
 
 .figma-cta-button {
-  position: relative;
   width: 380px;
   height: 60px;
-  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%),
-              linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgb(156 213 255 / 51%) 0%, rgb(94 150 186 / 77%) 77.08%, rgb(229 241 252 / 38%) 100%), linear-gradient(326deg, rgb(0 0 0 / 79%), rgba(0, 0, 0, 0.06));
   background-blend-mode: normal, normal, overlay;
-  border: 3px solid #FFFFFF;
-  backdrop-filter: blur(40px);
+  border: 2px solid #1616d9 !important;
   border-radius: 40px;
   display: flex;
   align-items: center;
@@ -406,9 +407,12 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
-  color: #FFFFFF;
+  color: #000000;
   white-space: nowrap;
+  z-index: 999;
+  position: relative;
 }
+
 
 /* Icon within button */
 .figma-cta-icon {
@@ -417,7 +421,9 @@ body {
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
               radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(110, 191, 244, 0.0447917) 99.98%, rgba(165, 239, 255, 0.2) 99.99%, rgba(70, 144, 213, 0) 100%);
   background-blend-mode: normal, normal, normal, overlay;
-  border: 2px solid #FFFFFF;
+  border: none;
+  z-index: 999;
+  position: relative;
   backdrop-filter: blur(40px);
   border-radius: 50%;
   display: flex;
@@ -429,6 +435,8 @@ body {
 .figma-cta-icon svg {
   width: 20px;
   height: 20px;
+  z-index: 999;
+  position: relative;
 }
 
 /* Button text styles for all buttons */
@@ -1365,7 +1373,7 @@ div.app-copyright {
 /* Tablet (768px to 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
   .figma-hero-section {
-    top: 38vh;
+    top: 48vh;
     gap: 35px;
   }
 
@@ -1401,7 +1409,7 @@ div.app-copyright {
   }
 
   .figma-hero-section {
-    top: 35vh;
+    top: 48vh;
     gap: 25px;
   }
 
@@ -1765,7 +1773,7 @@ div.app-copyright {
 /* Extra small mobile (375px and below) */
 @media (max-width: 375px) {
   .figma-hero-section {
-    top: 40vh;
+    top: 48vh;
     gap: 25px;
     color: #000;
   }

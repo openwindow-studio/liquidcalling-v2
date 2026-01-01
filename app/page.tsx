@@ -753,10 +753,6 @@ function HomeContent() {
         <div className="figma-hero-section">
           <h1 className="figma-hero-title">Actually Private Calls</h1>
           <p className="figma-hero-subtitle">The only way to make instant, 100% private, untraceable, encrypted calls without a phone number.</p>
-        </div>
-
-        {/* CTA Button Container - flows relative to hero section */}
-        <div className="figma-cta-container">
           <button
             onClick={login}
             className="figma-cta-button"
@@ -1039,13 +1035,10 @@ export default function Home() {
         </div>
       }
     >
-      <div style={{ height: '200vh', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
         <DailyProvider>
           <HomeContent />
         </DailyProvider>
-      </div>
-      <div style={{ position: 'relative', zIndex: 2 }}>
-        <Footer />
       </div>
     </ErrorBoundary>
   )
