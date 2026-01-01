@@ -1383,7 +1383,8 @@ div.app-copyright {
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
   .liquid-app {
-    min-height: 100vh; /* Use viewport height instead of fixed pixels */
+    min-height: calc(100vh + 150px); /* Extend beyond viewport for scrollable space */
+    padding-bottom: 150px; /* Add significant bottom spacing to prevent clipping */
   }
 
   /* Hide How it Works link on mobile to avoid crowding */
@@ -1462,7 +1463,7 @@ div.app-copyright {
     top: 20vh; /* Use viewport height instead of 50% to prevent overflow */
     transform: translateX(-50%); /* Only center horizontally */
     padding: 30px 20px;
-    margin-bottom: 20px; /* Add bottom margin for spacing */
+    margin-bottom: 100px; /* Increased bottom margin to prevent clipping */
   }
 
   /* Mobile-specific content spacing */
