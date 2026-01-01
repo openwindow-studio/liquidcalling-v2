@@ -1365,8 +1365,9 @@ div.app-copyright {
   }
 
   .figma-main-card {
-    top: 45% !important;
-    transform: translateX(-50%) translateY(-50%) !important;
+    top: 22vh !important;
+    transform: translateX(-50%) !important;
+    height: 520px !important;
   }
 }
 
@@ -1828,4 +1829,4 @@ div.app-copyright {
   }
 }
 
-/* Force cache refresh - Wed Dec 9 2025 - 11:45 AM - Ultra-wide button fix */
+/* Force cache refresh - Jan 2 2026 - Mobile clipping fix v2 */
