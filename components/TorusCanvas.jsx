@@ -6,7 +6,7 @@ import TorusGeometries from "./TorusBackground";
 
 const TorusCanvas = () => {
   return (
-    <div className="torus-fade-in" style={{
+    <div className="torus-fade-in torus-canvas-container" style={{
       position: 'fixed',
       top: 0,
       left: 0,

@@ -606,7 +606,7 @@ function HomeContent() {
 
             {/* 2. Minutes Balance Section - Show for connected users during calls */}
             {isConnected && !isDemoMode && (
-              <div style={{ marginTop: '30px' }}>
+              <div>
                 <PaymentUI
                   minutesBalance={minutesBalance}
                   buyMinutes={handleBuyMinutes}
@@ -1001,12 +1001,6 @@ function HomeContent() {
             </div>
           )}
 
-          {/* Wallet Connected Footer */}
-          {isConnected && !isDemoMode && (
-            <div className="card-footer-wallet">
-              Unlimited Use
-            </div>
-          )}
         </div>
       </div>
       {/* App footer elements */}
