@@ -1356,20 +1356,8 @@ div.app-copyright {
   }
 }
 
-/* iPhone SE and similar tall narrow devices */
-@media (max-width: 767px) and (min-height: 1200px) {
-  .figma-hero-title {
-    top: 20% !important;
-    font-size: 55px !important;
-    line-height: 55px !important;
-  }
-
-  .figma-main-card {
-    top: 22vh !important;
-    transform: translateX(-50%) !important;
-    height: 520px !important;
-  }
-}
+/* iPhone SE and similar tall narrow devices - MOVED TO END OF FILE */
+/* See "MOBILE PANEL CLIPPING FIX" section at end of file for consolidated mobile rules */
 
 /* Tablet (768px to 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1829,4 +1817,86 @@ div.app-copyright {
   }
 }
 
-/* Force cache refresh - Jan 2 2026 - Mobile clipping fix v2 */
+/* ============================================
+   MOBILE PANEL CLIPPING FIX - FINAL OVERRIDE
+   This block MUST be at the end to take precedence
+   ============================================ */
+@media screen and (max-width: 767px) {
+  /* Force liquid-app to allow scrolling */
+  html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .liquid-app {
+    min-height: 100vh !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 100px !important;
+  }
+
+  /* Extend canvas height on mobile - CRITICAL for scroll */
+  .torus-fade-in,
+  .torus-canvas-container {
+    height: 150vh !important;
+    min-height: 150vh !important;
+    position: fixed !important;
+  }
+
+  /* MAIN CARD POSITIONING - THE FIX */
+  .figma-main-card {
+    position: absolute !important;
+    width: 90% !important;
+    max-width: 400px !important;
+    height: 520px !important;
+    min-height: 520px !important;
+    left: 50% !important;
+    top: 80px !important; /* Fixed distance from top instead of vh */
+    transform: translateX(-50%) !important;
+    margin-bottom: 80px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure card content doesn't clip */
+  .figma-main-card-content {
+    padding: 40px 20px 30px !important;
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* Compact payment section on mobile */
+  .figma-minutes-section {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Ensure footer visibility */
+  .figma-footer-left,
+  .figma-footer-right {
+    position: fixed !important;
+    bottom: 20px !important;
+  }
+}
+
+/* Tall mobile devices (iPhone Pro Max, etc.) */
+@media screen and (max-width: 767px) and (min-height: 800px) {
+  .figma-main-card {
+    top: 12vh !important; /* Use vh for tall screens */
+  }
+}
+
+/* Very tall devices (iPad in portrait, etc.) */
+@media screen and (max-width: 767px) and (min-height: 1000px) {
+  .figma-main-card {
+    top: 15vh !important;
+  }
+}
+
+/* Force cache bust - v3 - Jan 2 2026 14:30 */

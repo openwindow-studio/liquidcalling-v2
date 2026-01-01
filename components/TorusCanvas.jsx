@@ -1,17 +1,35 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import TorusGeometries from "./TorusBackground";
 
 const TorusCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    
+    // Check on mount
+    checkMobile();
+    
+    // Listen for resize
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="torus-fade-in torus-canvas-container" style={{
       position: 'fixed',
       top: 0,
       left: 0,
       width: '100vw',
-      height: '100vh',
+      // Extend height on mobile to allow panel scrolling
+      height: isMobile ? '150vh' : '100vh',
+      minHeight: isMobile ? '150vh' : '100vh',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
       pointerEvents: 'none'
