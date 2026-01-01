@@ -740,11 +740,13 @@ body {
 }
 
 /* APP PAGES FOOTER (separate from splash) */
+/* COMMENTED OUT - HIDING ASCII FOOTER */
+/*
 .app-footer-left {
   position: absolute;
   width: 500px;
-  left: 60px; /* align with logo */
-  bottom: 50px; /* match splash positioning */
+  left: 60px;
+  bottom: 50px;
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -767,16 +769,28 @@ body {
   line-height: 16px;
   color: rgba(31, 0, 0, 0.9);
 }
+*/
+
+/* Hide only copyright element */
+.liquid-app .app-copyright,
+div.app-copyright {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
 
 @media (max-width: 1439px) {
+  /* COMMENTED OUT - HIDING ASCII FOOTER */
+  /*
   .app-footer-left {
     font-size: 14px;
     width: calc(100% - 200px);
     top: auto;
     left: 100px;
-    right: auto; /* Don't use both left and right */
+    right: auto;
     bottom: 50px;
   }
+  */
 }
 
 /* Mic Icon States */
@@ -1370,7 +1384,6 @@ body {
 @media (max-width: 767px) {
   .liquid-app {
     min-height: 100vh; /* Use viewport height instead of fixed pixels */
-    padding-bottom: 120px; /* Ensure space for footer on mobile */
   }
 
   /* Hide How it Works link on mobile to avoid crowding */
@@ -1536,13 +1549,14 @@ body {
     height: 40px;
   }
 
-  /* App footer mobile fixes - ensure it appears below main card */
+  /* App footer mobile fixes - COMMENTED OUT - HIDING ASCII FOOTER */
+  /*
   .app-footer-left {
     position: absolute;
     width: calc(100% - 40px);
     left: 20px;
     right: auto;
-    bottom: 80px; /* Increased from 60px to avoid main card overlap */
+    bottom: 80px;
     font-size: 10px;
     line-height: 14px;
     text-align: left;
@@ -1557,6 +1571,7 @@ body {
     font-size: 10px;
     text-align: right;
   }
+  */
 
   /* Fix buy minutes form centering on mobile */
   .figma-buy-minutes-form {
