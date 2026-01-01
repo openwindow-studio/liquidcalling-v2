@@ -119,6 +119,8 @@ function HomeContent() {
     joinRoom,
     leaveRoom,
     toggleMute: toggleWebRTCMute,
+    toggleSpeakerphone,
+    isSpeakerphone,
     error: audioError,
     audioLevels
   } = useDailyReact()
@@ -969,6 +971,18 @@ function HomeContent() {
                 className="call-action-button call-button--green"
               >
                 <span className="figma-button-text">{callStatus === 'initializing' ? 'Joining room...' : 'Start Call'}</span>
+              </button>
+            )}
+
+            {/* Mobile-only Speakerphone Toggle - Show when call is active */}
+            {callLink && audioConnected && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && (
+              <button
+                onClick={toggleSpeakerphone}
+                className={`call-action-button ${isSpeakerphone ? 'call-button--green' : 'call-button--white'}`}
+              >
+                <span className="figma-button-text">
+                  {isSpeakerphone ? '📢 Speaker On' : '📞 Speaker Off'}
+                </span>
               </button>
             )}
           </div>
