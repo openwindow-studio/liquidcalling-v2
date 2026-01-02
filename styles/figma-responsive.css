@@ -1457,14 +1457,14 @@ div.app-copyright {
   }
 
   .figma-main-card {
+    position: absolute;
     width: 90%;
     max-width: 400px;
-    height: 480px;
+    height: 540px;
     left: 50%;
-    top: 160px; /* Far enough for disconnect dropdown */
+    top: 160px;
     transform: translateX(-50%);
     padding: 15px 12px;
-    margin-bottom: 20px;
     overflow: visible;
   }
 
@@ -1821,20 +1821,18 @@ div.app-copyright {
    This block MUST be at the end to take precedence
    ============================================ */
 @media screen and (max-width: 767px) {
-  /* Force liquid-app to allow scrolling */
+  /* Extend page height to fit card without clipping */
   html, body {
     height: auto !important;
-    min-height: 100vh !important;
+    min-height: 800px !important; /* Tall enough for 160px top + 520px card + margin */
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
 
   .liquid-app {
-    min-height: 200vh !important; /* Extended to fit card + spacing */
+    min-height: 800px !important; /* Match body */
     height: auto !important;
-    overflow-x: hidden !important;
-    overflow-y: scroll !important; /* Enable vertical scroll */
-    padding-bottom: 200px !important;
+    overflow: visible !important;
   }
 
   /* Extend canvas height on mobile - CRITICAL for scroll */
@@ -1845,18 +1843,16 @@ div.app-copyright {
     position: fixed !important;
   }
 
-  /* MAIN CARD POSITIONING - THE FIX
-     Card sized to fit: 160px top + 480px height = 640px (fits 667px viewport) */
+  /* MAIN CARD POSITIONING - Back to absolute, centered */
   .figma-main-card {
     position: absolute !important;
     width: 90% !important;
     max-width: 400px !important;
-    height: 480px !important; /* Reduced to fit viewport */
-    min-height: 480px !important;
+    height: 540px !important; /* Larger to fit all content */
+    min-height: 540px !important;
     left: 50% !important;
-    top: 160px !important; /* Far enough down for disconnect dropdown */
+    top: 160px !important;
     transform: translateX(-50%) !important;
-    margin-bottom: 20px !important;
     overflow: visible !important;
   }
 
