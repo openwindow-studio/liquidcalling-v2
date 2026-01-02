@@ -203,7 +203,13 @@ export function useServerValidation() {
     currentSession,
 
     // Helper methods
-    hasDiscrepancy: lastValidation ? lastValidation.discrepancy > 0 : false,
+    // Only show discrepancy warning if:
+    // 1. Server has minutes but client claims significantly more (suspicious)
+    // 2. OR discrepancy is very large (> 20 minutes)
+    // Don't warn if server is 0 and client has small amount (probably test data or Stripe payment)
+    hasDiscrepancy: lastValidation 
+      ? (lastValidation.actualMinutes > 0 && lastValidation.discrepancy > 10) || lastValidation.discrepancy > 20
+      : false,
     serverMinutes: lastValidation?.actualMinutes || 0,
     isSessionActive: !!currentSession
   }
