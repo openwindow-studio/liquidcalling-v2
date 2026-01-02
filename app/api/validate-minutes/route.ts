@@ -31,9 +31,9 @@ export async function POST(request: NextRequest) {
 
     const { totalMinutes: actualMinutes } = await verificationResponse.json()
 
-    // For new users, give 5 free minutes (matching current behavior)
-    const freeMinutes = actualMinutes === 0 ? 5 : 0
-    const totalAvailableMinutes = actualMinutes + freeMinutes
+    // No free minutes - users must purchase via blockchain
+    // Future: $1 USDC airdrop for X/Farcaster signups
+    const totalAvailableMinutes = actualMinutes
 
     // Validation logic based on action
     let isValid = false

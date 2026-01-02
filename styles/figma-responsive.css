@@ -4,7 +4,8 @@
 /* Ensure Privy modals are positioned relative to viewport, not full page */
 body {
   scroll-behavior: smooth;
-  height: 100vh;
+  height: auto; /* Changed from 100vh to allow scrolling */
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
@@ -508,8 +509,8 @@ body {
 /* MAIN CARD CONTAINER */
 .figma-main-card {
   position: absolute;
-  width: 750px;
-  height: 510px;
+  width: 800px;
+  height: 600px;
   left: 50%;
   transform: translateX(-50%);
   top: 120px;
@@ -1186,7 +1187,7 @@ div.app-copyright {
 
   .figma-main-card {
     width: 800px;
-    height: 540px;
+    height: 600px;
     top: 120px;
   }
 }
@@ -1214,8 +1215,8 @@ div.app-copyright {
   }
 
   .figma-main-card {
-    width: 750px;
-    height: 510px;
+    width: 800px;
+    height: 600px;
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
@@ -1260,8 +1261,8 @@ div.app-copyright {
   }
 
   .figma-main-card {
-    width: 750px;
-    height: 510px;
+    width: 800px;
+    height: 600px;
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
@@ -1328,8 +1329,8 @@ div.app-copyright {
 
   .figma-main-card {
     width: 90%;
-    max-width: 600px; /* Responsive width with max constraint */
-    height: 400px;
+    max-width: 800px; /* Responsive width with max constraint */
+    height: 600px;
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
@@ -1386,7 +1387,8 @@ div.app-copyright {
 
   /* Extend canvas height on mobile */
   .torus-fade-in {
-    height: 140vh !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
   }
 
   /* Hide How it Works link on mobile to avoid crowding */
@@ -1458,14 +1460,15 @@ div.app-copyright {
 
   .figma-main-card {
     position: absolute;
-    width: 90%;
-    max-width: 400px;
+    width: 85%;
+    max-width: 380px;
     height: 640px;
     left: 50%;
     top: 160px;
     transform: translateX(-50%);
     padding: 15px 12px;
     overflow: visible;
+    box-sizing: border-box;
   }
 
   /* Mobile-specific content spacing */
@@ -1821,16 +1824,16 @@ div.app-copyright {
    This block MUST be at the end to take precedence
    ============================================ */
 @media screen and (max-width: 767px) {
-  /* Extend page height to fit card without clipping */
+  /* Let page size naturally to content */
   html, body {
     height: auto !important;
-    min-height: 900px !important; /* Tall enough for 160px top + 640px card + margin */
+    min-height: 100vh !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
 
   .liquid-app {
-    min-height: 900px !important; /* Match body */
+    min-height: 100vh !important;
     height: auto !important;
     overflow: visible !important;
   }
@@ -1838,38 +1841,43 @@ div.app-copyright {
   /* Extend canvas height on mobile - CRITICAL for scroll */
   .torus-fade-in,
   .torus-canvas-container {
-    height: 250vh !important; /* Extended to cover scrollable area */
-    min-height: 250vh !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
     position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
   }
 
   /* MAIN CARD POSITIONING - Back to absolute, centered */
   .figma-main-card {
     position: absolute !important;
-    width: 90% !important;
-    max-width: 400px !important;
-    height: 640px !important; /* Larger to fit all content */
+    width: 85% !important;
+    max-width: 380px !important;
+    height: 640px !important; /* +30px more */
     min-height: 640px !important;
     left: 50% !important;
     top: 160px !important;
     transform: translateX(-50%) !important;
     overflow: visible !important;
+    box-sizing: border-box !important;
   }
 
   /* Ensure card content doesn't clip */
   .figma-main-card-content {
     padding: 35px 20px 25px !important;
     height: auto !important;
-    min-height: 100% !important;
+    min-height: auto !important; /* Don't stretch */
     overflow: visible !important;
     display: flex !important;
+    justify-content: flex-start !important; /* Pack at top, don't space out */
     flex-direction: column !important;
     gap: 6px !important;
   }
 
   /* Compact payment section on mobile */
   .figma-minutes-section {
-    margin-top: 0 !important;
+    margin-top: 20px !important; /* Space below Connected - Locked In */
     margin-bottom: 6px !important;
   }
 

@@ -1029,7 +1029,7 @@ export default function Home() {
         </div>
       }
     >
-      <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ minHeight: '100vh', position: 'relative' }}>
         <DailyProvider>
           <HomeContent />
         </DailyProvider>

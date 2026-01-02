@@ -23,9 +23,8 @@ export function useMinutesBalance(props?: UseMinutesBalanceProps) {
       if (stored) {
         setMinutesBalance(parseInt(stored, 10))
       } else {
-        // Give new users 5 free minutes to test
-        setMinutesBalance(5)
-        localStorage.setItem(`minutes_${user.wallet.address}`, '5')
+        // No free minutes - users must purchase
+        setMinutesBalance(0)
       }
 
       // Check for URL parameters (keeping for backward compatibility but not used with Stripe Elements)

@@ -132,7 +132,7 @@ const BubblesBackground = () => {
       position: 'fixed',
       top: 0,
       left: 0,
-      width: '100vw',
+      width: '100%',
       height: '100vh',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',

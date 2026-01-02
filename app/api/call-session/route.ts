@@ -1,10 +1,32 @@
 import { NextRequest } from 'next/server'
 import { ethers } from 'ethers'
-import { writeFile, readFile, mkdir } from 'fs/promises'
-import path from 'path'
+import { createClient } from 'redis'
 
-// Simple file-based session storage (for MVP - replace with database later)
-const SESSION_DIR = '/tmp/call-sessions'
+// Session TTL: 24 hours (in seconds)
+const SESSION_TTL = 60 * 60 * 24
+
+// Initialize Redis client (singleton pattern for serverless)
+let redisClient: ReturnType<typeof createClient> | null = null
+
+async function getRedis() {
+  if (!redisClient) {
+    const redisUrl = process.env.REDIS_URL
+    if (!redisUrl) {
+      throw new Error('REDIS_URL environment variable not set')
+    }
+    
+    redisClient = createClient({ url: redisUrl })
+    
+    redisClient.on('error', (err) => {
+      console.error('Redis Client Error', err)
+      redisClient = null // Reset on error
+    })
+    
+    await redisClient.connect()
+  }
+  
+  return redisClient
+}
 
 interface CallSession {
   sessionId: string
@@ -16,6 +38,17 @@ interface CallSession {
   isActive: boolean
 }
 
+// Helper to get base URL from request
+function getBaseUrl(request: NextRequest): string {
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  // For local dev, extract from request headers
+  const host = request.headers.get('host') || 'localhost:3000'
+  const protocol = host.includes('localhost') ? 'http' : 'https'
+  return `${protocol}://${host}`
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { action, walletAddress, roomId, sessionId, minutesUsed } = await request.json()
@@ -24,13 +57,15 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: 'Invalid action' }, { status: 400 })
     }
 
+    const baseUrl = getBaseUrl(request)
+
     switch (action) {
       case 'start':
-        return await startSession(walletAddress, roomId)
+        return await startSession(walletAddress, roomId, baseUrl)
       case 'end':
         return await endSession(sessionId, minutesUsed)
       case 'heartbeat':
-        return await updateHeartbeat(sessionId, minutesUsed)
+        return await updateHeartbeat(sessionId, minutesUsed, baseUrl)
       default:
         return Response.json({ error: 'Unknown action' }, { status: 400 })
     }
@@ -44,7 +79,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function startSession(walletAddress: string, roomId: string) {
+async function startSession(walletAddress: string, roomId: string, baseUrl: string) {
   if (!walletAddress || !ethers.isAddress(walletAddress)) {
     return Response.json({ error: 'Invalid wallet address' }, { status: 400 })
   }
@@ -54,7 +89,6 @@ async function startSession(walletAddress: string, roomId: string) {
   }
 
   // Validate user has sufficient minutes first
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
   const validation = await fetch(`${baseUrl}/api/validate-minutes`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -131,7 +165,7 @@ async function endSession(sessionId: string, minutesUsed: number = 0) {
   }
 }
 
-async function updateHeartbeat(sessionId: string, currentMinutesUsed: number) {
+async function updateHeartbeat(sessionId: string, currentMinutesUsed: number, baseUrl: string) {
   if (!sessionId) {
     return Response.json({ error: 'Session ID required' }, { status: 400 })
   }
@@ -147,7 +181,6 @@ async function updateHeartbeat(sessionId: string, currentMinutesUsed: number) {
     await saveSession(session)
 
     // Verify user still has sufficient minutes
-    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
     const validation = await fetch(`${baseUrl}/api/validate-minutes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -176,23 +209,16 @@ async function updateHeartbeat(sessionId: string, currentMinutesUsed: number) {
   }
 }
 
-// File storage helpers (replace with database later)
+// Redis storage helpers
 async function saveSession(session: CallSession) {
-  try {
-    await mkdir(SESSION_DIR, { recursive: true })
-    const filePath = path.join(SESSION_DIR, `${session.sessionId}.json`)
-    await writeFile(filePath, JSON.stringify(session, null, 2))
-  } catch (error) {
-    console.error('Failed to save session:', error)
-  }
+  const redis = await getRedis()
+  const key = `call_session:${session.sessionId}`
+  await redis.setEx(key, SESSION_TTL, JSON.stringify(session))
 }
 
 async function loadSession(sessionId: string): Promise<CallSession | null> {
-  try {
-    const filePath = path.join(SESSION_DIR, `${sessionId}.json`)
-    const data = await readFile(filePath, 'utf-8')
-    return JSON.parse(data)
-  } catch (error) {
-    return null
-  }
+  const redis = await getRedis()
+  const key = `call_session:${sessionId}`
+  const data = await redis.get(key)
+  return data ? JSON.parse(data) : null
 }
