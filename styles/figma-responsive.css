@@ -1460,7 +1460,7 @@ div.app-copyright {
     position: absolute;
     width: 90%;
     max-width: 400px;
-    height: 540px;
+    height: 640px;
     left: 50%;
     top: 160px;
     transform: translateX(-50%);
@@ -1824,13 +1824,13 @@ div.app-copyright {
   /* Extend page height to fit card without clipping */
   html, body {
     height: auto !important;
-    min-height: 800px !important; /* Tall enough for 160px top + 520px card + margin */
+    min-height: 900px !important; /* Tall enough for 160px top + 640px card + margin */
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
 
   .liquid-app {
-    min-height: 800px !important; /* Match body */
+    min-height: 900px !important; /* Match body */
     height: auto !important;
     overflow: visible !important;
   }
@@ -1848,8 +1848,8 @@ div.app-copyright {
     position: absolute !important;
     width: 90% !important;
     max-width: 400px !important;
-    height: 540px !important; /* Larger to fit all content */
-    min-height: 540px !important;
+    height: 640px !important; /* Larger to fit all content */
+    min-height: 640px !important;
     left: 50% !important;
     top: 160px !important;
     transform: translateX(-50%) !important;
