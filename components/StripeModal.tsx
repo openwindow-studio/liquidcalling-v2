@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  : Promise.resolve(null)
 
 type StripeModalProps = {
   isOpen: boolean
@@ -145,14 +147,20 @@ export function StripeModal({ isOpen, onClose, amount, onSuccess, onError }: Str
             {Math.floor(parseFloat(amount) * 20)} calling minutes
           </div>
 
-          <Elements stripe={stripePromise}>
-            <CheckoutForm
-              amount={amount}
-              onSuccess={onSuccess}
-              onError={onError}
-              onClose={onClose}
-            />
-          </Elements>
+          {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ? (
+            <Elements stripe={stripePromise}>
+              <CheckoutForm
+                amount={amount}
+                onSuccess={onSuccess}
+                onError={onError}
+                onClose={onClose}
+              />
+            </Elements>
+          ) : (
+            <div style={{ padding: '20px', textAlign: 'center' }}>
+              <p>Stripe is not configured. Please set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

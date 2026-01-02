@@ -15,14 +15,20 @@ async function getRedis() {
       throw new Error('REDIS_URL environment variable not set')
     }
     
-    redisClient = createClient({ url: redisUrl })
-    
-    redisClient.on('error', (err) => {
-      console.error('Redis Client Error', err)
-      redisClient = null // Reset on error
-    })
-    
-    await redisClient.connect()
+    try {
+      redisClient = createClient({ url: redisUrl })
+      
+      redisClient.on('error', (err) => {
+        console.error('Redis Client Error', err)
+        redisClient = null // Reset on error
+      })
+      
+      await redisClient.connect()
+    } catch (error) {
+      console.error('Failed to connect to Redis:', error)
+      redisClient = null
+      throw error
+    }
   }
   
   return redisClient

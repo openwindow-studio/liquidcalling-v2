@@ -67,10 +67,8 @@ export async function POST(request: NextRequest) {
       claimedMinutes: claimedMinutes || 0,
       discrepancy: (claimedMinutes || 0) - totalAvailableMinutes,
       message,
-      freeMinutesApplied: freeMinutes,
       verification: {
         paidMinutes: actualMinutes,
-        freeMinutes,
         totalMinutes: totalAvailableMinutes,
         verifiedAt: new Date().toISOString()
       }
