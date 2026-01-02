@@ -1459,14 +1459,13 @@ div.app-copyright {
   .figma-main-card {
     width: 90%;
     max-width: 400px;
-    height: 520px; /* Reduced height to fit viewport */
+    height: 480px;
     left: 50%;
-    top: 22vh; /* Lower position for better wallet access */
+    top: 160px; /* Far enough for disconnect dropdown */
     transform: translateX(-50%);
     padding: 15px 12px;
-    margin-bottom: 30px;
-    overflow-y: auto; /* Allow scrolling if needed */
-    overflow-x: hidden;
+    margin-bottom: 20px;
+    overflow: visible;
   }
 
   /* Mobile-specific content spacing */
@@ -1831,50 +1830,51 @@ div.app-copyright {
   }
 
   .liquid-app {
-    min-height: 100vh !important;
+    min-height: 200vh !important; /* Extended to fit card + spacing */
     height: auto !important;
-    overflow: visible !important;
-    padding-bottom: 100px !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important; /* Enable vertical scroll */
+    padding-bottom: 200px !important;
   }
 
   /* Extend canvas height on mobile - CRITICAL for scroll */
   .torus-fade-in,
   .torus-canvas-container {
-    height: 150vh !important;
-    min-height: 150vh !important;
+    height: 250vh !important; /* Extended to cover scrollable area */
+    min-height: 250vh !important;
     position: fixed !important;
   }
 
-  /* MAIN CARD POSITIONING - THE FIX */
+  /* MAIN CARD POSITIONING - THE FIX
+     Card sized to fit: 160px top + 480px height = 640px (fits 667px viewport) */
   .figma-main-card {
     position: absolute !important;
     width: 90% !important;
     max-width: 400px !important;
-    height: 520px !important;
-    min-height: 520px !important;
+    height: 480px !important; /* Reduced to fit viewport */
+    min-height: 480px !important;
     left: 50% !important;
-    top: 80px !important; /* Fixed distance from top instead of vh */
+    top: 160px !important; /* Far enough down for disconnect dropdown */
     transform: translateX(-50%) !important;
-    margin-bottom: 80px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    margin-bottom: 20px !important;
+    overflow: visible !important;
   }
 
   /* Ensure card content doesn't clip */
   .figma-main-card-content {
-    padding: 40px 20px 30px !important;
+    padding: 35px 20px 25px !important;
     height: auto !important;
     min-height: 100% !important;
     overflow: visible !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 6px !important;
   }
 
   /* Compact payment section on mobile */
   .figma-minutes-section {
     margin-top: 0 !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 6px !important;
   }
 
   /* Ensure footer visibility */
@@ -1885,18 +1885,4 @@ div.app-copyright {
   }
 }
 
-/* Tall mobile devices (iPhone Pro Max, etc.) */
-@media screen and (max-width: 767px) and (min-height: 800px) {
-  .figma-main-card {
-    top: 12vh !important; /* Use vh for tall screens */
-  }
-}
-
-/* Very tall devices (iPad in portrait, etc.) */
-@media screen and (max-width: 767px) and (min-height: 1000px) {
-  .figma-main-card {
-    top: 15vh !important;
-  }
-}
-
-/* Force cache bust - v3 - Jan 2 2026 14:30 */
+/* Force cache bust - v4 - Jan 2 2026 15:00 */

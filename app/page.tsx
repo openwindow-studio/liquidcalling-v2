@@ -671,7 +671,12 @@ function HomeContent() {
               <span>Copy Room Link</span>
             </button>
 
-            {/* 5. Participant Dots Display */}
+            {/* 5. In Room ~ X Participants - moved here from below */}
+            <div className="figma-participant-count">
+              In Room ~ {participantCount} Participant{participantCount !== 1 ? 's' : ''}
+            </div>
+
+            {/* 6. Participant Dots Display */}
             <div className="figma-participant-dots-container">
               <div className="participant-dots">
                 {[...Array(Math.min(participantCount, 3))].map((_, i) => {
@@ -695,18 +700,13 @@ function HomeContent() {
               </div>
             </div>
 
-            {/* 6. End Call Button */}
+            {/* 7. End Call Button */}
             <button
               onClick={handleEndCall}
               className="call-action-button call-button--red"
             >
               <span className="figma-button-text">End Call</span>
             </button>
-
-            {/* 7. In Room ~ 3 Participants */}
-            <div className="figma-participant-count">
-              In Room ~ {participantCount} Participant{participantCount !== 1 ? 's' : ''}
-            </div>
 
             {/* Card Footer Messages */}
             {isDemoMode && (

@@ -27,9 +27,9 @@ const TorusCanvas = () => {
       top: 0,
       left: 0,
       width: '100vw',
-      // Extend height on mobile to allow panel scrolling
-      height: isMobile ? '150vh' : '100vh',
-      minHeight: isMobile ? '150vh' : '100vh',
+      // Extend height on mobile to cover full scrollable area
+      height: isMobile ? '250vh' : '100vh',
+      minHeight: isMobile ? '250vh' : '100vh',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
       pointerEvents: 'none'
