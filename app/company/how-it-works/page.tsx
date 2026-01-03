@@ -303,6 +303,328 @@ export default function HowItWorksPage() {
 
         <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '60px 0' }} />
 
+        {/* Privacy Architecture */}
+        <div style={{ marginBottom: '80px' }}>
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '60px',
+            padding: '60px 0',
+            background: 'rgba(0, 0, 0, 0.9)',
+            borderRadius: '12px',
+            color: 'white',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {/* Background pattern */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+              backgroundSize: '20px 20px',
+              opacity: 0.3
+            }} />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{
+                fontSize: '14px',
+                fontFamily: 'Geist Mono, monospace',
+                fontWeight: '500',
+                letterSpacing: '1px',
+                marginBottom: '20px',
+                color: 'rgba(255, 255, 255, 0.7)'
+              }}>
+                DISTRIBUTED & SECURE
+              </div>
+
+              <h2 style={{
+                fontFamily: 'var(--font-primary)',
+                fontSize: '36px',
+                fontWeight: '700',
+                marginBottom: '20px',
+                margin: '0 0 20px 0'
+              }}>
+                Our Privacy<br />Architecture
+              </h2>
+
+              <p style={{
+                fontSize: '18px',
+                lineHeight: '1.6',
+                fontFamily: 'var(--font-primary)',
+                marginBottom: '0',
+                maxWidth: '600px',
+                margin: '0 auto',
+                color: 'rgba(255, 255, 255, 0.9)'
+              }}>
+                All your calls - voice data, metadata, participant info - are encrypted in your browser and never stored on our servers.
+              </p>
+            </div>
+          </div>
+
+          {/* Architecture Diagram */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '60px',
+            margin: '80px 0',
+            flexWrap: 'wrap'
+          }}>
+            {/* User's Browser */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '-30px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontFamily: 'Geist Mono, monospace',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: 'rgba(0, 0, 31, 0.7)',
+                whiteSpace: 'nowrap'
+              }}>
+                VOICE DATA
+              </div>
+              <div style={{
+                width: '200px',
+                height: '140px',
+                border: '2px solid rgba(0, 0, 31, 0.2)',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.02)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                position: 'relative'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-12px',
+                  left: '12px',
+                  background: 'rgba(241, 241, 245, 1)',
+                  padding: '4px 8px',
+                  fontFamily: 'Geist Mono, monospace',
+                  fontSize: '10px',
+                  fontWeight: '600',
+                  color: 'rgba(0, 0, 31, 0.9)',
+                  borderRadius: '4px'
+                }}>
+                  USER'S BROWSER
+                </div>
+                <div style={{
+                  fontSize: '32px',
+                  marginBottom: '8px'
+                }}>📄</div>
+                <div style={{
+                  fontFamily: 'Geist Mono, monospace',
+                  fontSize: '11px',
+                  textAlign: 'center',
+                  lineHeight: '1.4',
+                  color: 'rgba(0, 0, 31, 0.8)'
+                }}>
+                  CALL HISTORY<br />
+                  (ENCRYPTED)
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow to Proxy */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <div style={{
+                fontFamily: 'Geist Mono, monospace',
+                fontSize: '10px',
+                color: 'rgba(0, 0, 31, 0.6)',
+                transform: 'rotate(-15deg)'
+              }}>
+                VOICE DATA
+              </div>
+              <div style={{
+                fontSize: '24px',
+                color: 'rgba(0, 0, 31, 0.4)'
+              }}>→</div>
+            </div>
+
+            {/* Liquid Calling Proxy */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative'
+            }}>
+              <div style={{
+                width: '140px',
+                height: '140px',
+                background: 'linear-gradient(135deg, rgba(139, 118, 92, 0.9), rgba(139, 118, 92, 0.7))',
+                border: '2px solid rgba(139, 118, 92, 0.3)',
+                borderRadius: '12px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                transform: 'rotate(45deg)',
+                position: 'relative'
+              }}>
+                <div style={{
+                  fontSize: '20px',
+                  transform: 'rotate(-45deg)'
+                }}>🔒</div>
+                <div style={{
+                  fontFamily: 'Geist Mono, monospace',
+                  fontSize: '9px',
+                  fontWeight: '600',
+                  textAlign: 'center',
+                  lineHeight: '1.2',
+                  color: 'white',
+                  transform: 'rotate(-45deg)'
+                }}>
+                  LIQUID CALLING<br />PROXY
+                </div>
+              </div>
+            </div>
+
+            {/* Arrow to WebRTC */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <div style={{
+                fontFamily: 'Geist Mono, monospace',
+                fontSize: '10px',
+                color: 'rgba(0, 0, 31, 0.6)',
+                transform: 'rotate(15deg)'
+              }}>
+                VOICE DATA
+              </div>
+              <div style={{
+                fontSize: '24px',
+                color: 'rgba(0, 0, 31, 0.4)'
+              }}>→</div>
+            </div>
+
+            {/* WebRTC Infrastructure */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '-30px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                fontFamily: 'Geist Mono, monospace',
+                fontSize: '12px',
+                fontWeight: '500',
+                color: 'rgba(0, 0, 31, 0.7)',
+                whiteSpace: 'nowrap'
+              }}>
+                VOICE DATA
+              </div>
+              <div style={{
+                width: '200px',
+                height: '140px',
+                border: '2px solid rgba(0, 0, 31, 0.2)',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.02)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                position: 'relative'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  top: '-12px',
+                  left: '12px',
+                  background: 'rgba(241, 241, 245, 1)',
+                  padding: '4px 8px',
+                  fontFamily: 'Geist Mono, monospace',
+                  fontSize: '10px',
+                  fontWeight: '600',
+                  color: 'rgba(0, 0, 31, 0.9)',
+                  borderRadius: '4px'
+                }}>
+                  WEBRTC INFRASTRUCTURE
+                </div>
+                <div style={{
+                  fontSize: '32px',
+                  marginBottom: '8px'
+                }}>🔄</div>
+                <div style={{
+                  fontFamily: 'Geist Mono, monospace',
+                  fontSize: '11px',
+                  textAlign: 'center',
+                  lineHeight: '1.4',
+                  color: 'rgba(0, 0, 31, 0.8)'
+                }}>
+                  DISTRIBUTED<br />
+                  (EPHEMERAL RELAY)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Response Arrows */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '40px 0 20px 0'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '40px',
+              width: '100%',
+              maxWidth: '700px',
+              justifyContent: 'space-between'
+            }}>
+              <div style={{
+                fontFamily: 'Geist Mono, monospace',
+                fontSize: '10px',
+                color: 'rgba(0, 0, 31, 0.6)',
+                borderBottom: '1px dotted rgba(0, 0, 31, 0.3)',
+                paddingBottom: '4px',
+                flexGrow: 1,
+                textAlign: 'center'
+              }}>
+                ENCRYPTED VOICE RESPONSE
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '0 0 40px 0'
+          }}>
+            <div style={{
+              fontSize: '24px',
+              color: 'rgba(0, 0, 31, 0.4)',
+              transform: 'scaleX(-1)'
+            }}>→</div>
+          </div>
+        </div>
+
+        <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '60px 0' }} />
+
         {/* Payment Flow */}
         <div style={{ marginBottom: '80px' }}>
           <h2 style={{

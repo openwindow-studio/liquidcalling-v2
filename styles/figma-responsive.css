@@ -27,7 +27,7 @@ body {
 @media (min-width: 768px) {
   .footer-responsive-height {
     position: absolute;
-    bottom: -400px; /* Below the content area */
+    bottom: -300px; /* Below the content area */
     transform: none;
     z-index: 2;
   }
