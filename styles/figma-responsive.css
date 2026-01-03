@@ -1939,12 +1939,21 @@ div.app-copyright {
   /* Extend canvas height on mobile - CRITICAL for scroll */
   .torus-fade-in,
   .torus-canvas-container {
-    height: calc(100vh + 320px) !important;
-    min-height: calc(100vh + 320px) !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
+  }
+
+  /* Desktop only - extend canvas for footer */
+  @media (min-width: 768px) {
+    .torus-fade-in,
+    .torus-canvas-container {
+      height: calc(100vh + 250px) !important;
+      min-height: calc(100vh + 250px) !important;
+    }
   }
 
   /* MAIN CARD POSITIONING - Back to absolute, centered */
