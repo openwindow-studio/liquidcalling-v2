@@ -570,10 +570,10 @@ body {
 
 /* FOOTER TEXT - LEFT */
 .figma-footer-left {
-  position: absolute;
+  position: fixed; /* Fixed positioning to prevent document height extension */
   width: 500px;
   left: 60px;
-  bottom: 80px; /* From bottom - moved up */
+  bottom: 50px; /* Reduced from 80px for better spacing */
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -582,14 +582,15 @@ body {
   text-transform: uppercase;
   color: rgba(31, 0, 0, 0.9);
   z-index: 5;
+  pointer-events: none; /* Allow clicks to pass through */
 }
 
 /* FOOTER TEXT - RIGHT */
 .figma-footer-right {
-  position: absolute;
+  position: fixed; /* Fixed positioning to prevent document height extension */
   width: 500px;
   right: 60px; /* From right edge */
-  bottom: 80px; /* From bottom - moved up */
+  bottom: 50px; /* Reduced from 80px for better spacing */
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -598,6 +599,7 @@ body {
   text-transform: uppercase;
   color: rgba(31, 0, 0, 0.9);
   z-index: 5;
+  pointer-events: none; /* Allow clicks to pass through */
 }
 
 /* COPYRIGHT TEXT */
@@ -749,13 +751,12 @@ body {
 }
 
 /* APP PAGES FOOTER (separate from splash) */
-/* COMMENTED OUT - HIDING ASCII FOOTER */
-/*
+/* APP PAGES FOOTER (authenticated pages) - RE-ENABLED WITH FIXED POSITIONING */
 .app-footer-left {
-  position: absolute;
+  position: fixed; /* Fixed positioning to prevent document height extension */
   width: 500px;
   left: 60px;
-  bottom: 50px;
+  bottom: 20px; /* Lower than landing footers to avoid overlap */
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
@@ -764,21 +765,23 @@ body {
   text-transform: uppercase;
   color: rgba(31, 0, 0, 0.9);
   z-index: 5;
+  pointer-events: none; /* Allow clicks to pass through */
 }
 
 .app-copyright {
-  position: absolute;
+  position: fixed; /* Fixed positioning to prevent document height extension */
   width: auto;
   right: 20px;
-  bottom: 15px;
+  bottom: 20px;
   font-family: var(--font-geist-mono), 'SF Mono', Monaco, monospace;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
   color: rgba(31, 0, 0, 0.9);
+  z-index: 5;
+  pointer-events: none; /* Allow clicks to pass through */
 }
-*/
 
 /* Hide only copyright element */
 .liquid-app .app-copyright,
@@ -1270,15 +1273,16 @@ div.app-copyright {
 
   .figma-footer-left,
   .figma-footer-right {
+    position: fixed !important; /* Maintain fixed positioning on mobile */
     font-size: 14px;
-    /* line-height: 20px; */
     width: 400px;
-    top: 640px;
+    bottom: 40px !important; /* Use bottom instead of top for fixed positioning */
     right: 85px;
   }
 
   .figma-footer-left {
     left: 100px;
+    right: auto; /* Reset right positioning for left footer */
   }
 }
 
@@ -1338,10 +1342,11 @@ div.app-copyright {
 
   .figma-footer-left,
   .figma-footer-right {
+    position: fixed !important; /* Maintain fixed positioning on tablet */
     font-size: 11.2px;
     line-height: 18px;
     width: 350px;
-    bottom: 40px;
+    bottom: 40px !important;
   }
 
   .figma-footer-left {
@@ -1551,13 +1556,14 @@ div.app-copyright {
 
   .figma-footer-left,
   .figma-footer-right {
-    position: absolute;
+    position: fixed !important; /* Maintain fixed positioning on mobile */
     width: calc(50% - 60px);
-    bottom: 80px;
+    bottom: 40px !important; /* Reduced from 80px */
     font-size: 11.2px;
     line-height: 18px;
     text-align: left;
     display: block;
+    pointer-events: none; /* Allow clicks to pass through */
   }
 
   .figma-footer-left {
@@ -1587,29 +1593,29 @@ div.app-copyright {
     height: 40px;
   }
 
-  /* App footer mobile fixes - COMMENTED OUT - HIDING ASCII FOOTER */
-  /*
+  /* App footer mobile fixes - RE-ENABLED WITH FIXED POSITIONING */
   .app-footer-left {
-    position: absolute;
+    position: fixed !important;
     width: calc(100% - 40px);
     left: 20px;
     right: auto;
-    bottom: 80px;
+    bottom: 20px !important; /* Reduced from 80px */
     font-size: 10px;
     line-height: 14px;
     text-align: left;
+    pointer-events: none; /* Allow clicks to pass through */
   }
 
   .app-copyright {
-    position: absolute;
+    position: fixed !important;
     width: auto;
     left: auto;
     right: 20px;
     bottom: 20px;
     font-size: 10px;
     text-align: right;
+    pointer-events: none; /* Allow clicks to pass through */
   }
-  */
 
   /* Fix buy minutes form centering on mobile */
   .figma-buy-minutes-form {

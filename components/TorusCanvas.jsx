@@ -27,7 +27,7 @@ const TorusCanvas = () => {
       top: 0,
       left: 0,
       width: '100%',
-      height: '100vh',
+      height: 'calc(100vh + 300px)',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
       pointerEvents: 'none'

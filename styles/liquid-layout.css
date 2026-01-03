@@ -186,14 +186,18 @@
 
 /* Footer */
 .liquid-footer {
-  position: absolute;
-  bottom: 40px;
-  left: 97px;
-  right: 97px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 300px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  z-index: 100;
+  z-index: 9999;
+  background: rgba(255, 0, 0, 0.2);
+  border: 2px solid red;
+  padding: 0 97px;
 }
 
 .liquid-footer-text {

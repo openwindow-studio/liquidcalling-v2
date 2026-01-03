@@ -12,6 +12,7 @@ import { PaymentUI } from '../components/PaymentUI'
 import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 import { Footer } from '../components/Footer'
+import { Footer as Footer2 } from '../components/Footer2'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const TorusCanvas = dynamic(() => import('../components/TorusCanvas'), { ssr: false })
@@ -730,6 +731,7 @@ function HomeContent() {
   // Show welcome/landing page for non-connected users
   if (!isConnected && !isDemoMode) {
     return (
+      <>
       <div className="liquid-app">
         <TorusCanvas />
         {/* Logo - FIGMA RESPONSIVE */}
@@ -779,11 +781,14 @@ function HomeContent() {
         </div>
 
       </div>
+
+      </>
     )
   }
 
   // Show main app interface for connected users or demo mode
   return (
+    <>
     <div className="liquid-app">
       <TorusCanvas />
       {/* Logo - FIGMA RESPONSIVE */}
@@ -1007,33 +1012,51 @@ function HomeContent() {
       <div className="app-footer-left">
         Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
       </div>
+
     </div>
+
+    </>
   )
 }
 
 export default function Home() {
   return (
-    <ErrorBoundary
-      fallback={
-        <div className="liquid-app">
-          <TorusCanvas />
-          <div className="figma-logo">Liquid Calling</div>
-          <div className="figma-main-card">
-            <div className="figma-main-card-content">
-              <p>Voice calling temporarily unavailable</p>
-              <p style={{ fontSize: '14px', opacity: 0.7, marginTop: '10px' }}>
-                WebRTC not supported in this environment. Please try a different browser or device.
-              </p>
+    <>
+      <ErrorBoundary
+        fallback={
+          <div className="liquid-app">
+            <TorusCanvas />
+            <div className="figma-logo">Liquid Calling</div>
+            <div className="figma-main-card">
+              <div className="figma-main-card-content">
+                <p>Voice calling temporarily unavailable</p>
+                <p style={{ fontSize: '14px', opacity: 0.7, marginTop: '10px' }}>
+                  WebRTC not supported in this environment. Please try a different browser or device.
+                </p>
+              </div>
             </div>
           </div>
+        }
+      >
+        <div style={{ minHeight: '100vh', position: 'relative' }}>
+          <DailyProvider>
+            <HomeContent />
+          </DailyProvider>
         </div>
-      }
-    >
-      <div style={{ minHeight: '100vh', position: 'relative' }}>
-        <DailyProvider>
-          <HomeContent />
-        </DailyProvider>
+      </ErrorBoundary>
+
+      {/* ASCII Footer - Positioned just below the visible content */}
+      <div style={{
+        position: 'fixed',
+        top: '100vh',
+        left: '0px',
+        right: '0px',
+        height: 'auto',
+        background: 'transparent',
+        zIndex: 2
+      }}>
+        <Footer2 />
       </div>
-    </ErrorBoundary>
+    </>
   )
 }
