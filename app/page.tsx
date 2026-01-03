@@ -1054,7 +1054,7 @@ export default function Home() {
         height: 'auto',
         background: 'transparent',
         zIndex: 2
-      }}>
+      }} className="ascii-footer-container">
         <Footer2 />
       </div>
     </>

@@ -1887,11 +1887,16 @@ div.app-copyright {
     margin-bottom: 6px !important;
   }
 
-  /* Ensure footer visibility */
+  /* Hide the overlapping footer text on mobile */
   .figma-footer-left,
   .figma-footer-right {
-    position: fixed !important;
-    bottom: 20px !important;
+    display: none !important;
+  }
+
+  /* Ensure ASCII footer displays properly on mobile */
+  .ascii-footer-container {
+    display: block !important;
+    visibility: visible !important;
   }
 }
 
