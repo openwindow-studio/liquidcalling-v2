@@ -558,7 +558,7 @@ function HomeContent() {
         {isDemoMode && (
           <button
             onClick={() => handleSetDemoMode(false)}
-            className="figma-demo-button"
+            className="figma-demo-button figma-exit-demo-button"
           >
             <span className="figma-button-text">Exit Demo</span>
           </button>
@@ -719,10 +719,6 @@ function HomeContent() {
             )}
           </div>
         </div>
-        {/* App footer elements */}
-        <div className="app-footer-left">
-          Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-        </div>
       </div>
     )
   }
@@ -770,7 +766,6 @@ function HomeContent() {
           </button>
         </div>
 
-
         {/* Footer - FIGMA RESPONSIVE */}
         <div className="figma-footer-left">
           Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
@@ -798,7 +793,7 @@ function HomeContent() {
       {isDemoMode && (
         <button
           onClick={() => handleSetDemoMode(false)}
-          className="figma-demo-button"
+          className="figma-demo-button figma-exit-demo-button"
         >
           <span className="figma-button-text">Exit Demo</span>
         </button>
@@ -1008,10 +1003,6 @@ function HomeContent() {
 
         </div>
       </div>
-      {/* App footer elements */}
-      <div className="app-footer-left">
-        Zero logs. Zero IP tracking. Zero stored data. True end-to-end encryption. EU-US Data Privacy Framework certified.
-      </div>
 
     </div>
 
@@ -1038,23 +1029,15 @@ export default function Home() {
           </div>
         }
       >
-        <div style={{ minHeight: '100vh', position: 'relative' }}>
+        <div style={{ minHeight: '100vh', position: 'relative' }} className="mobile-taller-viewport">
           <DailyProvider>
             <HomeContent />
           </DailyProvider>
         </div>
       </ErrorBoundary>
 
-      {/* ASCII Footer - Positioned just below the visible content */}
-      <div style={{
-        position: 'fixed',
-        top: '100vh',
-        left: '0px',
-        right: '0px',
-        height: 'auto',
-        background: 'transparent',
-        zIndex: 2
-      }}>
+      {/* ASCII Footer - Fixed height with responsive behavior */}
+      <div className="ascii-footer-container footer-responsive-height">
         <Footer2 />
       </div>
     </>

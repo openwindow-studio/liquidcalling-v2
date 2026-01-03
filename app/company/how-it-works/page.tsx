@@ -750,7 +750,7 @@ export default function HowItWorksPage() {
               Start Calling
             </button>
             <button
-              onClick={() => window.open('https://github.com/liquidcalling/sdk', '_blank')}
+              onClick={() => router.push('/sdk')}
               style={{
                 display: 'flex',
                 alignItems: 'center',

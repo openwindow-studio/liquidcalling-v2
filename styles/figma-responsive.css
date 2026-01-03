@@ -5,13 +5,37 @@
 body {
   scroll-behavior: smooth;
   height: auto; /* Changed from 100vh to allow scrolling */
-  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
   overflow-x: hidden;
+}
+
+
+
+/* Footer responsive positioning like Vercel */
+.footer-responsive-height {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(100%); /* Start below viewport */
+  z-index: -1; /* Behind content */
+  pointer-events: auto;
+}
+
+/* On larger screens, position it just below content without affecting layout */
+@media (min-width: 768px) {
+  .footer-responsive-height {
+    position: absolute;
+    bottom: -400px; /* Below the content area */
+    transform: none;
+    z-index: 2;
+  }
 }
 
 /* GLOBAL BACKGROUND */
 .liquid-app {
-  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
   width: 100%;
   background: transparent;
   position: relative;
@@ -654,6 +678,17 @@ body {
 .figma-cta-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Prevent demo button from changing appearance when clicked/focused/active */
+.figma-demo-button:active,
+.figma-demo-button:focus {
+  background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
+              linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17)) !important;
+  background-blend-mode: normal, normal, overlay !important;
+  border: 3px solid #FFFFFF !important;
+  opacity: 1 !important;
+  outline: none !important;
 }
 
 
@@ -1385,15 +1420,51 @@ div.app-copyright {
 
 /* Mobile (below 768px) */
 @media (max-width: 767px) {
+  /* Reset mobile viewport to normal height */
+  .mobile-taller-viewport {
+    min-height: 100vh !important;
+  }
+
+  /* Hide ASCII footer completely on mobile */
+  .ascii-footer-container {
+    display: none !important;
+  }
+
+  /* Hide the overlapping footer text on mobile */
+  .figma-footer-left,
+  .figma-footer-right,
+  .app-footer-left {
+    display: none !important;
+  }
+
+
+  /* Completely disable hover effects on Try Demo buttons for mobile */
+  .figma-demo-button {
+    transition: none !important;
+  }
+
+  .figma-demo-button:hover,
+  .figma-demo-button:active,
+  .figma-demo-button:focus {
+    transform: none !important;
+    box-shadow: none !important;
+    background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
+                linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17)) !important;
+    background-blend-mode: normal, normal, overlay !important;
+    border: 3px solid #FFFFFF !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
   .liquid-app {
-    min-height: calc(100vh + 200px); /* Adjust viewport to accommodate fixed panel height */
+    min-height: calc(100dvh + 200px); /* Adjust viewport to accommodate fixed panel height */
     padding-bottom: 200px; /* Adequate spacing for fixed panel */
   }
 
   /* Extend canvas height on mobile */
   .torus-fade-in {
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
   }
 
   /* Hide How it Works link on mobile to avoid crowding */
@@ -1427,9 +1498,10 @@ div.app-copyright {
 
   .figma-connect-button,
   .figma-demo-button {
-    width: 110px;
-    height: 35px;
+    width: 99px; /* 10% smaller (110px * 0.9) */
+    height: 31px; /* 10% smaller (35px * 0.9) */
     top: 20px;
+    font-size: 14px; /* Smaller text to fit */
   }
 
   .figma-connect-button {
@@ -1437,7 +1509,7 @@ div.app-copyright {
   }
 
   .figma-demo-button {
-    right: 140px;
+    right: 125px; /* Adjusted for smaller width */
   }
 
   .figma-cta-button {
@@ -1469,11 +1541,12 @@ div.app-copyright {
     max-width: 380px;
     height: 640px;
     left: 50%;
-    top: 160px;
+    top: 120px; /* Reduced from 160px to add space below */
     transform: translateX(-50%);
     padding: 15px 12px;
     overflow: visible;
     box-sizing: border-box;
+    margin-bottom: 40px; /* Add space below the card */
   }
 
   /* Mobile-specific content spacing */
@@ -1671,6 +1744,7 @@ div.app-copyright {
   align-items: center;
   text-align: center;
   width: 100%;
+  margin-top: 20px; /* Consistent spacing below Connected banner */
 }
 
 /* Removed spacing when Connected banner is present */
@@ -1815,13 +1889,31 @@ div.app-copyright {
     top: 2vh;
   }
 
+  .figma-connect-button,
+  .figma-demo-button {
+    width: 99px; /* 10% smaller */
+    height: 31px; /* 10% smaller */
+    font-size: 14px; /* Smaller text */
+    top: 20px;
+  }
+
+  .figma-connect-button {
+    right: 20px;
+  }
+
   .figma-demo-button {
     position: absolute;
-    bottom: 20px;
-    top: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
+    top: 20px; /* Keep it at the top, not bottom */
+    bottom: auto;
+    right: 125px; /* Adjusted for smaller width */
+    left: auto;
+    transform: none;
+  }
+
+  /* Hide the overlapping footer text on small mobile */
+  .figma-footer-left,
+  .figma-footer-right {
+    display: none !important;
   }
 }
 
@@ -1833,13 +1925,13 @@ div.app-copyright {
   /* Let page size naturally to content */
   html, body {
     height: auto !important;
-    min-height: 100vh !important;
+    min-height: 100dvh !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
   }
 
   .liquid-app {
-    min-height: 100vh !important;
+    min-height: 100dvh !important;
     height: auto !important;
     overflow: visible !important;
   }
@@ -1847,8 +1939,8 @@ div.app-copyright {
   /* Extend canvas height on mobile - CRITICAL for scroll */
   .torus-fade-in,
   .torus-canvas-container {
-    height: 100vh !important;
-    min-height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -1886,6 +1978,7 @@ div.app-copyright {
     margin-top: 20px !important; /* Space below Connected - Locked In */
     margin-bottom: 6px !important;
   }
+
 
   /* Ensure footer visibility */
   .figma-footer-left,
