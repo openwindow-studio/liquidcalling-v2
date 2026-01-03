@@ -336,7 +336,7 @@ export default function HowItWorksPage() {
                 marginBottom: '20px',
                 color: 'rgba(255, 255, 255, 0.7)'
               }}>
-                DISTRIBUTED & SECURE
+                END-TO-END ENCRYPTED
               </div>
 
               <h2 style={{
@@ -358,7 +358,7 @@ export default function HowItWorksPage() {
                 margin: '0 auto',
                 color: 'rgba(255, 255, 255, 0.9)'
               }}>
-                All your calls - voice data, metadata, participant info - are encrypted in your browser and never stored on our servers.
+                WebRTC end-to-end encryption with DTLS-SRTP transport. P2P voice streaming means your calls never pass through our servers.
               </p>
             </div>
           </div>
@@ -390,7 +390,7 @@ export default function HowItWorksPage() {
                 color: 'rgba(0, 0, 31, 0.7)',
                 whiteSpace: 'nowrap'
               }}>
-                VOICE DATA
+                ENCRYPTED WEBRTC
               </div>
               <div style={{
                 width: '200px',
@@ -422,7 +422,7 @@ export default function HowItWorksPage() {
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>📄</div>
+                }}>🎙️</div>
                 <div style={{
                   fontFamily: 'Geist Mono, monospace',
                   fontSize: '11px',
@@ -430,8 +430,8 @@ export default function HowItWorksPage() {
                   lineHeight: '1.4',
                   color: 'rgba(0, 0, 31, 0.8)'
                 }}>
-                  CALL HISTORY<br />
-                  (ENCRYPTED)
+                  P2P VOICE<br />
+                  (EPHEMERAL)
                 </div>
               </div>
             </div>
@@ -449,7 +449,7 @@ export default function HowItWorksPage() {
                 color: 'rgba(0, 0, 31, 0.6)',
                 transform: 'rotate(-15deg)'
               }}>
-                VOICE DATA
+                ENCRYPTED WEBRTC
               </div>
               <div style={{
                 fontSize: '24px',
@@ -457,7 +457,7 @@ export default function HowItWorksPage() {
               }}>→</div>
             </div>
 
-            {/* Liquid Calling Proxy */}
+            {/* Signaling Server */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
@@ -491,7 +491,7 @@ export default function HowItWorksPage() {
                   color: 'white',
                   transform: 'rotate(-45deg)'
                 }}>
-                  LIQUID CALLING<br />PROXY
+                  EPHEMERAL<br />ROOMS
                 </div>
               </div>
             </div>
@@ -509,7 +509,7 @@ export default function HowItWorksPage() {
                 color: 'rgba(0, 0, 31, 0.6)',
                 transform: 'rotate(15deg)'
               }}>
-                VOICE DATA
+                ENCRYPTED WEBRTC
               </div>
               <div style={{
                 fontSize: '24px',
@@ -517,7 +517,7 @@ export default function HowItWorksPage() {
               }}>→</div>
             </div>
 
-            {/* WebRTC Infrastructure */}
+            {/* Peer Browser */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
@@ -535,7 +535,7 @@ export default function HowItWorksPage() {
                 color: 'rgba(0, 0, 31, 0.7)',
                 whiteSpace: 'nowrap'
               }}>
-                VOICE DATA
+                DTLS-SRTP
               </div>
               <div style={{
                 width: '200px',
@@ -562,12 +562,12 @@ export default function HowItWorksPage() {
                   color: 'rgba(0, 0, 31, 0.9)',
                   borderRadius: '4px'
                 }}>
-                  WEBRTC INFRASTRUCTURE
+                  PEER'S BROWSER
                 </div>
                 <div style={{
                   fontSize: '32px',
                   marginBottom: '8px'
-                }}>🔄</div>
+                }}>🎧</div>
                 <div style={{
                   fontFamily: 'Geist Mono, monospace',
                   fontSize: '11px',
@@ -575,8 +575,8 @@ export default function HowItWorksPage() {
                   lineHeight: '1.4',
                   color: 'rgba(0, 0, 31, 0.8)'
                 }}>
-                  DISTRIBUTED<br />
-                  (EPHEMERAL RELAY)
+                  P2P VOICE<br />
+                  (EPHEMERAL)
                 </div>
               </div>
             </div>
@@ -605,22 +605,11 @@ export default function HowItWorksPage() {
                 flexGrow: 1,
                 textAlign: 'center'
               }}>
-                ENCRYPTED VOICE RESPONSE
+                END-TO-END ENCRYPTED • P2P STREAMING • NO RECORDING
               </div>
             </div>
           </div>
 
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            margin: '0 0 40px 0'
-          }}>
-            <div style={{
-              fontSize: '24px',
-              color: 'rgba(0, 0, 31, 0.4)',
-              transform: 'scaleX(-1)'
-            }}>→</div>
-          </div>
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid rgba(31, 0, 0, 0.2)', margin: '60px 0' }} />
