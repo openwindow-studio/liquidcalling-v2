@@ -21,7 +21,7 @@ export function Footer() {
 
   return (
     <div style={{ padding: '0', margin: '0' }}>
-      <div className="relative overflow-visible max-w-screen-2xl mx-auto rounded-[36px] border border-white/20 shadow-[0_0_25px_rgba(0,0,0,0.15)] px-[clamp(12px,6vw,135px)] py-[clamp(12px,6vw,54px)] flex flex-col items-stretch gap-[clamp(20px,6vw,56px)]" style={{ fontFamily: 'Britti Sans, sans-serif', backgroundColor: 'rgba(36, 36, 161, 0.8)', margin: '20px' }}>
+      <div className="relative overflow-visible max-w-screen-2xl mx-auto rounded-[36px] border border-white/20 shadow-[0_0_25px_rgba(0,0,0,0.15)] px-[clamp(12px,6vw,135px)] py-[clamp(12px,6vw,30px)] flex flex-col items-stretch gap-[clamp(20px,6vw,30px)]" style={{ fontFamily: 'Britti Sans, sans-serif', backgroundColor: 'rgba(36, 36, 161, 0.8)', margin: '20px' }}>
 
       <div className="w-full relative z-10 flex flex-col gap-y-8 md:grid md:grid-cols-[1fr_auto]">
         <div>
