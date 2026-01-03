@@ -1939,8 +1939,8 @@ div.app-copyright {
   /* Extend canvas height on mobile - CRITICAL for scroll */
   .torus-fade-in,
   .torus-canvas-container {
-    height: 100dvh !important;
-    min-height: 100dvh !important;
+    height: calc(100vh + 320px) !important;
+    min-height: calc(100vh + 320px) !important;
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
