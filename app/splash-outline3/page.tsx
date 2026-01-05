@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Mic,
   Lock,
@@ -12,24 +12,13 @@ import {
   ArrowRight,
   CheckCircle,
   Users,
-  Phone,
-  Eye
+  Phone
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Footer } from '../../components/Footer2'
 
 export default function SplashOutline() {
   const router = useRouter()
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1150)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   const glassStyle = {
     background: 'radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%)',
@@ -56,7 +45,7 @@ export default function SplashOutline() {
     }}>
       {/* 1. Zero Knowledge Calls Section */}
       <section style={{
-        padding: '160px 20px 100px 20px',
+        padding: '160px 20px 160px 20px',
         background: '#F1F1F5',
         position: 'relative',
         minHeight: '800px'
@@ -78,7 +67,7 @@ export default function SplashOutline() {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              fontSize: 'clamp(4px, 2vw, 12px)',
+              fontSize: '12px',
               lineHeight: '1.2',
               color: 'rgba(0, 0, 0, 0.08)',
               fontFamily: 'monospace',
@@ -191,27 +180,28 @@ export default function SplashOutline() {
             justifyContent: 'center',
             fontSize: '16px',
             color: '#ffffff',
-            marginBottom: '100px',
+            marginBottom: '120px',
             fontFamily: 'monospace',
             position: 'relative',
             overflow: 'hidden'
-          } as React.CSSProperties}>
+          }}>
             {/* Terminal-style ASCII diagram */}
             <pre style={{
               color: '#ffffff',
-              fontSize: isMobile ? '8px' : '14px',
+              fontSize: '14px',
               lineHeight: '1.3',
               textAlign: 'center',
               margin: 0,
               whiteSpace: 'pre'
             }}>
-{`+─────────────────+       +─────────────────+       +─────────────────+
-|   USER BROWSER  |       | EPHEMERAL ROOMS |       |   PEER BROWSER  |
-|                 |       |                 |       |                 |
-|  [*] E2E WEBRTC | <---> |   [X] 24h TTL   | <---> |  [*] E2E WEBRTC |
-|                 |       |                 |       |                 |
-| Status: CONN    |       |  No logs stored |       | Status: CONN    |
-+─────────────────+       +─────────────────+       +─────────────────+`}
+{`┌─────────────┐    ┌─────────────────┐    ┌─────────────┐
+│  YOUR VOICE │◄──►│ EPHEMERAL ROOMS │◄──►│ THEIR VOICE │
+│     P2P     │    │   24HR EXPIRY   │    │     P2P     │
+└─────────────┘    └─────────────────┘    └─────────────┘
+                             │
+                         E2E WEBRTC
+                      ↓ DTLS-SRTP ↓
+                   Voice Stream Direct`}
             </pre>
           </div>
 
@@ -220,34 +210,18 @@ export default function SplashOutline() {
             textAlign: 'center'
           }}>
             <button
-              onClick={() => router.push('/')}
+              onClick={() => router.push('/call')}
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 48px',
-                backgroundColor: 'rgba(0, 0, 31, 0.9)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontSize: '16px',
+                ...glassStyle,
+                padding: '20px 60px',
+                fontSize: '20px',
                 fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                margin: '0 auto'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)'
-                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 31, 0.3)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
+                color: '#000000',
+                fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+                cursor: 'pointer'
               }}
             >
-              <Phone size={18} />
-              Start Calling
+              Start a Call
             </button>
           </div>
         </div>
@@ -255,8 +229,9 @@ export default function SplashOutline() {
 
       {/* 2. Payment Options Section */}
       <section style={{
-        padding: '120px 20px',
-        background: '#E8E8ED'
+        padding: '160px 20px 160px 20px',
+        background: '#FFFFFF',
+        position: 'relative'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -264,24 +239,22 @@ export default function SplashOutline() {
           marginBottom: '80px'
         }}>
           <div style={{
-            fontSize: '12px',
+            fontSize: '14px',
             fontWeight: '500',
             letterSpacing: '0.1em',
             color: '#666666',
-            marginBottom: '20px',
+            marginBottom: '16px',
             fontFamily: "'Geist Mono', monospace",
-            textTransform: 'uppercase',
-            textAlign: 'center'
+            textTransform: 'uppercase'
           }}>
-            PAY JUST 5 CENTS PER MINUTE
+            PAYMENT OPTIONS
           </div>
           <h2 style={{
             fontSize: 'clamp(32px, 6vw, 64px)',
             fontWeight: '700',
             color: '#000000',
             letterSpacing: '-0.02em',
-            fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-            textAlign: 'center'
+            fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif"
           }}>
             Payment Options
           </h2>
@@ -291,15 +264,12 @@ export default function SplashOutline() {
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
-          gap: isMobile ? '24px' : '40px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
+          gap: '48px'
         }}>
           {/* Credit Card */}
           <div style={{
-            background: 'radial-gradient(90.16% 143.01% at 15.32% 21.04%, #F4FBFE 0%, rgba(244, 251, 254, 0.5) 77.08%, rgba(244, 251, 254, 0) 100%)',
-            backdropFilter: 'blur(40px)',
-            borderRadius: '32px',
-            border: '5px solid #FFFFFF',
+            ...glassCardStyle,
             padding: '40px',
             position: 'relative'
           }}>
@@ -309,31 +279,29 @@ export default function SplashOutline() {
               gap: '16px',
               marginBottom: '24px'
             }}>
-              <div style={{
-                background: '#000000',
-                borderRadius: '50%',
-                padding: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <CreditCard size={20} color="#FFFFFF" />
-              </div>
+              <CreditCard size={28} color="#000000" />
               <h3 style={{
                 fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontStyle: 'normal',
                 fontWeight: '600',
-                fontSize: '20px',
+                fontSize: '18px',
+                lineHeight: '24px',
+                letterSpacing: '0.02em',
                 color: '#000000',
-                margin: 0
+                margin: 0,
+                paddingTop: '8px'
               }}>
                 Credit Card
               </h3>
             </div>
             <p style={{
               fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+              fontStyle: 'normal',
+              fontWeight: '400',
               fontSize: '15px',
               lineHeight: '24px',
-              color: '#666666',
+              letterSpacing: '0.01em',
+              color: '#333333',
               margin: 0
             }}>
               Pay directly with credit/debit card. Instant activation, no wallet required. Stripe-secured payments. Per-minute billing.
@@ -342,11 +310,9 @@ export default function SplashOutline() {
 
           {/* Crypto Wallet */}
           <div style={{
-            background: 'radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 77.08%, rgba(0, 0, 0, 0.6) 100%)',
-            backdropFilter: 'blur(40px)',
-            borderRadius: '32px',
-            border: '5px solid #FFFFFF',
+            ...glassCardStyle,
             padding: '40px',
+            background: 'linear-gradient(135deg, #4D4DB3 0%, #8B7C5C 100%)',
             position: 'relative'
           }}>
             <div style={{
@@ -355,30 +321,28 @@ export default function SplashOutline() {
               gap: '16px',
               marginBottom: '24px'
             }}>
-              <div style={{
-                background: '#FFFFFF',
-                borderRadius: '50%',
-                padding: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <Wallet size={20} color="#000000" />
-              </div>
+              <Wallet size={28} color="#FFFFFF" />
               <h3 style={{
                 fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontStyle: 'normal',
                 fontWeight: '600',
-                fontSize: '20px',
+                fontSize: '18px',
+                lineHeight: '24px',
+                letterSpacing: '0.02em',
                 color: '#FFFFFF',
-                margin: 0
+                margin: 0,
+                paddingTop: '8px'
               }}>
                 Crypto Wallet
               </h3>
             </div>
             <p style={{
               fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+              fontStyle: 'normal',
+              fontWeight: '400',
               fontSize: '15px',
               lineHeight: '24px',
+              letterSpacing: '0.01em',
               color: '#CCCCCC',
               margin: 0
             }}>
@@ -390,152 +354,153 @@ export default function SplashOutline() {
 
       {/* 3. Comparison Chart Section */}
       <section style={{
-        padding: '120px 20px',
+        padding: '160px 20px',
+        maxWidth: '1200px',
+        margin: '0 auto',
         background: '#F1F1F5'
       }}>
         <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto'
+          fontSize: '14px',
+          fontWeight: '500',
+          letterSpacing: '0.1em',
+          color: '#666666',
+          marginBottom: '16px',
+          fontFamily: "'Geist Mono', monospace",
+          textTransform: 'uppercase'
         }}>
-          <div style={{
-            background: '#1a1a1a',
-            borderRadius: '24px',
-            padding: '48px',
-            overflow: 'hidden'
-          }}>
-            <h2 style={{
-              fontSize: '20px',
-              fontWeight: '400',
-              color: '#c5dde0',
-              fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-              marginBottom: '48px',
-              margin: '0 0 48px 0'
-            }}>
-              LiquidCalling in Comparison
-            </h2>
+          COMPARISON CHART
+        </div>
+        <h2 style={{
+          fontSize: 'clamp(32px, 6vw, 48px)',
+          fontWeight: '700',
+          color: '#4D4DB3',
+          letterSpacing: '-0.01em',
+          fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif"
+        }}>
+          LiquidCalling in Comparison
+        </h2>
 
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                fontSize: '14px',
-                color: '#FFFFFF'
-              }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
-                    <th style={{
-                      textAlign: 'left',
-                      padding: '16px 20px',
-                      fontWeight: '400',
-                      fontFamily: "'Geist Mono', monospace",
-                      color: '#c5dde0'
-                    }}>
-                      Feature
-                    </th>
-                    {!isMobile && (
-                      <th style={{
-                        textAlign: 'left',
-                        padding: '16px 20px',
-                        fontWeight: '400',
-                        fontFamily: "'Geist Mono', monospace",
-                        color: '#c5dde0'
-                      }}>
-                        Signal
-                      </th>
-                    )}
-                    {!isMobile && (
-                      <th style={{
-                        textAlign: 'left',
-                        padding: '16px 20px',
-                        fontWeight: '400',
-                        fontFamily: "'Geist Mono', monospace",
-                        color: '#c5dde0'
-                      }}>
-                        Telegram/WhatsApp/Zoom
-                      </th>
-                    )}
-                    <th style={{
-                      textAlign: 'left',
-                      padding: '16px 20px',
-                      fontWeight: '400',
-                      fontFamily: "'Geist Mono', monospace",
-                      color: '#c5dde0'
-                    }}>
-                      Liquid Calling
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    ['Requires phone number', 'Yes (mandatory)', 'Yes', 'Never'],
-                    ['Subpoena can reveal identity', 'Yes (phone + last login)', 'Yes (everything)', 'No data exists'],
-                    ['Can prove a call happened', 'Yes (metadata)', 'Yes', 'No'],
-                    ['Burner identity in < 30 s', 'Impossible', 'Impossible', 'Yes – new wallet or incognito tab'],
-                    ['Anonymous call in 5 clicks', 'No', 'No', 'Yes'],
-                    ['Runs in any browser, no install', 'No', 'No', 'Yes']
-                  ].map((row, i) => (
-                    <tr key={i} style={{ borderBottom: i < 5 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none' }}>
-                      <td style={{
-                        padding: '16px 20px',
-                        fontWeight: '400',
-                        fontFamily: "'Geist Mono', monospace",
-                        color: '#c2d9dc'
-                      }}>
-                        {row[0]}
-                      </td>
-                      {!isMobile && (
-                        <td style={{
-                          padding: '16px 20px',
-                          fontFamily: "'Geist Mono', monospace",
-                          fontWeight: '400',
-                          color: '#7f7f7f'
-                        }}>
-                          {row[1]}
-                        </td>
-                      )}
-                      {!isMobile && (
-                        <td style={{
-                          padding: '16px 20px',
-                          fontFamily: "'Geist Mono', monospace",
-                          fontWeight: '400',
-                          color: '#7f7f7f'
-                        }}>
-                          {row[2]}
-                        </td>
-                      )}
-                      <td style={{
-                        padding: '16px 20px',
-                        fontWeight: '400',
-                        fontFamily: "'Geist Mono', monospace",
-                        color: '#c2d9dc'
-                      }}>
-                        {row[3]}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div style={{
+          background: '#fff',
+          border: '1px solid #e0e0e0',
+          borderRadius: '8px',
+          padding: '24px',
+          overflowX: 'auto',
+          marginTop: '48px'
+        }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontSize: '14px'
+          }}>
+            <thead>
+              <tr>
+                <th style={{
+                  textAlign: 'left',
+                  padding: '12px',
+                  borderBottom: '2px solid #e0e0e0',
+                  fontWeight: '600'
+                }}>
+                  Feature
+                </th>
+                <th style={{
+                  textAlign: 'left',
+                  padding: '12px',
+                  borderBottom: '2px solid #e0e0e0',
+                  fontWeight: '600'
+                }}>
+                  Signal
+                </th>
+                <th style={{
+                  textAlign: 'left',
+                  padding: '12px',
+                  borderBottom: '2px solid #e0e0e0',
+                  fontWeight: '600'
+                }}>
+                  Telegram/WhatsApp/Zoom
+                </th>
+                <th style={{
+                  textAlign: 'left',
+                  padding: '12px',
+                  borderBottom: '2px solid #e0e0e0',
+                  fontWeight: '600',
+                  background: '#8B7C5C',
+                  color: '#fff'
+                }}>
+                  Liquid Calling
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ['Requires phone number', 'Yes (mandatory)', 'Yes', 'Never'],
+                ['Subpoena can reveal identity', 'Yes (phone + last login)', 'Yes (everything)', 'No data exists'],
+                ['Can prove a call happened', 'Yes (metadata)', 'Yes', 'No'],
+                ['Burner identity in < 30 s', 'Impossible', 'Impossible', 'Yes – new wallet or incognito tab'],
+                ['Anonymous call in 5 clicks', 'No', 'No', 'Yes'],
+                ['Runs in any browser, no install', 'No', 'No', 'Yes']
+              ].map((row, i) => (
+                <tr key={i}>
+                  <td style={{
+                    padding: '12px',
+                    borderBottom: '1px solid #e0e0e0',
+                    fontWeight: '500'
+                  }}>
+                    {row[0]}
+                  </td>
+                  <td style={{
+                    padding: '12px',
+                    borderBottom: '1px solid #e0e0e0'
+                  }}>
+                    {row[1]}
+                  </td>
+                  <td style={{
+                    padding: '12px',
+                    borderBottom: '1px solid #e0e0e0'
+                  }}>
+                    {row[2]}
+                  </td>
+                  <td style={{
+                    padding: '12px',
+                    borderBottom: '1px solid #e0e0e0',
+                    background: '#8B7C5C',
+                    color: '#fff',
+                    fontWeight: '500'
+                  }}>
+                    {row[3]}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
       {/* 4. Perfect For Section */}
       <section style={{
-        padding: '80px 20px 120px 20px',
-        background: '#f5f5f5',
-        position: 'relative'
+        padding: '160px 20px 160px 20px',
+        background: '#FFFFFF'
       }}>
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          marginBottom: '80px',
-          textAlign: 'center'
+          marginBottom: '80px'
         }}>
+          <div style={{
+            fontSize: '14px',
+            fontWeight: '500',
+            letterSpacing: '0.1em',
+            color: '#666666',
+            marginBottom: '16px',
+            fontFamily: "'Geist Mono', monospace",
+            textTransform: 'uppercase'
+          }}>
+            USE CASES
+          </div>
           <h2 style={{
             fontSize: 'clamp(32px, 6vw, 48px)',
             fontWeight: '700',
-            color: '#333333',
+            color: '#4D4DB3',
             letterSpacing: '-0.01em',
             fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif"
           }}>
@@ -547,13 +512,13 @@ export default function SplashOutline() {
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(350px, 1fr))',
-          gap: isMobile ? '16px' : '32px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gap: '32px'
         }}>
           {/* Sensitive Business Calls */}
           <div style={{
             ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
+            padding: '32px',
             textAlign: 'left'
           }}>
             <h3 style={{
@@ -563,7 +528,7 @@ export default function SplashOutline() {
               fontSize: '18px',
               lineHeight: '24px',
               letterSpacing: '0.02em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: '0 0 16px 0'
             }}>
               Sensitive Business Calls
@@ -575,7 +540,7 @@ export default function SplashOutline() {
               fontSize: '15px',
               lineHeight: '24px',
               letterSpacing: '0.01em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: 0
             }}>
               Discuss deals, strategy, or confidential matters without surveillance risk
@@ -585,7 +550,7 @@ export default function SplashOutline() {
           {/* Medical Consultations */}
           <div style={{
             ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
+            padding: '32px',
             textAlign: 'left'
           }}>
             <h3 style={{
@@ -595,7 +560,7 @@ export default function SplashOutline() {
               fontSize: '18px',
               lineHeight: '24px',
               letterSpacing: '0.02em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: '0 0 16px 0'
             }}>
               Medical Consultations
@@ -607,7 +572,7 @@ export default function SplashOutline() {
               fontSize: '15px',
               lineHeight: '24px',
               letterSpacing: '0.01em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: 0
             }}>
               Privacy-focused infrastructure for protected health conversations
@@ -617,7 +582,7 @@ export default function SplashOutline() {
           {/* Legal Discussions */}
           <div style={{
             ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
+            padding: '32px',
             textAlign: 'left'
           }}>
             <h3 style={{
@@ -627,7 +592,7 @@ export default function SplashOutline() {
               fontSize: '18px',
               lineHeight: '24px',
               letterSpacing: '0.02em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: '0 0 16px 0'
             }}>
               Legal Discussions
@@ -639,17 +604,17 @@ export default function SplashOutline() {
               fontSize: '15px',
               lineHeight: '24px',
               letterSpacing: '0.01em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: 0
             }}>
-              Attorney-client privilege with no recording or metadata
+              Attorney-client privilege with no recording or metadata.
             </p>
           </div>
 
           {/* Personal Privacy */}
           <div style={{
             ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
+            padding: '32px',
             textAlign: 'left'
           }}>
             <h3 style={{
@@ -659,7 +624,7 @@ export default function SplashOutline() {
               fontSize: '18px',
               lineHeight: '24px',
               letterSpacing: '0.02em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: '0 0 16px 0'
             }}>
               Personal Privacy
@@ -671,7 +636,7 @@ export default function SplashOutline() {
               fontSize: '15px',
               lineHeight: '24px',
               letterSpacing: '0.01em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: 0
             }}>
               Keep personal conversations truly personal, away from data harvesting
@@ -681,7 +646,7 @@ export default function SplashOutline() {
           {/* OTC Trading */}
           <div style={{
             ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
+            padding: '32px',
             textAlign: 'left'
           }}>
             <h3 style={{
@@ -691,7 +656,7 @@ export default function SplashOutline() {
               fontSize: '18px',
               lineHeight: '24px',
               letterSpacing: '0.02em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: '0 0 16px 0'
             }}>
               OTC Trading
@@ -703,204 +668,87 @@ export default function SplashOutline() {
               fontSize: '15px',
               lineHeight: '24px',
               letterSpacing: '0.01em',
-              color: '#333333',
+              color: '#4D4DB3',
               margin: 0
             }}>
-              Coordinate large block trades and discuss pricing without surveillance
-            </p>
-          </div>
-
-          {/* Accountants */}
-          <div style={{
-            ...glassCardStyle,
-            padding: isMobile ? '20px' : '32px',
-            textAlign: 'left'
-          }}>
-            <h3 style={{
-              fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontStyle: 'normal',
-              fontWeight: '600',
-              fontSize: '18px',
-              lineHeight: '24px',
-              letterSpacing: '0.02em',
-              color: '#333333',
-              margin: '0 0 16px 0'
-            }}>
-              Accountants
-            </h3>
-            <p style={{
-              fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontStyle: 'normal',
-              fontWeight: '400',
-              fontSize: '15px',
-              lineHeight: '24px',
-              letterSpacing: '0.01em',
-              color: '#333333',
-              margin: 0
-            }}>
-              Discuss sensitive financial matters and client information with complete confidentiality
+              Discuss positions and strategies without fear of front-running or interception.
             </p>
           </div>
         </div>
-
       </section>
 
-      {/* 5. Our Privacy Architecture Section - Grey Container with Legs */}
+      {/* 5. Our Privacy Architecture Section */}
       <section style={{
-        padding: '0',
-        background: '#f5f5f5',
-        position: 'relative'
+        padding: '120px 20px 200px 20px',
+        maxWidth: '1400px',
+        margin: '0 auto',
+        background: '#fff',
+        position: 'relative',
+        minHeight: '900px'
       }}>
-        {/* Left leg */}
-        <div style={{
+        {/* Title on the left */}
+        <h1 style={{
           position: 'absolute',
-          left: 0,
-          top: 0,
-          width: 'calc((100% - 1400px) / 2 + 100px)',
-          height: '100px',
-          background: '#f5f5f5'
-        }} />
-
-        {/* Right leg */}
-        <div style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          width: 'calc((100% - 1400px) / 2 + 100px)',
-          height: '100px',
-          background: '#f5f5f5'
-        }} />
-
-        {/* White inner container with rounded top corners */}
-        <div style={{
-          padding: isMobile ? '120px 20px 60px 20px' : '120px 20px 80px 20px',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          background: '#fff',
-          borderRadius: '100px 100px 0 0',
-          position: 'relative',
-          minHeight: '850px'
+          width: '480px',
+          height: '160px',
+          left: '50%',
+          top: '100px',
+          transform: 'translateX(-530px)',
+          fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+          fontStyle: 'normal',
+          fontWeight: '700',
+          fontSize: '72px',
+          lineHeight: '76px',
+          textAlign: 'left',
+          color: '#000000',
+          letterSpacing: '-0.02em'
         }}>
-        {!isMobile ? (
-          <>
-            {/* Desktop Layout */}
-            {/* Title on the left */}
-            <h1 style={{
-              position: 'absolute',
-              width: '480px',
-              height: '160px',
-              left: '50%',
-              top: '100px',
-              transform: 'translateX(-530px)',
-              fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontStyle: 'normal',
-              fontWeight: '700',
-              fontSize: '72px',
-              lineHeight: '76px',
-              textAlign: 'left',
-              color: '#000000',
-              letterSpacing: '-0.02em'
-            }}>
-              Our Privacy Architecture
-            </h1>
+          Our Privacy Architecture
+        </h1>
 
-            {/* END-TO-END ENCRYPTED label */}
-            <div style={{
-              position: 'absolute',
-              width: '286px',
-              height: '20px',
-              left: '680px',
-              top: '140px',
-              fontFamily: "'Geist Mono', monospace",
-              fontStyle: 'normal',
-              fontWeight: '500',
-              fontSize: '14px',
-              lineHeight: '20px',
-              letterSpacing: '0.1em',
-              color: '#666666',
-              textTransform: 'uppercase'
-            }}>
-              END-TO-END ENCRYPTED
-            </div>
+        {/* END-TO-END ENCRYPTED label */}
+        <div style={{
+          position: 'absolute',
+          width: '286px',
+          height: '20px',
+          left: '680px',
+          top: '140px',
+          fontFamily: "'Geist Mono', monospace",
+          fontStyle: 'normal',
+          fontWeight: '500',
+          fontSize: '14px',
+          lineHeight: '20px',
+          letterSpacing: '0.1em',
+          color: '#666666',
+          textTransform: 'uppercase'
+        }}>
+          END-TO-END ENCRYPTED
+        </div>
 
-            {/* Description text */}
-            <p style={{
-              position: 'absolute',
-              width: '490px',
-              height: '96px',
-              left: '680px',
-              top: '180px',
-              fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontStyle: 'normal',
-              fontWeight: '400',
-              fontSize: '22px',
-              lineHeight: '32px',
-              color: '#333333'
-            }}>
-              WebRTC end-to-end encryption with DTLS-SRTP transport. P2P voice streaming means your calls never pass through our servers.
-            </p>
-          </>
-        ) : (
-          <>
-            {/* Mobile Layout - Stacked */}
-            <div style={{
-              padding: '40px 20px',
-              textAlign: 'left'
-            }}>
-              {/* Title */}
-              <h1 style={{
-                fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontStyle: 'normal',
-                fontWeight: '700',
-                fontSize: 'clamp(32px, 8vw, 48px)',
-                lineHeight: '1.1',
-                textAlign: 'left',
-                color: '#000000',
-                letterSpacing: '-0.02em',
-                marginBottom: '32px'
-              }}>
-                Our Privacy Architecture
-              </h1>
-
-              {/* END-TO-END ENCRYPTED label */}
-              <div style={{
-                fontFamily: "'Geist Mono', monospace",
-                fontStyle: 'normal',
-                fontWeight: '500',
-                fontSize: '12px',
-                lineHeight: '20px',
-                letterSpacing: '0.1em',
-                color: '#666666',
-                textTransform: 'uppercase',
-                marginBottom: '16px'
-              }}>
-                END-TO-END ENCRYPTED
-              </div>
-
-              {/* Description text */}
-              <p style={{
-                fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontStyle: 'normal',
-                fontWeight: '400',
-                fontSize: '18px',
-                lineHeight: '28px',
-                color: '#333333',
-                margin: 0,
-                maxWidth: '100%'
-              }}>
-                WebRTC end-to-end encryption with DTLS-SRTP transport. P2P voice streaming means your calls never pass through our servers.
-              </p>
-            </div>
-          </>
-        )}
+        {/* Description text */}
+        <p style={{
+          position: 'absolute',
+          width: '565px',
+          height: '96px',
+          left: '680px',
+          top: '160px',
+          fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+          fontStyle: 'normal',
+          fontWeight: '400',
+          fontSize: '22px',
+          lineHeight: '32px',
+          color: '#333333'
+        }}>
+          WebRTC end-to-end encryption with DTLS-SRTP transport. P2P voice streaming means your calls never pass through our servers.
+        </p>
 
         {/* Architecture Diagram Image Placeholder */}
         <div style={{
           position: 'absolute',
-          width: isMobile ? 'calc(100% - 40px)' : '1060px',
-          height: isMobile ? '300px' : '400px',
+          width: '1060px',
+          height: '547px',
           left: '50%',
-          top: isMobile ? '400px' : '340px',
+          top: '340px',
           transform: 'translateX(-50%)',
           background: '#F5F5F5',
           borderRadius: '20px',
@@ -1003,13 +851,24 @@ export default function SplashOutline() {
           </div>
         </div>
 
+        {/* DTLS-SRTP label under diagram */}
+        <div style={{
+          position: 'absolute',
+          left: '50%',
+          top: '700px',
+          transform: 'translateX(-50%)',
+          fontSize: '12px',
+          fontWeight: '600',
+          color: '#6B7280'
+        }}>
+          DTLS-SRTP
         </div>
       </section>
 
       {/* 6. Developers Section */}
       <section style={{
         padding: '160px 20px 160px 20px',
-        background: '#1a1a1a'
+        background: '#F1F1F5'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -1017,87 +876,88 @@ export default function SplashOutline() {
           textAlign: 'center'
         }}>
           <div style={{
-            fontSize: '12px',
+            fontSize: '14px',
             fontWeight: '500',
-            letterSpacing: '0.1em',
-            color: '#c5dde0',
+            letterSpacing: '0.2em',
+            opacity: 0.9,
             marginBottom: '30px',
             fontFamily: "'Geist Mono', monospace",
             textTransform: 'uppercase'
           }}>
-            &lt; / &gt; FOR DEVELOPERS
+            FOR DEVELOPERS
           </div>
 
           <pre style={{
-            fontFamily: "'Geist Mono', monospace",
-            fontSize: isMobile ? 'clamp(1px, 0.8vw, 6px)' : 'clamp(6px, 0.9vw, 9px)',
-            lineHeight: '1.1',
-            color: '#c5dde0',
+            fontFamily: 'Consolas, Monaco, "Courier New", Courier, monospace',
+            fontSize: 'clamp(3px, 0.8vw, 8px)',
+            lineHeight: '1.0',
+            color: '#FFFFFF',
             whiteSpace: 'pre',
             margin: '0 0 40px 0',
             letterSpacing: '0px',
-            overflow: 'auto',
-            width: '100%',
-            maxWidth: 'calc(100vw - 40px)',
-            transform: isMobile ? 'scaleX(0.8)' : 'none',
-            transformOrigin: 'center',
-            boxSizing: 'border-box'
+            overflow: 'hidden'
           }}>
 {`░██         ░██████  ░██████   ░██     ░██ ░██████░███████     ░██████     ░███    ░██         ░██         ░██████░███    ░██   ░██████       ░██████   ░███████   ░██     ░██
 ░██           ░██   ░██   ░██  ░██     ░██   ░██  ░██   ░██   ░██   ░██   ░██░██   ░██         ░██           ░██  ░████   ░██  ░██   ░██     ░██   ░██  ░██   ░██  ░██    ░██
 ░██           ░██  ░██     ░██ ░██     ░██   ░██  ░██    ░██ ░██         ░██  ░██  ░██         ░██           ░██  ░██░██  ░██ ░██           ░██         ░██    ░██ ░██   ░██
-░██           ░██  ░██     ░██ ░██     ░██   ░██  ░██    ░██ ░██        ░█████████ ░██         ░██           ░██  ░██ ░██ ░██ ░██  █████     ░████████  ░██    ░██ ░███████
-░██           ░██  ░██     ░██ ░██     ░██   ░██  ░██    ░██ ░██        ░██    ░██ ░██         ░██           ░██  ░██  ░██░██ ░██     ██            ░██ ░██    ░██ ░██   ░██
-░██           ░██   ░██   ░██   ░██   ░██    ░██  ░██   ░██   ░██   ░██ ░██    ░██ ░██         ░██           ░██  ░██   ░████  ░██  ░███     ░██   ░██  ░██   ░██  ░██    ░██
-░██████████ ░██████  ░██████     ░██████   ░██████░███████     ░██████  ░██    ░██ ░██████████ ░██████████ ░██████░██    ░███   ░█████░█      ░██████   ░███████   ░██     ░██`}
+░██           ░██ ░██       ░██░██     ░██   ░██  ░██     ░██░██         ░██   ░██ ░██         ░██           ░██  ░██ ░██ ░██ ░██   ░██████░██   ░██████░██     ░██░██████
+░██           ░██ ░██       ░██░██     ░██   ░██  ░██     ░██░██         ░██    ░██░██         ░██           ░██  ░██  ░██░██ ░██         ░██░██    ░█████░██     ░██░██   ░██
+░██           ░██ ░██       ░██░██     ░██   ░██  ░██     ░██░██         ░██     ░██░██         ░██           ░██  ░██   ░███  ░██   ░██   ░██░██   ░██ ░██░██     ░██░██    ░██
+░███████      ░██  ░██████   ░██ ░██████    ░██  ░███████   ░██████   ░██      ░██░███████     ░███████      ░██  ░██    ░██   ░██████       ░██████   ░███████   ░██     ░██`}
           </pre>
 
+          <h2 style={{
+            fontSize: 'clamp(32px, 6vw, 64px)',
+            fontWeight: '700',
+            color: '#000000',
+            letterSpacing: '-0.02em',
+            fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            margin: '0 0 40px 0'
+          }}>
+            LiquidCalling Embed SDK
+          </h2>
 
           <p style={{
-            fontSize: isMobile ? '12px' : '16px',
-            lineHeight: isMobile ? '20px' : '32px',
-            color: '#c5dde0',
-            fontFamily: "'Geist Mono', monospace",
-            marginBottom: '32px',
-            maxWidth: '600px',
-            margin: '0 auto 32px auto',
-            textTransform: 'uppercase'
+            fontSize: 'clamp(16px, 3vw, 20px)',
+            lineHeight: '1.6',
+            color: '#333333',
+            fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            marginBottom: '40px',
+            maxWidth: '800px',
+            margin: '0 auto 40px auto'
           }}>
-            THE MOST PRIVATE, EMBEDDABLE VOICE MODAL IN THE WORLD.<br />
-            TRULY PRIVATE INFRASTRUCTURE IN LESS THAN FIVE MINUTES.
+            The most private, embeddable voice calling modal in the world. Zero logs, true E2EE, HIPAA-compliant infrastructure.
           </p>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <button
-              onClick={() => router.push('/sdk')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '16px 48px',
-                backgroundColor: '#FFFFFF',
-                color: '#000000',
-                border: 'none',
-                borderRadius: '4px',
-                fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontSize: '16px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'
-                e.currentTarget.style.transform = 'translateY(-2px)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#FFFFFF'
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
-            >
-              <Eye size={18} />
-              View SDK
-            </button>
-          </div>
+          <pre style={{
+            background: '#f5f5f5',
+            padding: '32px',
+            borderRadius: '16px',
+            overflow: 'auto',
+            fontSize: '16px',
+            fontFamily: 'monospace',
+            textAlign: 'left',
+            marginBottom: '40px',
+            maxWidth: '600px',
+            margin: '0 auto 40px auto'
+          }}>
+{`// 3-line integration
+<LiquidCallingModal
+  onCallEnd={(duration) => console.log(duration)}
+/>`}
+          </pre>
+
+          <button style={{
+            ...glassStyle,
+            padding: '16px 32px',
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#000000',
+            fontFamily: "'Britti Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+            cursor: 'pointer'
+          }}>
+            View SDK Documentation
+          </button>
         </div>
       </section>
 
