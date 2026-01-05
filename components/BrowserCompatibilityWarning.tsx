@@ -9,7 +9,7 @@ export default function BrowserCompatibilityWarning() {
   useEffect(() => {
     const userAgent = navigator.userAgent.toLowerCase()
     const isArc = userAgent.includes('arc')
-    const isBrave = navigator.brave !== undefined
+    const isBrave = (window as any).navigator?.brave !== undefined
 
     if (isArc) {
       setBrowserName('Arc')
