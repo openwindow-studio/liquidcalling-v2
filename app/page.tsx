@@ -350,7 +350,7 @@ function SplashOutline2Sections() {
             </p>
           </div>
 
-          {/* Crypto Wallet */}
+          {/* Wallet */}
           <div style={{
             background: 'radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 77.08%, rgba(0, 0, 0, 0.6) 100%)',
             backdropFilter: 'blur(40px)',
@@ -382,7 +382,7 @@ function SplashOutline2Sections() {
                 color: '#FFFFFF',
                 margin: 0
               }}>
-                Crypto Wallet
+                Wallet
               </h3>
             </div>
             <p style={{
@@ -421,7 +421,7 @@ function SplashOutline2Sections() {
               marginBottom: '48px',
               margin: '0 0 48px 0'
             }}>
-              LiquidCalling in Comparison
+              Liquid Calling in Comparison
             </h2>
 
             <div style={{ overflowX: 'auto' }}>

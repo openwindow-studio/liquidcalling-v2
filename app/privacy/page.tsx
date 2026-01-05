@@ -181,7 +181,7 @@ export default function PrivacyPage() {
             marginBottom: '32px',
             color: 'var(--color-primary-text)'
           }}>
-            LiquidCalling in Comparison
+            Liquid Calling in Comparison
           </h2>
 
           <table style={{
