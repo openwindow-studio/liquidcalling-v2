@@ -27,10 +27,12 @@ const TorusCanvas = () => {
       top: 0,
       left: 0,
       width: '100%',
-      height: isMobile ? '100vh' : 'calc(100vh + 1200px)',
+      height: isMobile ? '100vh' : 'calc(100vh + 800px)',
+      maxHeight: isMobile ? '100vh' : 'calc(100vh + 800px)',
       zIndex: 0,
       background: 'linear-gradient(0deg, #F1F1F5, #F1F1F5)',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      overflow: 'hidden'
     }}>
       <Canvas
         camera={{ position: [4, -2, 7] }}

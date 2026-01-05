@@ -4,10 +4,9 @@
 /* Ensure Privy modals are positioned relative to viewport, not full page */
 body {
   scroll-behavior: smooth;
-  height: 100vh; /* Fixed height for modal positioning */
-  min-height: 100dvh; /* Dynamic viewport height */
+  height: auto; /* Let content determine height */
+  min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: auto; /* Allow scrolling */
 }
 
 
