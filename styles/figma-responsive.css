@@ -2,11 +2,18 @@
 
 /* Privy modal styling handled by Privy components */
 /* Ensure Privy modals are positioned relative to viewport, not full page */
-body {
+html, body {
   scroll-behavior: smooth;
-  height: auto; /* Let content determine height */
-  min-height: 100vh;
+  height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Vercel-specific fix to prevent viewport extension */
+html {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 
