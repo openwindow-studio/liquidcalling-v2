@@ -26,17 +26,16 @@ export function Footer() {
       <div className="w-full relative z-10 flex flex-col gap-y-8 md:grid md:grid-cols-[1fr_auto]">
         <div>
           <div className="flex items-center gap-2 mb-6">
-            <pre style={{
-              fontFamily: 'Consolas, Monaco, "Courier New", Courier, monospace',
-              fontSize: 'clamp(4px, 1.5vw, 10px)',
-              lineHeight: '0.9',
+            <h2 style={{
+              fontFamily: 'Britti Sans, sans-serif',
+              fontSize: 'clamp(48px, 8vw, 80px)',
+              fontWeight: '400',
               color: 'rgba(255, 255, 255, 0.9)',
-              whiteSpace: 'pre',
               margin: 0,
-              letterSpacing: '0px'
+              letterSpacing: '-0.02em'
             }}>
-              {asciiLogo}
-            </pre>
+              Liquid Calling
+            </h2>
           </div>
           <div className="text-xs text-white/60">Liquid Calling © 2026</div>
         </div>
