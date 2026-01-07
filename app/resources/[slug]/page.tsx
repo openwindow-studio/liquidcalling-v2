@@ -226,9 +226,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   .replace(/^### (.+)$/gm, '<h3 style="font-family: \'Britt Sans\', \'Helvetica Neue\', sans-serif; font-size: 1.25rem; font-weight: 500; margin: 32px 0 16px 0;">$1</h3>')
                   .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color: #4f46e5; text-decoration: none; border-bottom: 1px solid #4f46e5;">$1</a>') // Convert markdown links to HTML
                   .replace(/^- (.+)$/gm, '<li style="margin-bottom: 8px;">$1</li>')
-                  .replace(/(?:^<li.*<\/li>\s*)+/gms, (match) => `<ul style="margin: 24px 0; padding-left: 24px;">${match}</ul>`)
                   .replace(/^\d+\. (.+)$/gm, '<li style="margin-bottom: 8px;">$1</li>')
-                  .replace(/(?:^<li.*<\/li>\s*)+/gms, (match) => `<ol style="margin: 24px 0; padding-left: 24px;">${match}</ol>`)
                   .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                   .replace(/^([^<\n].*)$/gm, '<p style="margin-bottom: 24px;">$1</p>')
                   .replace(/\n\n+/g, '\n')
