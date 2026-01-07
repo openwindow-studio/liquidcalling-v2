@@ -3,3 +3,50 @@
 @tailwind utilities;
 
 /* Removed body styles - now handled by design-system.css */
+
+/* Resources logo - aligned with breadcrumbs */
+.resources-logo {
+  position: absolute;
+  width: auto;
+  height: auto;
+  left: 24px;
+  top: 50px;
+  font-family: 'Britti Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: rgba(31, 0, 0, 0.9);
+  text-decoration: none;
+}
+
+/* Small Desktop/Large Tablet (1024px to 1439px) */
+@media (max-width: 1439px) {
+  .resources-logo {
+    font-size: 24px;
+    width: 250px;
+    left: 24px;
+    top: 50px;
+  }
+}
+
+/* Tablet (768px to 1023px) */
+@media (max-width: 1023px) {
+  .resources-logo {
+    font-size: 18px;
+    width: 200px;
+    left: 24px;
+    top: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .resources-logo {
+    font-size: 18px;
+    width: 150px;
+    left: 24px;
+    top: 20px;
+    line-height: 35px;
+  }
+}

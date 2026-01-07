@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Calling Resources - Design Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .glass-effect {
+            background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            background-blend-mode: overlay, normal;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .article-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+            color: #ffffff;
+        }
+
+        .article-content p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .article-content th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .breadcrumb {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (matches main site) -->
+    <header class="p-6 border-b border-white border-opacity-20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <a href="/" class="text-white hover:text-blue-300 transition-colors">Liquid Calling</a>
+            </div>
+            <nav class="flex gap-6">
+                <a href="/resources" class="text-white hover:text-blue-300 transition-colors">Resources</a>
+                <a href="/pricing" class="text-white hover:text-blue-300 transition-colors">Pricing</a>
+                <a href="/" class="glass-effect px-4 py-2 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all">
+                    Try Demo
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="min-h-screen p-6">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="/">Home</a> → <a href="/resources">Resources</a> → Anonymous Calling for Crypto Traders
+            </div>
+
+            <!-- Article Container -->
+            <article class="glass-effect rounded-2xl p-8 mb-8">
+                <div class="article-content">
+
+                    <h1>Anonymous Calling for Crypto Traders: Complete Guide</h1>
+
+                    <div class="bg-blue-500 bg-opacity-20 border border-blue-400 border-opacity-30 rounded-lg p-4 mb-6">
+                        <h3 class="text-blue-300 mb-2">Key Takeaways</h3>
+                        <ul class="text-blue-100 space-y-1">
+                            <li>• Browser-based anonymous voice calls with no downloads required</li>
+                            <li>• Pay with USDC on Hyperliquid, Base, Ethereum, Arbitrum</li>
+                            <li>• Complete end-to-end encryption ensures conversations stay private</li>
+                            <li>• No phone numbers or personal information needed</li>
+                            <li>• Perfect for trading coordination and alpha protection</li>
+                        </ul>
+                    </div>
+
+                    <h2>For Crypto Natives</h2>
+
+                    <h3>Pay with USDC - No KYC Required</h3>
+                    <ul>
+                        <li><strong>Hyperliquid</strong> - Instant, no KYC required</li>
+                        <li><strong>Base</strong> - Low fees, fast confirmation</li>
+                        <li><strong>Ethereum, Arbitrum, Optimism</strong> - Full chain support</li>
+                        <li><strong>No bank account needed</strong> - Use crypto directly</li>
+                        <li><strong>No identity verification</strong> - Stay anonymous</li>
+                    </ul>
+
+                    <h3>Perfect for Trading Coordination</h3>
+                    <ul>
+                        <li>Discuss positions without doxxing</li>
+                        <li>Coordinate trades with anonymous partners</li>
+                        <li>Share alpha safely</li>
+                        <li>No connection to your on-chain identity</li>
+                    </ul>
+
+                    <h2>Feature Comparison</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Liquid Calling</th>
+                                <th>Traditional Apps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Download Required</td>
+                                <td>❌ No</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number Needed</td>
+                                <td>❌ No</td>
+                                <td>✅ Usually</td>
+                            </tr>
+                            <tr>
+                                <td>USDC Payments</td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                            </tr>
+                            <tr>
+                                <td>Self-Destructing Rooms</td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Getting Started</h2>
+
+                    <ol>
+                        <li><strong>Visit Liquid Calling</strong> - No signup required</li>
+                        <li><strong>Click "Create a call link"</strong> - Instant room generation</li>
+                        <li><strong>Share the link</strong> - Send to your trading partner</li>
+                        <li><strong>Start talking</strong> - Encrypted, anonymous communication</li>
+                        <li><strong>Pay with USDC</strong> - $0.05/minute, pay only for usage</li>
+                    </ol>
+
+                    <div class="text-center my-8">
+                        <a href="/" class="cta-button">
+                            Try Liquid Calling Now →
+                        </a>
+                        <p class="text-sm text-white text-opacity-60 mt-2">
+                            No signup • No downloads • Start in 3 clicks
+                        </p>
+                    </div>
+
+                    <h2>Why Traders Choose Liquid Calling</h2>
+                    <ol>
+                        <li><strong>No paper trail</strong> - Calls don't link to your wallet or identity</li>
+                        <li><strong>Pay with profits</strong> - Use USDC directly from trading gains</li>
+                        <li><strong>International access</strong> - No geographic restrictions</li>
+                        <li><strong>Instant setup</strong> - Start calling in seconds, not days</li>
+                    </ol>
+
+                    <div class="bg-gray-800 rounded-lg p-6 mt-8">
+                        <h3 class="text-green-400 mb-4">Related Articles</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-blue-400 hover:text-blue-300">Web3 Voice Chat: Trading Coordination Guide</a></li>
+                            <li><a href="#" class="text-blue-400 hover:text-blue-300">Pay with USDC for Private Calls (2026)</a></li>
+                            <li><a href="#" class="text-blue-400 hover:text-blue-300">DeFi Communication: Alpha Protection Explained</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </article>
+
+            <!-- Resources Navigation -->
+            <div class="glass-effect rounded-2xl p-6">
+                <h3 class="text-xl font-semibold mb-4">Browse More Resources</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white bg-opacity-5 rounded-lg p-4 hover:bg-opacity-10 transition-all">
+                        <h4 class="font-medium mb-2">Crypto & Web3</h4>
+                        <p class="text-sm text-white text-opacity-70">Anonymous calling for traders, DAOs, and DeFi</p>
+                    </div>
+                    <div class="bg-white bg-opacity-5 rounded-lg p-4 hover:bg-opacity-10 transition-all">
+                        <h4 class="font-medium mb-2">How-To Guides</h4>
+                        <p class="text-sm text-white text-opacity-70">Step-by-step privacy protection guides</p>
+                    </div>
+                    <div class="bg-white bg-opacity-5 rounded-lg p-4 hover:bg-opacity-10 transition-all">
+                        <h4 class="font-medium mb-2">Comparisons</h4>
+                        <p class="text-sm text-white text-opacity-70">Liquid Calling vs other platforms</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white border-opacity-20 p-6 mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-white text-opacity-60 text-sm mb-4">
+                Last updated: January 7, 2026 |
+                <a href="/privacy" class="hover:text-white">Privacy</a> |
+                <a href="/terms" class="hover:text-white">Terms</a>
+            </p>
+            <p class="text-white text-opacity-40 text-xs">
+                Made with ❤️ for privacy-conscious communicators
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

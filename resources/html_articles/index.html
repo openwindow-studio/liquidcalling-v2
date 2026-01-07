@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | Liquid Calling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Import fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #F1F1F5;
+            color: #000000;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+            position: relative;
+            height: 80px;
+        }
+
+        .header-link {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            left: 60px;
+            top: 20px;
+        }
+
+        .header-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Demo Button */
+        .figma-demo-button {
+            position: absolute;
+            width: 120px;
+            height: 50px;
+            right: 170px; /* Left of connect button */
+            top: 0px; /* Aligned with logo */
+            background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(255, 230, 128, 0.23) 99.98%, rgba(244, 240, 110, 0.0515104) 99.99%, rgba(213, 208, 70, 0) 100%),
+                        linear-gradient(0deg, rgba(0, 0, 0, 0.17), rgba(0, 0, 0, 0.17));
+            background-blend-mode: normal, normal, overlay;
+            border: 3px solid #FFFFFF;
+            backdrop-filter: blur(40px);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .figma-demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Connect Button */
+        .figma-connect-button {
+            position: absolute;
+            width: 140px;
+            height: 50px;
+            right: 20px; /* Rightmost button */
+            top: 0px; /* Aligned with logo */
+            background: radial-gradient(90.16% 143.01% at 15.32% 21.04%, rgba(165, 239, 255, 0.2) 0%, rgba(110, 191, 244, 0.0447917) 77.08%, rgba(70, 144, 213, 0) 100%),
+                        linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06));
+            background-blend-mode: normal, normal, overlay;
+            border: 3px solid #FFFFFF;
+            backdrop-filter: blur(40px);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .figma-connect-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main content container */
+        .main-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Page header with border */
+        .page-header {
+            border: 1px solid #000000;
+            background: transparent;
+            padding: 48px;
+            margin-bottom: 48px;
+        }
+
+        .page-title {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .page-description {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.125rem;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* Article container */
+        .article-container {
+            border: 1px solid #000000;
+            background: transparent;
+            margin-bottom: 32px;
+        }
+
+        /* Article header */
+        .article-header {
+            padding: 48px;
+            border-bottom: 1px solid #000000;
+        }
+
+        .article-title {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 32px;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.875rem;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .meta-item {
+            font-family: 'Geist Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #000000;
+            background: transparent;
+            color: #000000;
+            padding: 6px 12px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .category-badge:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .category-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+        }
+
+        /* Tags */
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag {
+            font-family: 'Geist Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #000000;
+            background: transparent;
+            border: 1px solid #000000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* Article content */
+        .article-content {
+            padding: 48px;
+        }
+
+        .article-content h2 {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #000000;
+            margin: 48px 0 24px 0;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 8px;
+        }
+
+        .article-content h3 {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #000000;
+            margin: 32px 0 16px 0;
+        }
+
+        .article-content p {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 24px 0;
+            padding-left: 24px;
+        }
+
+        .article-content li {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .article-content strong {
+            font-weight: 600;
+        }
+
+        /* Key takeaways box */
+        .key-takeaways {
+            border: 1px solid #000000;
+            background: #ffffff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .takeaways-title {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 1rem;
+        }
+
+        .takeaways-list {
+            color: #000000;
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .takeaways-list li {
+            color: #000000;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .takeaways-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+
+        /* Feature table */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border: 1px solid #000000;
+        }
+
+        .feature-table th,
+        .feature-table td {
+            border: 1px solid #000000;
+            padding: 0.75rem;
+            text-align: left;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .feature-table th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            font-family: 'Geist Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            border: 1px solid #000000;
+            background: transparent;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 48px;
+            background-color: rgba(0, 0, 31, 0.9);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            transform: translateY(0px);
+            box-shadow: none;
+            text-decoration: none;
+            margin: 1rem 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 31, 0.3);
+        }
+
+        .cta-subtitle {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.875rem;
+            color: #000000;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.875rem;
+            color: #000000;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumbs a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            opacity: 0.7;
+        }
+
+        /* Related articles */
+        .related-articles {
+            border: 1px solid #000000;
+            background: transparent;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .related-title {
+            font-family: 'Britt Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 1rem;
+        }
+
+        .related-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .related-list a {
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .related-list a:hover {
+            border-bottom-color: #000000;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                gap: 0.5rem;
+            }
+
+            .page-header, .article-header, .article-content {
+                padding: 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="container">
+        <div class="header">
+            <a href="/" class="header-link">Liquid Calling</a>
+            <div class="header-buttons">
+                <a href="/" class="figma-demo-button">Try Demo</a>
+                <a href="/pricing" class="figma-connect-button">Connect</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="/">Home</a> → Resources
+        </div>
+
+        <div class="page-header">
+        <h1 class="page-title">Liquid Calling Resources</h1>
+        <p class="page-description">Comprehensive guides on anonymous calling, private voice chat, and secure communication.</p>
+    </div>
+
+<h2>Listicle (84 articles)</h2>
+<ul class="article-list">
+<li><a href="10-private-voice-chat-apps-that-actually-work-2026.html">10 private voice chat Apps That Actually Work (2026)</a></li>
+<li><a href="5-crypto-calling-apps-that-actually-work-2026.html">5 crypto calling Apps That Actually Work (2026)</a></li>
+<li><a href="5-best-encrypted-calls-for-anonymous-alpha-sharing-in-2026.html">5 Best encrypted calls for anonymous alpha sharing in 2026</a></li>
+<li><a href="15-ways-to-protect-voice-privacy-in-2026.html">15 Ways to protect voice privacy in 2026</a></li>
+<li><a href="5-browser-based-calling-apps-that-actually-work-2026.html">5 browser-based calling Apps That Actually Work (2026)</a></li>
+<li><a href="the-15-most-secure-encrypted-calls-2026-edition.html">The 15 Most Secure encrypted calls (2026 Edition)</a></li>
+<li><a href="15-best-defi-communication-for-consulting-in-2026.html">15 Best DeFi communication for consulting in 2026</a></li>
+<li><a href="the-12-most-secure-private-voice-chat-2026-edition.html">The 12 Most Secure private voice chat (2026 Edition)</a></li>
+<li><a href="15-crypto-calling-apps-that-actually-work-2026.html">15 crypto calling Apps That Actually Work (2026)</a></li>
+<li><a href="7-ways-to-avoid-tracking-in-2026.html">7 Ways to avoid tracking in 2026</a></li>
+<li><em>...and 74 more articles</em></li>
+</ul>
+
+<h2>How To (84 articles)</h2>
+<ul class="article-list">
+<li><a href="how-to-enable-encrypted-calling-in-15-simple-steps.html">How to enable encrypted calling in 15 Simple Steps</a></li>
+<li><a href="how-to-set-up-web3-voice-chat-for-anonymous-alpha-sharing.html">How to Set Up Web3 voice chat for anonymous alpha sharing</a></li>
+<li><a href="how-to-set-up-private-voice-chat-in-5-simple-steps.html">How to set up private voice chat in 5 Simple Steps</a></li>
+<li><a href="how-to-protect-voice-privacy-without-complex-setup-2026-guide.html">How to protect voice privacy Without complex setup (2026 Guide)</a></li>
+<li><a href="how-to-enable-encrypted-calling-in-15-simple-steps.html">How to enable encrypted calling in 15 Simple Steps</a></li>
+<li><a href="how-to-enable-encrypted-calling-without-creating-accounts-2026-guide.html">How to enable encrypted calling Without creating accounts (2026 Guide)</a></li>
+<li><a href="how-to-enable-encrypted-calling-like-a-pro-in-2026.html">How to enable encrypted calling Like a Pro in 2026</a></li>
+<li><a href="how-to-make-anonymous-calls-in-10-simple-steps.html">How to make anonymous calls in 10 Simple Steps</a></li>
+<li><a href="how-to-make-anonymous-calls-in-5-simple-steps.html">How to make anonymous calls in 5 Simple Steps</a></li>
+<li><a href="how-to-set-up-private-voice-chat-complete-guide-for-teams.html">How to set up private voice chat: Complete Guide for teams</a></li>
+<li><em>...and 74 more articles</em></li>
+</ul>
+
+<h2>Comparison (83 articles)</h2>
+<ul class="article-list">
+<li><a href="liquid-calling-vs-google-meet-which-is-better-for-defi-negotiations.html">Liquid Calling vs Google Meet: Which is Better for DeFi negotiations?</a></li>
+<li><a href="liquid-calling-vs-signal-vs-zoom-detailed-comparison.html">Liquid Calling vs Signal vs Zoom: Detailed Comparison</a></li>
+<li><a href="liquid-calling-vs-teams-which-is-better-for-one-on-one-calls.html">Liquid Calling vs Teams: Which is Better for one-on-one calls?</a></li>
+<li><a href="comparing-liquid-calling-and-teams-for-crypto-trading-coordination.html">Comparing Liquid Calling and Teams for crypto trading coordination</a></li>
+<li><a href="liquid-calling-vs-skype-which-is-better-for-nft-deal-discussions.html">Liquid Calling vs Skype: Which is Better for NFT deal discussions?</a></li>
+<li><a href="liquid-calling-alternative-why-whatsapp-is-better.html">Liquid Calling Alternative: Why WhatsApp is Better</a></li>
+<li><a href="liquid-calling-vs-teams-vs-signal-detailed-comparison.html">Liquid Calling vs Teams vs Signal: Detailed Comparison</a></li>
+<li><a href="liquid-calling-vs-telegram-vs-signal-detailed-comparison.html">Liquid Calling vs Telegram vs Signal: Detailed Comparison</a></li>
+<li><a href="liquid-calling-vs-whatsapp-which-is-better-for-consulting.html">Liquid Calling vs WhatsApp: Which is Better for consulting?</a></li>
+<li><a href="liquid-calling-vs-zoom-which-is-better-for-international-communication.html">Liquid Calling vs Zoom: Which is Better for international communication?</a></li>
+<li><em>...and 73 more articles</em></li>
+</ul>
+
+<h2>Ultimate Guide (83 articles)</h2>
+<ul class="article-list">
+<li><a href="the-complete-private-voice-calling-guide-for-defi-users.html">The Complete Private Voice Calling Guide for DeFi users</a></li>
+<li><a href="encrypted-voice-chat-the-definitive-guide.html">Encrypted Voice Chat: The Definitive Guide</a></li>
+<li><a href="ultimate-guide-to-private-voice-calling-2026-edition.html">Ultimate Guide to Private Voice Calling (2026 Edition)</a></li>
+<li><a href="encrypted-voice-chat-the-definitive-guide.html">Encrypted Voice Chat: The Definitive Guide</a></li>
+<li><a href="everything-you-need-to-know-about-anonymous-communication.html">Everything You Need to Know About Anonymous Communication</a></li>
+<li><a href="the-complete-private-voice-calling-guide-for-businesses.html">The Complete Private Voice Calling Guide for businesses</a></li>
+<li><a href="web3-voice-chat-the-definitive-guide.html">Web3 Voice Chat: The Definitive Guide</a></li>
+<li><a href="master-anonymous-communication-in-2026-complete-guide.html">Master Anonymous Communication in 2026: Complete Guide</a></li>
+<li><a href="web3-voice-chat-the-definitive-guide.html">Web3 Voice Chat: The Definitive Guide</a></li>
+<li><a href="master-encrypted-voice-chat-in-2026-complete-guide.html">Master Encrypted Voice Chat in 2026: Complete Guide</a></li>
+<li><em>...and 73 more articles</em></li>
+</ul>
+
+<h2>Location Based (83 articles)</h2>
+<ul class="article-list">
+<li><a href="anonymous-calling-in-vienna-complete-guide-2026.html">Anonymous Calling in Vienna: Complete Guide 2026</a></li>
+<li><a href="encrypted-communication-for-houston-residents-2026.html">Encrypted Communication for Houston Residents (2026)</a></li>
+<li><a href="how-to-use-anonymous-calling-in-los-angeles.html">How to Use Anonymous Calling in Los Angeles</a></li>
+<li><a href="how-to-use-anonymous-calling-in-paris.html">How to Use Anonymous Calling in Paris</a></li>
+<li><a href="best-anonymous-calling-services-in-vancouver.html">Best Anonymous Calling Services in Vancouver</a></li>
+<li><a href="anonymous-calling-in-rome-complete-guide-2026.html">Anonymous Calling in Rome: Complete Guide 2026</a></li>
+<li><a href="encrypted-communication-for-london-residents-2026.html">Encrypted Communication for London Residents (2026)</a></li>
+<li><a href="how-to-use-private-voice-chat-in-mumbai.html">How to Use Private Voice Chat in Mumbai</a></li>
+<li><a href="paris-private-voice-chat-everything-you-need-to-know.html">Paris Private Voice Chat: Everything You Need to Know</a></li>
+<li><a href="best-anonymous-calling-services-in-berlin.html">Best Anonymous Calling Services in Berlin</a></li>
+<li><em>...and 73 more articles</em></li>
+</ul>
+
+<h2>Crypto Focused (83 articles)</h2>
+<ul class="article-list">
+<li><a href="how-to-discuss-alpha-privately-with-encrypted-voice.html">How to discuss alpha privately with Encrypted Voice</a></li>
+<li><a href="web3-voice-chat-trading-coordination-guide-for-2026.html">Web3 Voice Chat: Trading Coordination Guide for 2026</a></li>
+<li><a href="pay-with-usdt-for-private-calls-2026.html">Pay with USDT for Private Calls (2026)</a></li>
+<li><a href="base-voice-integration-everything-you-need.html">Base Voice Integration: Everything You Need</a></li>
+<li><a href="pay-with-usdc-for-private-calls-2026.html">Pay with USDC for Private Calls (2026)</a></li>
+<li><a href="how-to-coordinate-trades-anonymously-with-encrypted-voice.html">How to coordinate trades anonymously with Encrypted Voice</a></li>
+<li><a href="pay-with-eth-for-private-calls-2026.html">Pay with ETH for Private Calls (2026)</a></li>
+<li><a href="anonymous-calling-for-defi-users-complete-guide.html">Anonymous Calling for DeFi Users: Complete Guide</a></li>
+<li><a href="pay-with-usdt-for-private-calls-2026.html">Pay with USDT for Private Calls (2026)</a></li>
+<li><a href="pay-with-eth-for-private-calls-2026.html">Pay with ETH for Private Calls (2026)</a></li>
+<li><em>...and 73 more articles</em></li>
+</ul>
+
+        <!-- CTA Section --><div class="cta-section">
+            <a href="/" class="cta-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
+                </svg>
+                Start Calling
+            </a>
+            <div class="cta-subtitle">No signup • No downloads • Start in 3 clicks</div>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3 class="related-title">Related Articles</h3>
+            <ul class="related-list">
+                <li><a href="#">Web3 Voice Chat: Trading Coordination Guide for 2026</a></li>
+                <li><a href="#">Pay with USDC for Private Calls: Complete Guide</a></li>
+                <li><a href="#">DeFi Communication: Alpha Protection Explained</a></li>
+                <li><a href="#">Anonymous Calling for DAO Members: Best Practices</a></li>
+                <li><a href="#">Liquid Calling vs Signal: Which is Better for Traders?</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
