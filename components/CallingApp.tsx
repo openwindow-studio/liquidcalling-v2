@@ -139,20 +139,22 @@ export function CallingApp() {
                 </p>
               </div>
               <PaymentUI
-                isConnected={true}
-                address={user?.wallet?.address || ''}
-                balance="0"
-                onCreateCall={() => {
-                  // This would create a real call
+                minutesBalance={0}
+                buyMinutes={async (amount: string, method?: string) => {
+                  console.log('Buying minutes:', amount, method)
                   console.log('Creating call for:', recipient || 'random room')
                 }}
-                recipientAddress={recipient}
-                callLink={null}
-                roomId={null}
-                isInCall={false}
-                callDuration={0}
-                callStatus="idle"
-                participantCount={0}
+                isPurchasing={false}
+                calculateMinutesFromDollars={(dollars: string) => Math.floor(parseFloat(dollars) / 0.05)}
+                currentNetwork="BASE"
+                usdcBalance="0.00"
+                supportedNetworks={{ BASE: { name: 'Base', chainId: 8453 } }}
+                switchToNetwork={async (network: any) => {
+                  console.log('Switching to network:', network)
+                  return true
+                }}
+                cryptoReady={false}
+                isNetworkSupported={false}
               />
             </div>
           </div>
