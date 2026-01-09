@@ -1,6 +1,6 @@
 import './globals.css'
 import '../styles/fonts.css'
-import '../styles/design-system-v2.css'
+import '../styles/design-system.css'
 import '../styles/figma-responsive.css'
 import '../styles/torus-animation.css'
 import '../styles/stripe.css'
