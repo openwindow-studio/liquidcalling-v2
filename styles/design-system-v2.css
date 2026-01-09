@@ -1,0 +1,483 @@
+/* Liquid Calling Design System V2 - Clean Architecture */
+
+/* ================================
+   1. CSS VARIABLES & TOKENS
+   ================================ */
+:root {
+  /* Core Colors */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gray-dark: #222222;
+  --color-gray-medium: #6C6C6C;
+  --color-gray-light: #606060;
+  --color-border: #D9D9D9;
+  --color-background: #FFFFFF;
+
+  /* Typography - Font Families */
+  --font-britti: 'Britti Sans', 'Britti Sans Trial', -apple-system, sans-serif;
+  --font-geist: 'Geist Mono', 'SF Mono', Monaco, monospace;
+  --font-andale: 'Andale Mono', Monaco, monospace;
+
+  /* Typography - Font Sizes */
+  --text-xs: 8px;
+  --text-sm: 9px;
+  --text-base: 10px;
+  --text-md: 11px;
+  --text-lg: 12px;
+  --text-xl: 16px;
+  --text-2xl: 23px;
+  --text-3xl: 30px;
+  --text-4xl: 34px;
+  --text-5xl: 52px;
+
+  /* Typography - Line Heights */
+  --leading-tight: 100%;
+  --leading-snug: 115%;
+  --leading-normal: 120%;
+  --leading-relaxed: 130%;
+  --leading-loose: 175%;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Layout */
+  --max-width: 750px;
+  --header-height: 62px;
+
+  /* Border Radius */
+  --radius-sm: 20px;
+  --radius-md: 30px;
+  --radius-full: 9999px;
+}
+
+/* ================================
+   2. RESET & BASE
+   ================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-britti);
+  background: var(--color-background);
+  color: var(--color-black);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================
+   3. TYPOGRAPHY SYSTEM
+   ================================ */
+
+/* Headings */
+.h1, h1 {
+  font-family: var(--font-britti);
+  font-size: var(--text-5xl);
+  line-height: var(--leading-snug);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+}
+
+.h2, h2 {
+  font-family: var(--font-britti);
+  font-size: var(--text-4xl);
+  line-height: 28px;
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.h3, h3 {
+  font-family: var(--font-britti);
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+.h4, h4 {
+  font-family: var(--font-britti);
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--color-black);
+}
+
+.h5, h5 {
+  font-family: var(--font-britti);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl);
+  font-weight: 400;
+  color: var(--color-black);
+}
+
+/* Body Text Variants */
+.text-body {
+  font-family: var(--font-britti);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.text-body-sm {
+  font-family: var(--font-britti);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.text-body-xs {
+  font-family: var(--font-britti);
+  font-size: var(--text-xs);
+  line-height: 28px;
+}
+
+.text-mono {
+  font-family: var(--font-geist);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  letter-spacing: 0.03em;
+}
+
+.text-mono-sm {
+  font-family: var(--font-andale);
+  font-size: var(--text-base);
+  line-height: var(--text-base);
+}
+
+/* Text Colors */
+.text-primary { color: var(--color-black); }
+.text-secondary { color: var(--color-gray-medium); }
+.text-muted { color: var(--color-gray-light); }
+.text-white { color: var(--color-white); }
+
+/* Text Alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* ================================
+   4. BUTTON SYSTEM
+   ================================ */
+
+.btn {
+  font-family: var(--font-britti);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 28px;
+  padding: 0 var(--space-5);
+  height: 25px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Button Variants */
+.btn-primary {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background: var(--color-gray-dark);
+  border-color: var(--color-gray-dark);
+}
+
+.btn-secondary {
+  background: var(--color-gray-medium);
+  border-color: var(--color-gray-medium);
+  color: var(--color-white);
+}
+
+.btn-secondary:hover {
+  background: var(--color-gray-dark);
+  border-color: var(--color-gray-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+
+.btn-outline:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+/* Button Sizes */
+.btn-sm {
+  font-size: var(--text-xs);
+  height: 22px;
+  padding: 0 var(--space-4);
+}
+
+.btn-lg {
+  font-size: var(--text-base);
+  height: 32px;
+  padding: 0 var(--space-6);
+}
+
+/* Header Buttons (special styling) */
+.btn-header {
+  background: var(--color-gray-dark);
+  border-radius: var(--radius-sm);
+  height: 22px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-xs);
+  border: none;
+}
+
+.btn-header.btn-light {
+  background: var(--color-gray-medium);
+}
+
+/* ================================
+   5. HEADER/NAVIGATION
+   ================================ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--color-white);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.header-logo img {
+  width: 15px;
+  height: 17px;
+}
+
+.header-logo-text {
+  font-size: var(--text-base);
+  line-height: 28px;
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.header-nav-link {
+  font-size: var(--text-xs);
+  line-height: 28px;
+  color: var(--color-gray-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header-nav-link:hover {
+  color: var(--color-black);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.header-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: var(--text-lg);
+  line-height: 6px;
+  letter-spacing: -0.9em;
+  color: var(--color-black);
+  cursor: pointer;
+}
+
+/* ================================
+   6. LAYOUT COMPONENTS
+   ================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.section {
+  padding: var(--space-20) 0;
+}
+
+.section-sm {
+  padding: var(--space-12) 0;
+}
+
+.section-lg {
+  padding: var(--space-20) 0 var(--space-20);
+}
+
+/* Main content area (accounts for fixed header) */
+.main {
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ================================
+   7. CARD COMPONENTS
+   ================================ */
+
+.card {
+  background: var(--color-white);
+  border-radius: var(--space-2);
+  padding: var(--space-5);
+}
+
+.card-bordered {
+  border: 1px solid var(--color-border);
+}
+
+.card-title {
+  font-family: var(--font-britti);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: var(--text-base);
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-4);
+}
+
+.card-text {
+  font-family: var(--font-britti);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* ================================
+   8. UTILITY CLASSES
+   ================================ */
+
+/* Display */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+
+/* Flexbox */
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+/* Spacing */
+.mt-4 { margin-top: var(--space-4); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.p-4 { padding: var(--space-4); }
+.p-6 { padding: var(--space-6); }
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+
+/* Borders */
+.border-top { border-top: 1px solid var(--color-border); }
+.border-bottom { border-bottom: 1px solid var(--color-border); }
+
+/* ================================
+   9. RESPONSIVE BREAKPOINTS
+   ================================ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  :root {
+    --text-5xl: 40px;
+    --text-4xl: 28px;
+    --text-3xl: 24px;
+    --text-2xl: 20px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .header-menu-toggle {
+    display: block;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .section {
+    padding: var(--space-12) 0;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  :root {
+    --text-5xl: 32px;
+    --text-4xl: 24px;
+    --text-3xl: 20px;
+    --text-2xl: 18px;
+    --text-xl: 14px;
+  }
+
+  .header {
+    padding: 0 var(--space-4);
+  }
+
+  .header-actions .btn-sm {
+    font-size: 7px;
+    padding: 0 var(--space-2);
+  }
+}
