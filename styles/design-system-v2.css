@@ -604,7 +604,7 @@ body {
 
   /* Hero Section Mobile - Add padding above Still Believe */
   .hero-section {
-    padding-top: 100px !important;
+    padding-top: 130px !important;
   }
 
   /* Responsive Text Utilities Mobile */
@@ -621,6 +621,10 @@ body {
     flex-direction: row !important;
     align-items: flex-start !important;
     gap: 30px !important;
+    justify-content: space-between !important;
+    max-width: 85% !important;
+    margin: 0 auto !important;
+    padding: 0 7.5% !important;
   }
 
   .footer-left {
@@ -694,6 +698,9 @@ body {
     align-items: flex-start !important;
     gap: 20px !important;
     justify-content: space-between !important;
+    max-width: 85% !important;
+    margin: 0 auto !important;
+    padding: 0 7.5% !important;
   }
 
   .footer-content h1 {
