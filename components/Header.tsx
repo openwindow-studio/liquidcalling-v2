@@ -17,11 +17,10 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="header-logo">
           <Image
-            src="/LCLOGO.png"
+            src="/lcarc.svg"
             alt="LC"
-            width={15}
-            height={17}
-            style={{ filter: 'invert(1)' }}
+            width={24}
+            height={24}
           />
           <span className="header-logo-text">Liquid Calling</span>
         </Link>
@@ -37,13 +36,13 @@ export function Header() {
           <Link href="/" className="header-nav-link">
             Try for Free
           </Link>
-          <Link href="/signup" className="header-nav-link">
-            Sign Up
-          </Link>
         </nav>
 
         {/* Actions */}
         <div className="header-actions">
+          <Link href="/signup" className="header-nav-link">
+            Sign Up
+          </Link>
           <button
             onClick={() => router.push('/install')}
             className="btn btn-header btn-light btn-sm"

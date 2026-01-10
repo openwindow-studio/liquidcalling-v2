@@ -66,78 +66,147 @@ export function CallingApp() {
           </div>
         </div>
 
-        {/* Main Calling Interface */}
+        {/* Calling Card Interface */}
         <div style={{
-          maxWidth: '800px',
+          maxWidth: '420px',
           margin: '0 auto',
           background: 'white',
-          borderRadius: '12px',
-          padding: '40px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+          borderRadius: '24px',
+          padding: '0',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
+          overflow: 'hidden',
+          border: '1px solid var(--color-border)'
         }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 className="h3" style={{ marginBottom: '16px' }}>Start a Private Call</h2>
-            <p className="text-body text-secondary">
-              Enter a room name or have someone share their link with you
-            </p>
+          {/* Header Section */}
+          <div style={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            padding: '32px',
+            textAlign: 'center',
+            color: 'white',
+            position: 'relative'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '16px',
+              left: '16px',
+              fontSize: '12px',
+              opacity: 0.8
+            }}>
+              Liquid Calling
+            </div>
+            <div style={{
+              fontSize: '14px',
+              opacity: 0.9,
+              marginBottom: '8px'
+            }}>
+              Private Call Interface
+            </div>
+            <h2 className="h3" style={{ color: 'white', marginBottom: '16px' }}>
+              Start Secure Call
+            </h2>
+            {/* Status Indicator */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.2)',
+              padding: '8px 16px',
+              borderRadius: '20px',
+              fontSize: '12px'
+            }}>
+              <div style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: '#4ade80',
+                animation: 'pulse 2s infinite'
+              }}></div>
+              End-to-End Encrypted
+            </div>
           </div>
 
-          <div style={{
-            display: 'grid',
-            gap: '30px',
-            gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr'
-          }}>
-            {/* Demo Mode Option */}
+          {/* Main Content */}
+          <div style={{ padding: '32px' }}>
+            {/* Room Input */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '12px',
+                fontWeight: 600,
+                marginBottom: '8px',
+                color: 'var(--color-gray-dark)'
+              }}>
+                Room Name (Optional)
+              </label>
+              <input
+                type="text"
+                placeholder="Leave empty for random room"
+                value={recipient}
+                onChange={(e) => setRecipient(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  border: '2px solid var(--color-border)',
+                  borderRadius: '12px',
+                  fontSize: '14px',
+                  fontFamily: 'var(--font-geist)',
+                  transition: 'border-color 0.2s ease',
+                  outline: 'none'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'var(--color-black)'
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'var(--color-border)'
+                }}
+              />
+            </div>
+
+            {/* Call Actions */}
             <div style={{
-              padding: '30px',
-              background: '#F8F9FA',
-              borderRadius: '8px',
-              border: '1px solid #E9ECEF'
+              display: 'flex',
+              gap: '12px',
+              marginBottom: '24px'
             }}>
-              <h3 className="text-body" style={{ fontWeight: 600, marginBottom: '16px' }}>
-                🎯 Try Demo Mode
-              </h3>
-              <p className="text-body text-secondary" style={{ marginBottom: '20px' }}>
-                Test the calling interface without using minutes
-              </p>
               <button
                 onClick={() => setIsDemoMode(true)}
-                className="btn btn-primary"
-                style={{ width: '100%' }}
+                className="btn btn-outline"
+                style={{
+                  flex: 1,
+                  padding: '16px',
+                  borderRadius: '12px',
+                  fontSize: '12px',
+                  fontWeight: 600
+                }}
               >
-                Start Demo Call
+                Demo Mode
+              </button>
+              <button
+                className="btn btn-primary"
+                style={{
+                  flex: 2,
+                  padding: '16px',
+                  borderRadius: '12px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  border: 'none'
+                }}
+                onClick={() => {
+                  console.log('Starting call for:', recipient || 'random room')
+                }}
+              >
+                Start Call
               </button>
             </div>
 
-            {/* Real Call Option */}
+            {/* Payment Section */}
             <div style={{
-              padding: '30px',
-              background: '#F8F9FA',
-              borderRadius: '8px',
-              border: '1px solid #E9ECEF'
+              background: '#f8fafc',
+              borderRadius: '12px',
+              padding: '20px',
+              border: '1px solid var(--color-border)'
             }}>
-              <h3 className="text-body" style={{ fontWeight: 600, marginBottom: '16px' }}>
-                📞 Start Real Call
-              </h3>
-              <div style={{ marginBottom: '20px' }}>
-                <input
-                  type="text"
-                  placeholder="Enter room name or ID"
-                  value={recipient}
-                  onChange={(e) => setRecipient(e.target.value)}
-                  style={{
-                    width: '100%',
-                    padding: '12px',
-                    border: '1px solid #D0D7DE',
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    marginBottom: '12px'
-                  }}
-                />
-                <p className="text-body text-secondary" style={{ fontSize: '12px' }}>
-                  Leave empty to create a random room
-                </p>
-              </div>
               <PaymentUI
                 minutesBalance={0}
                 buyMinutes={async (amount: string, method?: string) => {
@@ -159,38 +228,157 @@ export function CallingApp() {
             </div>
           </div>
 
-          {/* Demo Mode Interface */}
-          {isDemoMode && (
+          {/* Footer */}
+          <div style={{
+            padding: '20px 32px',
+            background: '#f8fafc',
+            borderTop: '1px solid var(--color-border)',
+            textAlign: 'center'
+          }}>
             <div style={{
-              marginTop: '40px',
-              padding: '30px',
-              background: '#E8F5E8',
-              borderRadius: '8px',
-              border: '1px solid #C3E6C3'
+              display: 'flex',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              fontSize: '11px',
+              color: 'var(--color-gray-medium)'
             }}>
-              <div style={{ textAlign: 'center' }}>
-                <h3 className="text-body" style={{ fontWeight: 600, marginBottom: '16px' }}>
-                  🎮 Demo Mode Active
-                </h3>
-                <p className="text-body text-secondary" style={{ marginBottom: '20px' }}>
-                  Demo calling interface would appear here. In a full implementation, this would show:
-                </p>
-                <ul style={{ textAlign: 'left', marginBottom: '20px' }}>
-                  <li>Voice controls (mute/unmute)</li>
-                  <li>Room link sharing</li>
-                  <li>Participant list</li>
-                  <li>Call quality indicators</li>
-                  <li>End call functionality</li>
-                </ul>
-                <button
-                  onClick={() => setIsDemoMode(false)}
-                  className="btn btn-secondary"
-                >
-                  Exit Demo
-                </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                🔒 No Logs
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                🚫 No IPs
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                ⏰ 24h Expiry
               </div>
             </div>
-          )}
+          </div>
+        </div>
+
+        {/* Demo Mode Interface */}
+        {isDemoMode && (
+          <div style={{
+            maxWidth: '420px',
+            margin: '40px auto 0',
+            background: 'linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%)',
+            borderRadius: '24px',
+            padding: '32px',
+            border: '2px solid #e0e7ff',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.05)'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(59, 130, 246, 0.1)',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                marginBottom: '20px'
+              }}>
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#3b82f6',
+                  animation: 'pulse 2s infinite'
+                }}></div>
+                Demo Mode Active
+              </div>
+
+              <h3 className="h4" style={{ marginBottom: '16px', color: '#1e40af' }}>
+                Calling Interface Preview
+              </h3>
+
+              {/* Mock Call Interface */}
+              <div style={{
+                background: 'white',
+                borderRadius: '16px',
+                padding: '24px',
+                marginBottom: '24px',
+                border: '1px solid #e5e7eb'
+              }}>
+                <div style={{ marginBottom: '20px' }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    margin: '0 auto 12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: 'bold'
+                  }}>
+                    {recipient || 'Demo'}
+                  </div>
+                  <p className="text-body" style={{ color: '#6b7280', marginBottom: '8px' }}>
+                    {recipient || 'Demo Room'}
+                  </p>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    fontSize: '12px',
+                    color: '#10b981'
+                  }}>
+                    <div style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: '#10b981',
+                      animation: 'pulse 2s infinite'
+                    }}></div>
+                    Encrypted Connection
+                  </div>
+                </div>
+
+                {/* Mock Controls */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '16px',
+                  marginBottom: '16px'
+                }}>
+                  {['🎤', '🔇', '📞'].map((icon, i) => (
+                    <div key={i} style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      background: i === 2 ? '#ef4444' : '#f3f4f6',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '20px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}>
+                      {icon}
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-body text-secondary" style={{ fontSize: '11px' }}>
+                  This simulates the actual calling interface with voice controls,
+                  encrypted connection status, and call management.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setIsDemoMode(false)}
+                className="btn btn-outline"
+                style={{
+                  borderRadius: '12px',
+                  padding: '12px 24px'
+                }}
+              >
+                Exit Demo
+              </button>
+            </div>
+          </div>
+        )}
 
           {/* Features Info */}
           <div style={{ marginTop: '40px', borderTop: '1px solid #E9ECEF', paddingTop: '30px' }}>
@@ -229,7 +417,6 @@ export function CallingApp() {
             </div>
           </div>
         </div>
-      </div>
     </>
   )
 }

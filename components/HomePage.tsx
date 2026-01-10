@@ -9,12 +9,12 @@ export function HomePage() {
   const router = useRouter()
   const { ready, authenticated, user, login } = usePrivy()
 
-  const handleStartCalling = () => {
+  const handleStartCalling = async () => {
     if (!ready) return
 
     if (!authenticated) {
-      // Login first, then navigate to app
-      login()
+      // Login first - Privy will handle the redirect after successful login
+      await login()
     } else {
       // Already logged in, go to app
       router.push('/?app=true')
@@ -24,35 +24,30 @@ export function HomePage() {
   return (
     <div className="main">
       {/* Hero Section */}
-      <section className="container" style={{ paddingTop: '100px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '50px', flexWrap: 'wrap' }}>
-          {/* Left Content */}
-          <div style={{ flex: '1', minWidth: '300px' }}>
-            <h1 className="h3" style={{ marginBottom: '90px' }}>
+      <section className="container" style={{ paddingTop: '70px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', maxWidth: '1800px', margin: '0 auto', gap: '40px' }}>
+          {/* Column 1 - Left Content */}
+          <div style={{ flex: '2 1 0', paddingTop: '100px' }}>
+            <h1 className="h3">
               Still Believe in<br />
               Freedom<br />
               of Speech?
             </h1>
-
-            {/* Phone Frame */}
-            <div style={{ position: 'relative', width: '244px', height: '413px' }}>
-              <Image
-                src="/Frame 7_3.png"
-                alt="App Screenshot"
-                width={244}
-                height={413}
-                style={{ width: '100%', height: 'auto' }}
-              />
-            </div>
           </div>
 
-          {/* Right Content */}
-          <div style={{ flex: '0 0 135px' }}>
+          {/* Column 2 - Center App Screenshot */}
+          <div style={{ flex: '0 0 auto' }}>
+            <img
+              src={`/Frame7_2.png?v=${Date.now()}`}
+              alt="App Screenshot"
+              style={{ width: '250px', height: 'auto', display: 'block' }}
+            />
+          </div>
+
+          {/* Column 3 - Right Content */}
+          <div style={{ flex: '2 1 0', paddingTop: '100px' }}>
             <p className="text-body" style={{ marginBottom: '20px' }}>
-              Zero logs. Zero IP tracking.
-              True end-to-end encryption
-              with three levels of privacy
-              for maximum security.
+              No phone number needed. Zero logs. Zero IP tracking. True end-to-end encryption with three levels of privacy for maximum security.
             </p>
             <button
               onClick={handleStartCalling}
@@ -78,7 +73,7 @@ export function HomePage() {
           {/* Three Options */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gridTemplateColumns: '1fr 1fr 1fr',
             gap: '40px',
             maxWidth: '600px',
             margin: '0 auto 40px'
@@ -141,25 +136,28 @@ export function HomePage() {
       </section>
 
       {/* Why Talk on Recorded Lines Section */}
-      <section className="container section">
+      <section className="container" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
         <div style={{ textAlign: 'center' }}>
           <p className="text-secondary h5" style={{ marginBottom: '20px' }}>
             No surveillance. No BS.
           </p>
-          <h2 className="h2" style={{ marginBottom: '60px' }}>
+          <h2 className="h2" style={{ marginBottom: '30px' }}>
             Why talk on recorded lines?
           </h2>
 
-          {/* ASCII Diagram */}
-          <pre className="text-mono-sm" style={{
+          {/* ASCII Diagram and Comparison Panel */}
+          <div style={{
             background: '#f5f5f5',
-            padding: '40px 20px',
-            borderRadius: '8px',
-            overflowX: 'auto',
-            textAlign: 'left',
+            borderRadius: '20px',
+            padding: '20px 20px',
             maxWidth: '600px',
             margin: '0 auto'
           }}>
+            {/* ASCII Diagram */}
+            <pre className="text-mono-sm" style={{
+              textAlign: 'left',
+              margin: '0 auto 20px'
+            }}>
 {`┌─────────────────────────────────────────────────────────────────────┐
 │                           LIQUID CALLING                              │
 └─────────────────────────────────────────────────────────────────────┘
@@ -177,34 +175,34 @@ export function HomePage() {
            └──────────────────────┴─────────────────────────────┘
                  Direct P2P Audio Stream
                  (End-to-End Encrypted)                                `}
-          </pre>
+            </pre>
 
-          {/* Comparison */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '60px',
-            maxWidth: '600px',
-            margin: '60px auto 0'
-          }}>
-            <div>
-              <h4 className="text-mono" style={{ marginBottom: '20px' }}>US</h4>
-              <div className="text-mono" style={{ color: 'rgba(0, 0, 0, 0.6)', textAlign: 'left' }}>
-                ✓ NO PHONE NUMBER REQUIRED<br />
-                ✓ NO IDENTITY TIED TO CALL<br />
-                ✓ ZERO METADATA STORED<br />
-                ✓ TRULY EPHEMERAL (24h room expiry)<br />
-                ✓ NO ACCOUNTS NEEDED
+            {/* Comparison */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '60px',
+              margin: '20px auto 0'
+            }}>
+              <div>
+                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000' }}>US</h4>
+                <div className="text-mono" style={{ color: '#076842', textAlign: 'left' }}>
+                  ✓ NO PHONE NUMBER REQUIRED<br />
+                  ✓ NO IDENTITY TIED TO CALL<br />
+                  ✓ ZERO METADATA STORED<br />
+                  ✓ TRULY EPHEMERAL (24h room expiry)<br />
+                  ✓ NO ACCOUNTS NEEDED
+                </div>
               </div>
-            </div>
-            <div>
-              <h4 className="text-mono" style={{ marginBottom: '20px' }}>THEM</h4>
-              <div className="text-mono" style={{ color: 'rgba(0, 0, 0, 0.6)', textAlign: 'left' }}>
-                ✗ PHONE NUMBER REQUIRED FOR REGISTRATION<br />
-                ✗ IDENTITY TIED TO PHONE NUMBER<br />
-                ✗ METADATA STORED<br />
-                ✗ CALL RECORD RETAINED<br />
-                ✗ REQUIRES ACCOUNT CREATION
+              <div>
+                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000' }}>THEM</h4>
+                <div className="text-mono" style={{ color: '#D50101', textAlign: 'left' }}>
+                  ✗ PHONE NUMBER REQUIRED FOR REGISTRATION<br />
+                  ✗ IDENTITY TIED TO PHONE NUMBER<br />
+                  ✗ METADATA STORED<br />
+                  ✗ CALL RECORD RETAINED<br />
+                  ✗ REQUIRES ACCOUNT CREATION
+                </div>
               </div>
             </div>
           </div>
@@ -274,33 +272,33 @@ export function HomePage() {
       </section>
 
       {/* SDK Section */}
-      <section className="container section" style={{ borderTop: '1px solid #D9D9D9' }}>
+      <section className="container section">
         <div style={{ textAlign: 'center' }}>
           <p className="text-mono text-muted" style={{ marginBottom: '10px' }}>
             {'< / >'} FOR DEVELOPERS
           </p>
 
           {/* ASCII Logo */}
-          <pre className="text-mono-sm" style={{
-            fontSize: '4px',
-            lineHeight: '4px',
-            color: 'rgba(0, 0, 0, 0.3)',
+          <pre style={{
+            fontFamily: 'var(--font-andale)',
+            fontSize: '8px',
+            lineHeight: '8px',
+            color: '#000000',
             margin: '30px 0',
             letterSpacing: '0'
           }}>
-{`░██      ░██████ ░██████ ░██  ░██ ░██████░███████
-░██      ░██  ░██ ░██  ░██ ░██  ░██ ░██  ░██    ░██
-░██      ░██  ░██ ░██  ░██ ░██  ░██ ░██  ░██    ░██
-░██      ░██  ░██ ░██  ░██ ░██  ░██ ░██  ░██    ░██
-░██      ░██  ░██ ░██  ░██ ░██  ░██ ░██  ░██    ░██
-░████████░██████  ░██████  ░██████ ░██████░███████`}
+{`██     ██ ▄█████▄ ██  ██ ██ ████▄  ▄█████ ▄████▄ ██     ██     ██ ███  ██  ▄████    ▄█████ ████▄  ██ ▄█▀
+██     ██ ██ ▄ ██ ██  ██ ██ ██  ██ ██     ██▄▄██ ██     ██     ██ ██ ▀▄██ ██  ▄▄▄   ▀▀▀▄▄▄ ██  ██ ████
+██████ ██ ▀█████▀ ▀████▀ ██ ████▀  ▀█████ ██  ██ ██████ ██████ ██ ██   ██  ▀███▀    █████▀ ████▀  ██ ▀█▄
+               ▀▀                                                                                        `}
           </pre>
-
-          <h2 className="h2" style={{ marginBottom: '20px' }}>LIQUIDCALLING SDK</h2>
           <p className="text-body" style={{ maxWidth: '400px', margin: '0 auto 30px' }}>
             Want to add crystal clear private voice calls to your site?<br />
             Truly private infrastructure in less than five minutes.
           </p>
+          <button className="btn btn-primary">
+            Lock In
+          </button>
         </div>
       </section>
     </div>

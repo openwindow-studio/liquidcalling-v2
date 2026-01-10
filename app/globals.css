@@ -4,6 +4,16 @@
 
 /* Removed body styles - now handled by design-system.css */
 
+/* Pulse animation for status indicators */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* Resources logo - aligned with breadcrumbs */
 .resources-logo {
   position: absolute;
