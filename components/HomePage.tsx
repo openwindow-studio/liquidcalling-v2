@@ -24,7 +24,7 @@ export function HomePage() {
   return (
     <div className="main">
       {/* Hero Section */}
-      <section className="container" style={{ paddingTop: '70px' }}>
+      <section className="container hero-section" style={{ paddingTop: '70px' }}>
         <div className="hero-layout">
           {/* Column 1 - Left Content */}
           <div className="hero-left">
@@ -83,8 +83,8 @@ export function HomePage() {
                 One Time Use
               </h4>
               <p className="text-body">
-                Pay with Stripe, Apple Pay<br />
-                60 minute call, $5
+                <span className="desktop-text">Pay with Stripe, Apple Pay<br />60 minute call, $5</span>
+                <span className="mobile-text">Pay with Stripe,<br />Apple Pay<br />60 minute call, $5</span>
               </p>
               <button
                 className="btn btn-primary"
@@ -101,8 +101,8 @@ export function HomePage() {
                 Private Account
               </h4>
               <p className="text-body">
-                Apple Pay, Credit Card<br />
-                5 cents a minute
+                <span className="desktop-text">Apple Pay, Credit Card<br />5 cents a minute</span>
+                <span className="mobile-text">Apple Pay,<br />Credit Card<br />5 cents a minute</span>
               </p>
               <button
                 className="btn btn-primary"
@@ -119,8 +119,8 @@ export function HomePage() {
                 Use Your Wallet
               </h4>
               <p className="text-body">
-                Pay with Crypto in USDC<br />
-                5 cents a minute
+                <span className="desktop-text">Pay with Crypto in USDC<br />5 cents a minute</span>
+                <span className="mobile-text">Pay with Crypto<br />in USDC<br />5 cents a minute</span>
               </p>
               <button
                 className="btn btn-primary"
@@ -185,7 +185,7 @@ export function HomePage() {
               margin: '20px auto 0'
             }}>
               <div>
-                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000' }}>US</h4>
+                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000', fontWeight: 'bold' }}>US</h4>
                 <div className="text-mono" style={{ color: '#076842', textAlign: 'left' }}>
                   ✓ NO PHONE NUMBER REQUIRED<br />
                   ✓ NO IDENTITY TIED TO CALL<br />
@@ -195,7 +195,7 @@ export function HomePage() {
                 </div>
               </div>
               <div>
-                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000' }}>THEM</h4>
+                <h4 className="text-mono" style={{ marginBottom: '20px', color: '#000000', fontWeight: 'bold' }}>THEM</h4>
                 <div className="text-mono" style={{ color: '#D50101', textAlign: 'left' }}>
                   ✗ PHONE NUMBER REQUIRED FOR REGISTRATION<br />
                   ✗ IDENTITY TIED TO PHONE NUMBER<br />
@@ -210,7 +210,7 @@ export function HomePage() {
       </section>
 
       {/* Try Liquid Calling Today Section */}
-      <section className="container section">
+      <section className="container section try-today-section">
         <div style={{ textAlign: 'center' }}>
           <h2 className="h4" style={{ marginBottom: '20px' }}>
             Try Liquid Calling Today for 5 cents

@@ -469,7 +469,19 @@ body {
 }
 
 /* ================================
-   10. RESPONSIVE BREAKPOINTS
+   10. RESPONSIVE TEXT UTILITIES
+   ================================ */
+
+.desktop-text {
+  display: inline;
+}
+
+.mobile-text {
+  display: none;
+}
+
+/* ================================
+   11. RESPONSIVE BREAKPOINTS
    ================================ */
 
 /* Tablet */
@@ -535,8 +547,10 @@ body {
 
   /* Three Options Grid */
   .three-options-grid {
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 10px !important;
+    max-width: 80% !important;
+    margin: 0 auto 40px !important;
   }
 
   /* ASCII Diagram Mobile */
@@ -546,15 +560,20 @@ body {
   }
 
   .ascii-panel .text-mono-sm {
-    font-size: 6px !important;
-    line-height: 6px !important;
+    font-size: 8px !important;
+    line-height: 8px !important;
     text-align: center !important;
   }
 
   .ascii-comparison {
-    grid-template-columns: 1fr !important;
-    gap: 30px !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
     text-align: center !important;
+  }
+
+  .ascii-comparison .text-mono {
+    font-size: var(--text-xs) !important;
+    line-height: var(--text-sm) !important;
   }
 
   /* Perfect For Section */
@@ -576,6 +595,25 @@ body {
   .sdk-section pre {
     font-size: 5px !important;
     line-height: 5px !important;
+  }
+
+  /* Try Today Section Mobile - Center between ASCII and Perfect For */
+  .try-today-section {
+    padding: var(--space-6) 0 var(--space-20) 0 !important;
+  }
+
+  /* Hero Section Mobile - Move up 20px */
+  .hero-section {
+    padding-top: 50px !important;
+  }
+
+  /* Responsive Text Utilities Mobile */
+  .desktop-text {
+    display: none !important;
+  }
+
+  .mobile-text {
+    display: inline !important;
   }
 
   /* Footer Mobile */
