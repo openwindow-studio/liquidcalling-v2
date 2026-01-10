@@ -24,7 +24,7 @@ export function HomePage() {
   return (
     <div className="main">
       {/* Hero Section */}
-      <section className="container hero-section" style={{ paddingTop: '70px' }}>
+      <section className="container hero-section">
         <div className="hero-layout">
           {/* Column 1 - Left Content */}
           <div className="hero-left">
