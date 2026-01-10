@@ -436,7 +436,40 @@ body {
 .border-bottom { border-bottom: 1px solid var(--color-border); }
 
 /* ================================
-   9. RESPONSIVE BREAKPOINTS
+   9. HERO SECTION LAYOUT
+   ================================ */
+
+.hero-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1800px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.hero-left {
+  flex: 2 1 0;
+  padding-top: 100px;
+}
+
+.hero-center {
+  flex: 0 0 auto;
+}
+
+.hero-image {
+  width: 250px;
+  height: auto;
+  display: block;
+}
+
+.hero-right {
+  flex: 2 1 0;
+  padding-top: 100px;
+}
+
+/* ================================
+   10. RESPONSIVE BREAKPOINTS
    ================================ */
 
 /* Tablet */
@@ -463,6 +496,108 @@ body {
   .section {
     padding: var(--space-12) 0;
   }
+
+  /* Hero Section Mobile */
+  .hero-layout {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .hero-left {
+    padding-top: 0px;
+    order: 1;
+    text-align: left;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .hero-left .h3 {
+    font-size: var(--text-4xl) !important;
+    line-height: var(--text-4xl) !important;
+  }
+
+  .hero-center {
+    order: 2;
+    align-self: center;
+  }
+
+  .hero-right {
+    padding-top: 0px;
+    order: 3;
+    text-align: left;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .hero-image {
+    width: 200px;
+  }
+
+  /* Three Options Grid */
+  .three-options-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  /* ASCII Diagram Mobile */
+  .ascii-panel {
+    padding: 15px !important;
+    overflow-x: auto;
+  }
+
+  .ascii-panel .text-mono-sm {
+    font-size: 6px !important;
+    line-height: 6px !important;
+    text-align: center !important;
+  }
+
+  .ascii-comparison {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    text-align: center !important;
+  }
+
+  /* Perfect For Section */
+  .perfect-for-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+  }
+
+  .perfect-for-section {
+    padding: 0 var(--space-6) var(--space-20) var(--space-6) !important;
+  }
+
+  /* For Developers Section Padding */
+  .sdk-section {
+    padding: 0 var(--space-6) !important;
+  }
+
+  /* SDK ASCII Logo Mobile */
+  .sdk-section pre {
+    font-size: 5px !important;
+    line-height: 5px !important;
+  }
+
+  /* Footer Mobile */
+  .footer-content {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 30px !important;
+  }
+
+  .footer-left {
+    flex: 0 0 auto !important;
+  }
+
+  .footer-right {
+    flex: 1 !important;
+    text-align: left !important;
+  }
+
+  .footer-content h1 {
+    font-size: 32px !important;
+    line-height: 36px !important;
+  }
 }
 
 /* Mobile */
@@ -482,5 +617,62 @@ body {
   .header-actions .btn-sm {
     font-size: 7px;
     padding: 0 var(--space-2);
+  }
+
+  /* Hero Mobile Adjustments */
+  .hero-image {
+    width: 180px !important;
+  }
+
+  .hero-layout {
+    gap: 20px !important;
+  }
+
+  .container {
+    padding: 0 var(--space-3) !important;
+  }
+
+  /* ASCII Panel Mobile */
+  .ascii-panel {
+    padding: 10px !important;
+    margin: 0 -10px !important;
+  }
+
+  .ascii-comparison {
+    gap: 20px !important;
+  }
+
+  /* Footer Mobile Small */
+  .footer-content {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .footer-content h1 {
+    font-size: 28px !important;
+    line-height: 32px !important;
+  }
+
+  .footer-right div {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* Three Options Mobile */
+  .three-options-grid {
+    gap: 20px !important;
+    margin: 0 auto 30px !important;
+  }
+
+  /* Button Improvements Mobile */
+  .btn {
+    font-size: var(--text-base) !important;
+    padding: 0 var(--space-6) !important;
+    height: 35px !important;
+  }
+
+  /* Header Mobile Menu */
+  .header-actions {
+    gap: var(--space-2) !important;
   }
 }

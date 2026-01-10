@@ -25,9 +25,9 @@ export function HomePage() {
     <div className="main">
       {/* Hero Section */}
       <section className="container" style={{ paddingTop: '70px' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', maxWidth: '1800px', margin: '0 auto', gap: '40px' }}>
+        <div className="hero-layout">
           {/* Column 1 - Left Content */}
-          <div style={{ flex: '2 1 0', paddingTop: '100px' }}>
+          <div className="hero-left">
             <h1 className="h3">
               Still Believe in<br />
               Freedom<br />
@@ -36,16 +36,16 @@ export function HomePage() {
           </div>
 
           {/* Column 2 - Center App Screenshot */}
-          <div style={{ flex: '0 0 auto' }}>
+          <div className="hero-center">
             <img
               src={`/Frame7_2.png?v=${Date.now()}`}
               alt="App Screenshot"
-              style={{ width: '250px', height: 'auto', display: 'block' }}
+              className="hero-image"
             />
           </div>
 
           {/* Column 3 - Right Content */}
-          <div style={{ flex: '2 1 0', paddingTop: '100px' }}>
+          <div className="hero-right">
             <p className="text-body" style={{ marginBottom: '20px' }}>
               No phone number needed. Zero logs. Zero IP tracking. True end-to-end encryption with three levels of privacy for maximum security.
             </p>
@@ -71,7 +71,7 @@ export function HomePage() {
           </p>
 
           {/* Three Options */}
-          <div style={{
+          <div className="three-options-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr 1fr',
             gap: '40px',
@@ -146,7 +146,7 @@ export function HomePage() {
           </h2>
 
           {/* ASCII Diagram and Comparison Panel */}
-          <div style={{
+          <div className="ascii-panel" style={{
             background: '#f5f5f5',
             borderRadius: '20px',
             padding: '20px 20px',
@@ -178,7 +178,7 @@ export function HomePage() {
             </pre>
 
             {/* Comparison */}
-            <div style={{
+            <div className="ascii-comparison" style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: '60px',
@@ -229,10 +229,10 @@ export function HomePage() {
       </section>
 
       {/* Perfect For Section */}
-      <section className="container section">
+      <section className="container section perfect-for-section">
         <h2 className="h4" style={{ marginBottom: '40px' }}>Perfect For</h2>
 
-        <div style={{
+        <div className="perfect-for-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: '30px'
@@ -256,7 +256,7 @@ export function HomePage() {
             },
             {
               title: 'OTC Trading',
-              description: 'Discuss positions and strategies without fear of front-running or interception'
+              description: 'Execute large block trades and discuss order flow without surveillance'
             },
             {
               title: 'Accountants',
@@ -272,7 +272,7 @@ export function HomePage() {
       </section>
 
       {/* SDK Section */}
-      <section className="container section">
+      <section className="container section sdk-section">
         <div style={{ textAlign: 'center' }}>
           <p className="text-mono text-muted" style={{ marginBottom: '10px' }}>
             {'< / >'} FOR DEVELOPERS
@@ -297,7 +297,7 @@ export function HomePage() {
             Truly private infrastructure in less than five minutes.
           </p>
           <button className="btn btn-primary">
-            Lock In
+            Try SDK
           </button>
         </div>
       </section>

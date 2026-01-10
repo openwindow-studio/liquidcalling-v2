@@ -9,7 +9,7 @@ export function Footer3() {
       position: 'relative',
       padding: '60px 0 40px'
     }}>
-      <div style={{
+      <div className="footer-content" style={{
         maxWidth: '750px',
         margin: '0 auto',
         padding: '0 24px',
@@ -18,7 +18,7 @@ export function Footer3() {
         alignItems: 'flex-start'
       }}>
         {/* Left Column - Logo and Copyright */}
-        <div>
+        <div className="footer-left">
           <h1 style={{
             fontFamily: 'var(--font-britti)',
             fontWeight: 400,
@@ -42,35 +42,33 @@ export function Footer3() {
           </p>
         </div>
 
-        {/* Middle Column - Help/Socials Links */}
-        <div>
+        {/* Right Column - All Links */}
+        <div className="footer-right">
           <div style={{
             fontFamily: 'var(--font-britti)',
             fontSize: '11px',
             lineHeight: '20px',
-            color: '#000000'
+            color: '#000000',
+            display: 'flex',
+            gap: '60px'
           }}>
-            <div style={{ fontWeight: 600, marginBottom: '0px' }}>Help</div>
-            <div style={{ fontWeight: 400, marginBottom: '20px' }}>Telegram Support</div>
-            <div style={{ fontWeight: 600, marginBottom: '0px' }}>Socials</div>
-            <div style={{ fontWeight: 400 }}>X</div>
-          </div>
-        </div>
+            {/* Help/Socials */}
+            <div>
+              <div style={{ fontWeight: 600, marginBottom: '0px' }}>Help</div>
+              <div style={{ fontWeight: 400, marginBottom: '20px' }}>Telegram Support</div>
+              <div style={{ fontWeight: 600, marginBottom: '0px' }}>Socials</div>
+              <div style={{ fontWeight: 400 }}>X</div>
+            </div>
 
-        {/* Right Column - Company Links */}
-        <div>
-          <div style={{
-            fontFamily: 'var(--font-britti)',
-            fontSize: '11px',
-            lineHeight: '20px',
-            color: '#000000'
-          }}>
-            <div style={{ fontWeight: 600, marginBottom: '0px' }}>Company</div>
-            <div style={{ fontWeight: 400, marginBottom: '0px' }}>How it Works</div>
-            <div style={{ fontWeight: 400, marginBottom: '0px' }}>Terms of Service</div>
-            <div style={{ fontWeight: 400, marginBottom: '0px' }}>Privacy Policy</div>
-            <div style={{ fontWeight: 400, marginBottom: '0px' }}>Pricing</div>
-            <div style={{ fontWeight: 400 }}>Developer SDK</div>
+            {/* Company */}
+            <div>
+              <div style={{ fontWeight: 600, marginBottom: '0px' }}>Company</div>
+              <div style={{ fontWeight: 400, marginBottom: '0px' }}>How it Works</div>
+              <div style={{ fontWeight: 400, marginBottom: '0px' }}>Terms of Service</div>
+              <div style={{ fontWeight: 400, marginBottom: '0px' }}>Privacy Policy</div>
+              <div style={{ fontWeight: 400, marginBottom: '0px' }}>Pricing</div>
+              <div style={{ fontWeight: 400 }}>Developer SDK</div>
+            </div>
           </div>
         </div>
       </div>
