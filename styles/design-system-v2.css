@@ -545,11 +545,11 @@ body {
     width: 200px;
   }
 
-  /* Three Options Grid */
+  /* Three Options Grid - Mobile Stack */
   .three-options-grid {
-    grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 10px !important;
-    max-width: 80% !important;
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    max-width: 90% !important;
     margin: 0 auto 40px !important;
   }
 
@@ -680,8 +680,8 @@ body {
 
   /* ASCII Panel Mobile */
   .ascii-panel {
-    padding: 10px !important;
-    margin: 0 -10px !important;
+    padding: 15px !important;
+    margin: 0 auto 40px !important;
   }
 
   .ascii-comparison {
@@ -704,10 +704,21 @@ body {
     gap: 20px !important;
   }
 
-  /* Three Options Mobile */
-  .three-options-grid {
-    gap: 20px !important;
-    margin: 0 auto 30px !important;
+  /* Section Spacing - Mobile */
+  .section {
+    padding: 50px 0 !important;
+  }
+
+  .try-today-section {
+    padding: 60px 0 !important;
+  }
+
+  .perfect-for-section {
+    padding: 60px 0 !important;
+  }
+
+  .sdk-section {
+    padding: 60px 0 !important;
   }
 
   /* Button Improvements Mobile */
