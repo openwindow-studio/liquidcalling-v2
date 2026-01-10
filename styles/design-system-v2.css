@@ -652,9 +652,23 @@ body {
     padding: 0 var(--space-4);
   }
 
+  .header-logo-text {
+    font-size: var(--text-sm) !important;
+  }
+  .header-logo img {
+    width: 12px !important;
+    height: 14px !important;
+  }
+  .header-nav-link {
+    font-size: var(--text-xs) !important;
+  }
   .header-actions .btn-sm {
-    font-size: 7px;
-    padding: 0 var(--space-2);
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    min-height: 24px !important;
+  }
+  .header-actions {
+    gap: var(--space-1) !important;
   }
 
   /* Hero Mobile Adjustments */
