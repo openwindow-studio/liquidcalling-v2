@@ -657,6 +657,14 @@ body {
     padding: 0 var(--space-2);
   }
 
+  /* Hide Sign Up link and mobile menu on mobile */
+  .header-actions .header-nav-link {
+    display: none;
+  }
+  .header-menu-toggle {
+    display: none !important;
+  }
+
   /* Hero Mobile Adjustments */
   .hero-image {
     width: 180px !important;
