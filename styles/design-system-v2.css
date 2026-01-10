@@ -602,15 +602,6 @@ body {
     padding: var(--space-6) 0 var(--space-20) 0 !important;
   }
 
-  /* Hero Section Default */
-  .hero-section {
-    padding-top: 70px;
-  }
-
-  /* Hero Section Mobile - Add padding above Still Believe */
-  .hero-section {
-    padding-top: 130px !important;
-  }
 
   /* Responsive Text Utilities Mobile */
   .desktop-text {
@@ -742,6 +733,11 @@ body {
 
   .sdk-section {
     padding: 60px 0 !important;
+  }
+
+  /* Hero Section Mobile - Add padding above Still Believe */
+  .hero-section {
+    padding-top: 130px !important;
   }
 
   /* Button Improvements Mobile */
